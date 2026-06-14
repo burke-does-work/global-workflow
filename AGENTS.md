@@ -119,5 +119,7 @@ Skill files are not auto-loaded. Read the relevant file when the task calls for 
   `/Users/matt/local/documents/global_workflows/skills/voice_and_style.md`
 - **markdown_style_guide** — Markdown conventions. Read when writing or reviewing Markdown.
   `/Users/matt/local/documents/global_workflows/skills/markdown_style_guide.md`
-- **style_guide** — Code and docstring conventions (Python, SQL). Read when writing or reviewing code.
-  `/Users/matt/local/documents/global_workflows/skills/style_guide.md`
+- **code_style_guide** — Code and docstring conventions (Python, SQL). Read when writing or reviewing code.
+  `/Users/matt/local/documents/global_workflows/skills/code_style_guide.md`
+- **dashu-me** — Personal visual taste filter for UI/UX and product design. Read when designing interfaces or reviewing frontend work with a Dashu aesthetic.
+  `/Users/matt/local/documents/global_workflows/skills/dashu-me.md`

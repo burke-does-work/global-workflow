@@ -3,8 +3,6 @@ name: voice_and_style
 description: Global prose voice, audience standard, and language conventions. Load when writing or reviewing prose (notes, docs, emails, reports).
 ---
 
-<!-- Skill file for Claude Code. Listed in AGENTS.md but not auto-loaded — read this file when a task involves writing or reviewing prose. -->
-
 This is the source of truth for my written voice.
 It applies to all prose unless a project explicitly overrides it.
 

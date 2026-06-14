@@ -3,8 +3,6 @@ name: markdown_style_guide
 description: Global Markdown conventions. Load when writing or reviewing Markdown.
 ---
 
-<!-- Skill file for Claude Code. Listed in AGENTS.md but not auto-loaded — read this file when a task involves writing or reviewing Markdown. -->
-
 Custom addendums always take precedence over the base style guides.
 
 ## Base

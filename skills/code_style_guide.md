@@ -1,5 +1,5 @@
 ---
-name: style_guide
+name: code_style_guide
 description: Project style conventions and code standards. Load when writing or reviewing code.
 ---
 

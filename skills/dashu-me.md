@@ -1,6 +1,6 @@
 ---
 name: dashu-me
-description: "Dashu's personal visual taste skill for frontend/UI/product design. Use when invoked as /burke-me, or when the user wants an app, site, component, artifact, slide, or interface to have a more uniquely Dashu aesthetic."
+description: "Dashu's personal visual taste filter for frontend/UI/product design. Load when designing interfaces, reviewing frontend work, or when the user wants a more uniquely Dashu aesthetic."
 ---
 
 # dashu-me

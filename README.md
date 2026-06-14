@@ -14,10 +14,7 @@ Where a project conflicts with anything here, the project decision wins for that
   Covers ownership, communication style, command and approval behavior, the Simple/Complex workflow, and the skills index.
 - `skills/` - reference guides that are not auto-loaded.
   An AI system reads the relevant file when a task calls for it.
-  - `voice_and_style.md` - prose voice, audience standard, and language conventions.
-  - `markdown_style_guide.md` - Markdown conventions.
-  - `style_guide.md` - code and docstring conventions (Python, SQL).
-  - `dashu-me.md` - Strong UI/UX preferences, inspired by kaigle-me skill.
+  See the Skills section in `AGENTS.md` for the full index.
 - `README.md` - this index.
 
 ---
