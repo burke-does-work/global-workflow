@@ -17,6 +17,7 @@ Where a project conflicts with anything here, the project decision wins for that
   - `voice_and_style.md` - prose voice, audience standard, and language conventions.
   - `markdown_style_guide.md` - Markdown conventions.
   - `style_guide.md` - code and docstring conventions (Python, SQL).
+  - `dashu-me.md` - Strong UI/UX preferences, inspired by kaigle-me skill.
 - `README.md` - this index.
 
 ---
