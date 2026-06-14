@@ -185,9 +185,7 @@ Keep the explanation concise unless the user asks for a full rationale.
 
 ## Pairing With Other Skills
 
-- Use with `frontend-design` or `impeccable` when creating or revising UI.
-- Use with `theme-factory` when creating a visual theme, but override generic palettes with this skill's taste DNA.
-- Use with `accessibility` when motion, color, or interaction changes might affect usability.
+- Use with `frontend-design`
 - Use with `web-artifacts-builder` when creating HTML artifacts, dashboards, visualizations, or interactive tools.
 
 This skill should usually run before broad polish skills so the design has a personal point of view before it becomes refined.
