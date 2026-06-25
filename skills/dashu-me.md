@@ -60,14 +60,6 @@ Use these defaults unless the brief clearly requires otherwise:
 | Visual density       |    4/10 | Enough structure to feel useful, enough air to feel approachable |
 | Corporate polish     |    2/10 | Avoid boardroom-safe blandness unless explicitly required        |
 
-## Required Design Read
-
-Before making or revising UI, state one concise design read:
-
-> Reading this as: `<surface>` for `<audience>`, leaning into `<independent field-builder direction>`, with `<simple motion/whimsy plan>`.
-
-If the brief is ambiguous, ask one focused question. Otherwise, proceed and make an opinionated call.
-
 ## Visual Direction
 
 Prefer:
