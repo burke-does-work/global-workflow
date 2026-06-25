@@ -55,6 +55,16 @@ After each iteration, draft a [Conventional Commits](https://www.conventionalcom
 
 ---
 
+## Tooling
+
+Use `uv` for all package management instead of `pip`. If `uv` isn't installed, then flag for installation.
+
+- Use `uv venv` instead of `python -m venv`
+- Use `uv sync` to install from lock files
+- Use `uv pip install` instead of `pip install`
+
+---
+
 ## Development Workflow
 
 Every task starts with a **mode declaration**. Before doing any work, state which mode is being used and why.
@@ -63,9 +73,9 @@ At the start of a session, read the project before acting.
 
 ### Mode selection
 
-| Mode        | Use when                                                                        | Workflow                            |
-| ----------- | ------------------------------------------------------------------------------- | ----------------------------------- |
-| **Simple**  | Isolated, low-risk, single-file change with clear scope and no design decisions | Implement directly                  |
+| Mode        | Use when                                                                        | Workflow                           |
+| ----------- | ------------------------------------------------------------------------------- | ---------------------------------- |
+| **Simple**  | Isolated, low-risk, single-file change with clear scope and no design decisions | Implement directly                 |
 | **Complex** | Multi-file, architectural, ambiguous, or has meaningful tradeoffs               | Plan → human review → build → test |
 
 When in doubt, use Complex mode. Human will override as needed.
@@ -123,3 +133,5 @@ Skill files are not auto-loaded. Read the relevant file when the task calls for 
   `/Users/matt/local/documents/global_workflows/skills/code_style_guide.md`
 - **dashu-me** — Personal visual taste filter for UI/UX and product design. Read when designing interfaces or reviewing frontend work with a Dashu aesthetic.
   `/Users/matt/local/documents/global_workflows/skills/dashu-me.md`
+- **build123d-cad** — CAD modeling conventions and workflow for build123d (parametric parts, shop furniture, frames). Read when creating, editing, or reviewing any `.py` file that produces 3D geometry, a STEP file, or an STL.
+  `/Users/matt/local/documents/global_workflows/skills/build123d-cad.md`
