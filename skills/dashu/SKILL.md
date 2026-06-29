@@ -1,5 +1,5 @@
 ---
-name: dashu-me
+name: dashu
 description: "Dashu's personal visual taste filter for frontend/UI/product design. Load when designing interfaces, reviewing frontend work, or when the user wants a more uniquely Dashu aesthetic."
 ---
 

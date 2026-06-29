@@ -1,5 +1,5 @@
 ---
-name: build123d-cad
+name: cad
 description: >
   Conventions and workflow for creating parametric CAD models with build123d
   (plywood panels, t-slot aluminum extrusion, and custom flat aluminum parts).

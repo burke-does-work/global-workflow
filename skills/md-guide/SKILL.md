@@ -1,5 +1,5 @@
 ---
-name: markdown_style_guide
+name: md-guide
 description: Global Markdown conventions. Load when writing or reviewing Markdown.
 ---
 
@@ -31,14 +31,11 @@ Where CommonMark is silent, defer to the [markdownlint rules](https://github.com
 
 ---
 
-## Sentences
+## Numbering and lists
 
-- One sentence per line, unless that reduces clarity.
-  Keeps diffs clean.
+The purpose is to enable easy refactoring of lists and steps and consistency.
 
----
-
-## Lists
+### Lists
 
 - Prefer unordered lists to ordered lists.
 - Use "-" for unordered list markers.
@@ -46,6 +43,11 @@ Where CommonMark is silent, defer to the [markdownlint rules](https://github.com
 - Single blank line between a list block and the text above and below it.
 - No blank line between a parent list item and its nested sub-items.
   A blank line makes the list "loose" and wraps items in `<p>` tags when rendered to HTML.
+
+### Numbers
+
+- In addition to list preferences, do not use numbering for steps or stages, including in headings.
+- For example, use "Stage: Setup style guide", not "Stage 1: Setup style guide".
 
 ---
 
@@ -55,9 +57,15 @@ Where CommonMark is silent, defer to the [markdownlint rules](https://github.com
 
 ---
 
-## Dashes
+## Character choice
+
+### Dashes
 
 - Use "-", not "—".
+
+### Arrows
+
+- Use "->", not "→"
 
 ---
 

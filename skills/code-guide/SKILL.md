@@ -1,9 +1,7 @@
 ---
-name: code_style_guide
+name: code-guide
 description: Project style conventions and code standards. Load when writing or reviewing code.
 ---
-
-<!-- Skill file for Claude Code. Listed in AGENTS.md but not auto-loaded — Claude reads this file when a task involves writing or reviewing code. -->
 
 Custom addendums always take precedence over base style guides.
 

@@ -16,10 +16,3 @@ Where a project conflicts with anything here, the project decision wins for that
   An AI system reads the relevant file when a task calls for it.
   See the Skills section in `AGENTS.md` for the full index.
 - `README.md` - this index.
-
----
-
-## Conventions
-
-These files follow the standards they describe.
-Prose follows `skills/voice_and_style.md`; Markdown follows `skills/markdown_style_guide.md`.

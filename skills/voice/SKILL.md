@@ -1,5 +1,5 @@
 ---
-name: voice_and_style
+name: voice
 description: Global prose voice, audience standard, and language conventions. Load when writing or reviewing prose (notes, docs, emails, reports).
 ---
 
@@ -95,5 +95,5 @@ For Chinese-language writing, use [The China Story Style Guide](https://www.thec
 
 ## Related
 
-- Markdown mechanics: `skills/markdown_style_guide.md`
-- Code and docstring conventions: `skills/style_guide.md`
+- Markdown conventions: `/md-guide`
+- Code and docstring conventions: `/code-guide`
