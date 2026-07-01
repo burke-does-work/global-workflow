@@ -16,6 +16,13 @@ Before the first spec-session response, read:
 Use `find` to locate these files rather than assuming their paths. If none exist yet, note that and proceed.
 Keep this context in mind for the entire session — do not re-read on every turn.
 
+**How to interpret what you read:**
+
+- README files describe the current state of the system — what it is now.
+- SPEC files are working drafts — what the system should become. Everything in a SPEC is on the table for discussion. Treat its contents as prior thinking, not settled decisions.
+
+**A question from the human is always an exploration invitation.** If they ask about something already written in the SPEC, engage with it as an open question — surface tradeoffs, give a recommendation, and let the dialogue determine what to keep, change, or discard. Never answer a question by citing what the document already says. They can read the file themselves.
+
 ## What a spec is
 
 A spec describes what the system **will be** — the target state.
