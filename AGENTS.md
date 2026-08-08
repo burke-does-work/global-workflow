@@ -96,7 +96,7 @@ Starting approach, can be over-ridden in prompt.
 
 SPEC describes the target state — what the system will be when done. Current state context may be included sparingly when no README exists yet, but that is not its purpose.
 
-See the `spec_dev` skill for detail on spec session behavior.
+See the `spec` skill for detail on spec session behavior.
 
 #### Plan
 
@@ -147,3 +147,4 @@ Skills are invokable as slash commands. Use when the task calls for it.
 - **`/dashu`** — Personal visual taste filter for UI/UX and product design. Use when designing interfaces or reviewing frontend work with a Dashu aesthetic.
 - **`/cad`** — CAD modeling conventions and workflow for build123d (parametric parts, shop furniture, frames). Use when creating, editing, or reviewing any `.py` file that produces 3D geometry, a STEP file, or an STL.
 - **`/spec`** — Behavioral guide for SPEC.md development sessions. Use when starting or continuing spec work; keep active until spec mode ends.
+- **`/procurement`** — Behavioral guide for procurement sessions (technical parts, tools, and general goods). Use when comparing products, evaluating a purchase, or documenting a decision.
