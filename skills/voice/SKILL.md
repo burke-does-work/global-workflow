@@ -95,5 +95,5 @@ For Chinese-language writing, use [The China Story Style Guide](https://www.thec
 
 ## Related
 
-- Markdown conventions: `/md-guide`
+- Style guide (formatting, units, document conventions — CMOS equivalent for this project): `/md-guide`
 - Code and docstring conventions: `/code-guide`

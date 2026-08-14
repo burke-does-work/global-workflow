@@ -1,6 +1,6 @@
 ---
 name: md-guide
-description: Global Markdown conventions. Load when writing or reviewing Markdown.
+description: Global writing conventions — formatting, units of measurement, and document structure. The style guide (CMOS equivalent) for this project. Not limited to Markdown.
 ---
 
 Custom addendums always take precedence over the base style guides.
@@ -72,3 +72,43 @@ The purpose is to enable easy refactoring of lists and steps and consistency.
 ## File ending
 
 - End every document with a newline.
+
+---
+
+## Units of measurement
+
+SI units follow NIST SP 811: one space between numeral and unit symbol, no trailing period, no plural suffix.
+
+SAE units (lb, ft, in, mph) follow the same no-punctuation approach for consistency with SI.
+
+Percentage follows Chicago Manual of Style: attached to the numeral with no space (`50%`).
+
+| Unit | Symbol | Example |
+|---|---|---|
+| Millimeters | mm | `1 mm` |
+| Meters | m | `1 m` |
+| Kilograms | kg | `1 kg` |
+| Pounds | lb | `1 lb` (not `lbs`, not `lb.`) |
+| Feet (symbol) | ' | `1'` (ASCII U+0027, not prime mark) |
+| Inches (symbol) | " | `1"` (ASCII U+0022, not prime mark) |
+| Feet (prose) | ft | `1 ft` |
+| Volts | V | `1 V` |
+| Watts | W | `1 W` |
+| Amperes | A | `1 A` |
+| PSI | psi | `30 psi` (lowercase) |
+| Celsius | deg C | `10 deg C` (informal; `°` is a nuisance character) |
+| Percentage | % | `50%` |
+| Newton-meters | Nm | `44 Nm` |
+
+Compound units use a solidus with no surrounding spaces; the space goes before the whole compound: `14 W/m`.
+
+Dual-unit specs: space before each symbol: `44 lb/20 kg`.
+
+Prose: `1 ft`, `1 inch`, `6 foot leash`, `degrees Celsius` are all acceptable in running text.
+
+---
+
+## Related
+
+- Prose voice and language conventions: `/voice` — note: `/voice` is a tone and voice guide, not a CMOS-type style guide; that role belongs to `/md-guide`
+- Code and docstring conventions: `/code-guide`

@@ -51,7 +51,7 @@ Do not implement based on a question. Wait for explicit direction.
 
 Do not run `git commit` or `git push` unless explicitly asked. The human owns the git workflow. Staging files and presenting a summary of changes is fine.
 
-After each iteration, draft a [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) message for the human to copy and apply. Never add AI self-attribution or co-author footers to commits or to any other work.
+After each iteration, draft a commit message for the human to copy and apply. Match the commit style of the project. Never add AI self-attribution or co-author footers to commits or to any other work.
 
 ---
 
@@ -145,6 +145,7 @@ Skills are invokable as slash commands. Use when the task calls for it.
 - **`/md-guide`** — Markdown conventions. Use when writing or reviewing Markdown.
 - **`/code-guide`** — Code and docstring conventions (Python, SQL). Use when writing or reviewing code.
 - **`/dashu`** — Personal visual taste filter for UI/UX and product design. Use when designing interfaces or reviewing frontend work with a Dashu aesthetic.
-- **`/cad`** — CAD modeling conventions and workflow for build123d (parametric parts, shop furniture, frames). Use when creating, editing, or reviewing any `.py` file that produces 3D geometry, a STEP file, or an STL.
 - **`/spec`** — Behavioral guide for SPEC.md development sessions. Use when starting or continuing spec work; keep active until spec mode ends.
+- **`/collab`** — Behavioral guide for open-ended collaborative working sessions. Use when the session has a rough direction but room to explore.
+- **`/walkplan`** — Behavioral guide for working through a PLAN file step by step. Supports note-taking in place; notes are compendium-destined. Use when the human invokes `/walkplan`.
 - **`/procurement`** — Behavioral guide for procurement sessions (technical parts, tools, and general goods). Use when comparing products, evaluating a purchase, or documenting a decision.
