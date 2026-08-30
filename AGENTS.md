@@ -138,12 +138,14 @@ On completion of a complex task:
 
 ### Work Log
 
-When `WORK_LOG.md` exists in the project root, ask whether to write a log entry at two moments:
+When `WORK_LOG.md` exists in the project root, write a log entry at two moments:
 
 - When you signal completion — "done", "complete", or similar — or request an entry directly.
-- When a commit message is drafted.
+- When a commit message is drafted. Write the entry first, so it lands in the same commit as the work it describes.
 
-If approved, append a new entry to the **top** of `WORK_LOG.md` using this structure:
+Write it without asking; the interaction rules above apply here too. State in your response that an entry was written and where, so it can be reviewed. Entries are appended to the top of the file and are trivial to remove if unwanted.
+
+Append a new entry to the **top** of `WORK_LOG.md` using this structure:
 
 ```
 ## yyyy-mm-dd — Title
