@@ -118,3 +118,10 @@ The intent is to prefer patterns that make it obvious what data you're changing,
 
 - 4-space indent (dbt Labs default easy to miss)
 - Grouped column sets (e.g., HE1–HE24) may appear on a single line as an exception to one-column-per-line
+
+---
+
+## Related
+
+- Style guide (formatting, units, document conventions): `/style-guide`
+- Prose voice and language conventions: `/voice`

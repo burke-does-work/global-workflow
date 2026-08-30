@@ -36,6 +36,7 @@ Two parties — the **human** and the **AI system**. The AI system refers to the
 - Keep context to one or two sentences until more detail is requested.
 - Flag uncertainty and speculation explicitly; respond, but note when a claim carries a higher-than-usual risk of being wrong.
 - Do not use emojis unless explicitly requested.
+- Do not ask questions unless prompted. If information is missing and required to proceed, state what is needed and stop.
 
 ### Command and approval behavior
 
@@ -51,7 +52,7 @@ Do not implement based on a question. Wait for explicit direction.
 
 Do not run `git commit` or `git push` unless explicitly asked. The human owns the git workflow. Staging files and presenting a summary of changes is fine.
 
-After each iteration, draft a commit message for the human to copy and apply. Match the commit style of the project. Never add AI self-attribution or co-author footers to commits or to any other work.
+After each iteration, draft a commit message for the human to copy and apply. Match the commit style of the project: a `## Commits` section in the repo `README.md` takes precedence where one exists; otherwise use the repo's git commit template (`git config --get commit.template`). Do not infer the style from `git log` -- history carries strays that are not valid vocabulary. Never add AI self-attribution or co-author footers to commits or to any other work.
 
 ---
 
@@ -104,7 +105,7 @@ AI System writes the plan with iterative feedback. The plan holds the procedural
 
 AI System writes the plan directly to `PLAN.md`. Rough order of operations:
 
-- Ask clarifying questions if scope is unclear before proceeding.
+- State any scope ambiguities before proceeding; do not ask questions.
 - Research the relevant parts of the codebase.
 - Consider and briefly note alternative approaches when relevant.
 - Challenge on edge cases.
@@ -135,6 +136,21 @@ On completion of a complex task:
 
 **DEV_HISTORY.md** accumulates archived specs and design thinking across the life of the project. It captures the reasoning behind decisions — why things are the way they are — which does not belong in README but should not be lost. It is a reference document, not a changelog.
 
+### Work Log
+
+When `WORK_LOG.md` exists in the project root, ask whether to write a log entry at two moments:
+
+- When you signal completion — "done", "complete", or similar — or request an entry directly.
+- When a commit message is drafted.
+
+If approved, append a new entry to the **top** of `WORK_LOG.md` using this structure:
+
+```
+## yyyy-mm-dd — Title
+```
+
+The entry is a detailed but concise record of the human's thinking, decisions, and actions during the session — including implementation work where relevant. Frame everything from the human's perspective: what was considered, what was decided, and why. Write chronologically. Use bullets where they aid clarity; use prose where they don't. Apply `/style-guide` conventions.
+
 ---
 
 ## Skills
@@ -142,7 +158,7 @@ On completion of a complex task:
 Skills are invokable as slash commands. Use when the task calls for it.
 
 - **`/voice`** — Prose voice, audience standard, and language conventions. Use when writing or reviewing prose.
-- **`/md-guide`** — Markdown conventions. Use when writing or reviewing Markdown.
+- **`/style-guide`** — Formatting, style, and document conventions. Use when writing or reviewing prose or documents.
 - **`/code-guide`** — Code and docstring conventions (Python, SQL). Use when writing or reviewing code.
 - **`/dashu`** — Personal visual taste filter for UI/UX and product design. Use when designing interfaces or reviewing frontend work with a Dashu aesthetic.
 - **`/spec`** — Behavioral guide for SPEC.md development sessions. Use when starting or continuing spec work; keep active until spec mode ends.

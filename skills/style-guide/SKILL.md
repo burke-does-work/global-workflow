@@ -1,6 +1,6 @@
 ---
-name: md-guide
-description: Global writing conventions — formatting, units of measurement, and document structure. The style guide (CMOS equivalent) for this project. Not limited to Markdown.
+name: style-guide
+description: Global style guide — writing conventions, formatting, units of measurement, and document structure.
 ---
 
 Custom addendums always take precedence over the base style guides.
@@ -57,15 +57,12 @@ The purpose is to enable easy refactoring of lists and steps and consistency.
 
 ---
 
-## Character choice
+## Typographic substitutions
 
-### Dashes
+Prefer ASCII sequences over Unicode typographic equivalents. Do not rely on automatic substitution. Common cases:
 
-- Use "-", not "—".
-
-### Arrows
-
-- Use "->", not "→"
+- Dashes: "--" or "---", not "—".
+- Arrows: "->", not "→".
 
 ---
 
@@ -108,7 +105,32 @@ Prose: `1 ft`, `1 inch`, `6 foot leash`, `degrees Celsius` are all acceptable in
 
 ---
 
+## Keybindings
+
+- Modifier names: all lowercase - `ctrl`, `alt`, `shift`, `super`, `hyper`.
+- Key names: all lowercase - `ctrl+c`, `ctrl+shift+t`, `alt+space`.
+- Separator: `+` with no surrounding spaces.
+- Multi-key chords: space between them - `ctrl+k ctrl+p`.
+- Multiple shortcuts on one line: ` / ` between them - `` `ctrl+u` / `ctrl+d` ``.
+- Always wrap keybindings in backticks.
+
+---
+
+## Style hierarchy
+
+For anything this guide does not explicitly cover, apply these in order:
+
+- [BuzzFeed Style Guide](https://www.buzzfeed.com/buzzfeednews/buzzfeed-style-guide)
+- [Associated Press Stylebook](https://www.apstylebook.com/)
+- [The Chicago Manual of Style](https://www.chicagomanualofstyle.org/home.html)
+
+Use American English. Vocabulary is flexible: Australian-isms are not flagged in a style check.
+
+For Chinese-language writing, use [The China Story Style Guide](https://www.thechinastory.org/submission-guide/style-guide/).
+
+---
+
 ## Related
 
-- Prose voice and language conventions: `/voice` — note: `/voice` is a tone and voice guide, not a CMOS-type style guide; that role belongs to `/md-guide`
+- Prose voice and language conventions: `/voice`
 - Code and docstring conventions: `/code-guide`

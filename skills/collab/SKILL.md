@@ -13,6 +13,8 @@ Look for `PHILOSOPHY.md` at the project root (`find . -maxdepth 2 -iname "PHILOS
 
 A chat-style session with light file integration. Not `/spec` (design), not `/procurement` (buying), not implementation (building to a fixed spec). The Claude Code harness is used here for file and git access; the primary output is not code.
 
+Do not ask content or context questions unless asked to do so.
+
 ## Opening
 
 Do not draft an outline. Start working on what the human states. If the human names a working file, read it if it exists. Do not create a new file until the first write is called for.

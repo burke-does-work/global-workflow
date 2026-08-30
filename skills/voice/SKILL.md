@@ -78,22 +78,7 @@ Spell out the full word or phrase in parentheses, unless the acronym is well kno
 
 ---
 
-## Language and prose style guides
-
-Apply these in order, the first taking precedence:
-
-1. [BuzzFeed Style Guide](https://www.buzzfeed.com/buzzfeednews/buzzfeed-style-guide)
-2. [Associated Press Stylebook](https://www.apstylebook.com/)
-3. [The Chicago Manual of Style](https://www.chicagomanualofstyle.org/home.html)
-
-Use American English.
-Vocabulary is flexible: Australian-isms are not flagged in a style check.
-
-For Chinese-language writing, use [The China Story Style Guide](https://www.thechinastory.org/submission-guide/style-guide/).
-
----
-
 ## Related
 
-- Style guide (formatting, units, document conventions — CMOS equivalent for this project): `/md-guide`
+- Style guide (formatting, style hierarchy, units, document conventions): `/style-guide`
 - Code and docstring conventions: `/code-guide`
