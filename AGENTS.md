@@ -1,10 +1,10 @@
-<!-- Auto-loaded in every Claude Code session via a symlink at ~/.claude/AGENTS.md. Edit here; changes take effect immediately. Tool-agnostic — readable by any AI agent. -->
+<!-- Auto-loaded in every Claude Code session via a symlink at ~/.claude/AGENTS.md. Edit here; changes take effect immediately. Tool-agnostic -- readable by any AI agent. -->
 
-## Working Relationship
+## Working relationship
 
 Collaborative, interactive, with explicitly defined roles and accountability.
 
-Two parties — the **human** and the **AI system**. The AI system refers to the coding tool and any models or agents it orchestrates.
+Two parties -- the **human** and the **AI system**. The AI system refers to the coding tool and any models or agents it orchestrates.
 
 ### Human ownership
 
@@ -72,14 +72,14 @@ Use `uv` for all package management instead of `pip`. If `uv` isn't installed, t
 
 Tasks can be softly split into two modes.
 
-| Mode        | Use when                                                                        | Workflow                           |
-| ----------- | ------------------------------------------------------------------------------- | ---------------------------------- |
-| **Simple**  | Isolated, low-risk, single-file change with clear scope and no design decisions | Implement directly                 |
-| **Complex** | Multi-file, architectural, ambiguous, or has meaningful tradeoffs               | Plan → human review → build → test |
+| Mode        | Use when                                                                        | Workflow                              |
+| ----------- | ------------------------------------------------------------------------------- | ------------------------------------- |
+| **Simple**  | Isolated, low-risk, single-file change with clear scope and no design decisions  | Implement directly                    |
+| **Complex** | Multi-file, architectural, ambiguous, or has meaningful tradeoffs                | Plan -> human review -> build -> test |
 
 When in doubt, assume the mode is complex. Human will override as needed.
 
-The complex workflow stages — spec, plan, implement — are independently optional. Any stage can be compressed, skipped, or exited early. The structure exists to prevent drift on work that warrants it, not to add ceremony to work that doesn't. The human decides when to deviate; Claude follows that lead without pushback.
+The complex workflow stages -- spec, plan, implement -- are independently optional. Any stage can be compressed, skipped, or exited early. The structure exists to prevent drift on work that warrants it, not to add ceremony to work that doesn't. The human decides when to deviate; the AI system follows that lead without pushback.
 
 ### Simple mode
 
@@ -89,19 +89,17 @@ Does not require iterative planning. Keep scope limited to the prompt.
 
 Starting approach, can be over-ridden in prompt.
 
-**Spec**: Human owns `SPEC.md`
-
 #### Spec
 
 **AI system only alters the SPEC at the specific request of the human.**
 
-SPEC describes the target state — what the system will be when done. Current state context may be included sparingly when no README exists yet, but that is not its purpose.
+SPEC describes the target state -- what the system will be when done. Current state context may be included sparingly when no README exists yet, but that is not its purpose.
 
 See the `spec` skill for detail on spec session behavior.
 
 #### Plan
 
-AI System writes the plan with iterative feedback. The plan holds the procedural work to get from the current state to the target state - tasks, steps, test results, and implementation notes. 
+AI System writes the plan with iterative feedback. The plan holds the procedural work to get from the current state to the target state -- tasks, steps, test results, and implementation notes.
 
 AI System writes the plan directly to `PLAN.md`. Rough order of operations:
 
@@ -110,13 +108,13 @@ AI System writes the plan directly to `PLAN.md`. Rough order of operations:
 - Consider and briefly note alternative approaches when relevant.
 - Challenge on edge cases.
 - Write a structured plan covering intent, scope, approach, and acceptance criteria.
-- Present the plan and wait for confirmation before proceeding to Phase 2.
+- Present the plan and wait for confirmation before proceeding to implementation.
 
 The plan (`PLAN.md`) is disposable.
 
 #### Implement and test
 
-- If a blocker is encountered, stop and report before proceeding — do not work around it without approval.
+- If a blocker is encountered, stop and report before proceeding -- do not work around it without approval.
 - Test implementation, including edge cases.
 - Direct human to test, if appropriate.
 
@@ -130,17 +128,35 @@ Request implementation completion approval from the human before closing out a t
 
 On completion of a complex task:
 
-- **README.md** is updated to document the current state of the system. SPEC content that describes what was built migrates here.
+- **README.md** is updated to document the current state of the system. Where README is at capacity, that content goes to the reference document serving that role instead.
 - **PLAN.md** is disposed.
-- **SPEC.md** is archived to `DEV_HISTORY.md`.
+- **SPEC.md** folds into two places: current-state content to `README.md` or its stand-in, design decisions to `DESIGN_RECORDS.md`. The file is then disposed; git retains it.
 
-**DEV_HISTORY.md** accumulates archived specs and design thinking across the life of the project. It captures the reasoning behind decisions — why things are the way they are — which does not belong in README but should not be lost. It is a reference document, not a changelog.
+**Retiring the SPEC is the human's call.** The AI system does not initiate it, and does not fold its content early. Once the human declares retirement, the AI system carries out the fold.
 
-### Work Log
+### Design records
+
+When `DESIGN_RECORDS.md` exists in the project root, it holds the decisions that shaped the project -- what was chosen, what was rejected, and what the choice cost. It is a reference document, not a changelog.
+
+Design decisions are significant calls made on the direction of the work. The human requests additions as needed. Do not ask whether something belongs here unless a `SPEC.md` is being retired -- at retirement, propose an entry for each decision it holds that is not already recorded.
+
+Append a new entry to the **top** of `DESIGN_RECORDS.md` using this structure:
+
+```
+## yyyy-mm-dd -- Title
+```
+
+Where the repo has modules, prefix the title with the module: `## 2026-09-06 -- cad: Naming drops the vendor`.
+
+Entries are immutable. A reversed decision is a new entry naming the one it supersedes; the original is left as written.
+
+Keep an entry to the decision itself -- the context that forced it, what was chosen, the alternatives rejected, and the downside accepted. Cite the `WORK_LOG.md` date for the full narrative rather than repeating it. Apply `/style-guide` conventions.
+
+### Work log
 
 When `WORK_LOG.md` exists in the project root, write a log entry at two moments:
 
-- When you signal completion — "done", "complete", or similar — or request an entry directly.
+- When you signal completion -- "done", "complete", or similar -- or request an entry directly.
 - When a commit message is drafted. Write the entry first, so it lands in the same commit as the work it describes.
 
 Write it without asking; the interaction rules above apply here too. State in your response that an entry was written and where, so it can be reviewed. Entries are appended to the top of the file and are trivial to remove if unwanted.
@@ -148,10 +164,10 @@ Write it without asking; the interaction rules above apply here too. State in yo
 Append a new entry to the **top** of `WORK_LOG.md` using this structure:
 
 ```
-## yyyy-mm-dd — Title
+## yyyy-mm-dd -- Title
 ```
 
-The entry is a detailed but concise record of the human's thinking, decisions, and actions during the session — including implementation work where relevant. Frame everything from the human's perspective: what was considered, what was decided, and why. Write chronologically. Use bullets where they aid clarity; use prose where they don't. Apply `/style-guide` conventions.
+The entry is a detailed but concise record of the human's thinking, decisions, and actions during the session -- including implementation work where relevant. Frame everything from the human's perspective: what was considered, what was decided, and why. Write chronologically. Use bullets where they aid clarity; use prose where they don't. Apply `/style-guide` conventions.
 
 ---
 
@@ -159,11 +175,11 @@ The entry is a detailed but concise record of the human's thinking, decisions, a
 
 Skills are invokable as slash commands. Use when the task calls for it.
 
-- **`/voice`** — Prose voice, audience standard, and language conventions. Use when writing or reviewing prose.
-- **`/style-guide`** — Formatting, style, and document conventions. Use when writing or reviewing prose or documents.
-- **`/code-guide`** — Code and docstring conventions (Python, SQL). Use when writing or reviewing code.
-- **`/dashu`** — Personal visual taste filter for UI/UX and product design. Use when designing interfaces or reviewing frontend work with a Dashu aesthetic.
-- **`/spec`** — Behavioral guide for SPEC.md development sessions. Use when starting or continuing spec work; keep active until spec mode ends.
-- **`/collab`** — Behavioral guide for open-ended collaborative working sessions. Use when the session has a rough direction but room to explore.
-- **`/walkplan`** — Behavioral guide for working through a PLAN file step by step. Supports note-taking in place; notes are compendium-destined. Use when the human invokes `/walkplan`.
-- **`/procurement`** — Behavioral guide for procurement sessions (technical parts, tools, and general goods). Use when comparing products, evaluating a purchase, or documenting a decision.
+- **`/voice`** -- Prose voice, audience standard, and language conventions. Use when writing or reviewing prose.
+- **`/style-guide`** -- Formatting, style, and document conventions. Use when writing or reviewing prose or documents.
+- **`/code-guide`** -- Code and docstring conventions (Python, SQL). Use when writing or reviewing code.
+- **`/dashu`** -- Personal visual taste filter for UI/UX and product design. Use when designing interfaces or reviewing frontend work with a Dashu aesthetic.
+- **`/spec`** -- Behavioral guide for SPEC.md development sessions. Use when starting or continuing spec work; keep active until spec mode ends.
+- **`/collab`** -- Behavioral guide for open-ended collaborative working sessions. Use when the session has a rough direction but room to explore.
+- **`/walkplan`** -- Behavioral guide for working through a PLAN file step by step. Supports note-taking in place; notes are compendium-destined. Use when the human invokes `/walkplan`.
+- **`/procurement`** -- Behavioral guide for procurement sessions (technical parts, tools, and general goods). Use when comparing products, evaluating a purchase, or documenting a decision.
