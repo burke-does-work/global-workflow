@@ -1,5 +1,21 @@
 # Work Log
 
+## 2026-09-06 -- Commit style layers instead of replacing
+
+Found while an agent was checking its own commit messages against the template. Two of six wrapped a bullet across lines, and the report came back naming the wrap as the violation. The wrap was not the problem. Both bullets joined two claims with a semicolon, and wrapping was how that got hidden -- the report had diagnosed the symptom and called it the disease.
+
+The template is why. `gitmessage` said "split a long line into another line -- do not wrap," which frames a semantic rule in typographic units. Following it literally, splitting is the only available remedy for a long bullet, and splitting a rambling bullet just produces two rambling bullets. `denning_and_outdoorsing_build/README.md` had the clause that fixes this -- "tighten wording before splitting a long bullet" -- and the template never got it. Same rule, two homes, one improved.
+
+That is the drift, and it was structural rather than careless. `AGENTS.md` said a README `## Commits` section takes precedence "otherwise" the template, which makes an override total: the README must restate every rule it wants, including ones identical to the template. Under total replacement there is no shared rule, only a rule that happens to appear twice.
+
+Chose to layer instead. The template is the base, a README section adds to or replaces individual rules, and anything unmentioned is inherited. The sentence carrying the weight is that silence is inheritance and never exemption -- merge models fail when absence is ambiguous between "inherit this" and "this does not apply." Overrides are stated as replacements rather than bare negations, because negating the `Type:` prefix leaves nothing behind describing what a subject should look like.
+
+The alternative was keeping total replacement and fixing the wording in both files. It preserves insulation: a repo that rejects the shared convention does not silently inherit later changes to it. Rejected because the duplication is what drifted, and nothing structural stops it drifting again. The cost accepted is the mirror image -- template edits now reach every repo that has not overridden the rule being changed. Drift fails silently and at a distance; blast radius is visible at the moment of editing.
+
+Denning's section dropped from eight bullets to five. Three were additions, four were restatements now inherited, and one was a genuine conflict restated positively as "subject: short summary, no type prefix." Two of the four restatements had been promoted out of that README and into the template on 2026-08-30, recorded in `dotfiles/WORK_LOG.md` for that date, so they had been redundant for a week.
+
+Cleared `DESIGN_RECORDS.md` in this repo and in `dotfiles` in the same pass. Both had been seeded by sweeping their work logs, and on reading them back the entries were test material rather than decisions worth holding. The file stays in place, empty, for entries added deliberately. The work logs remain the narrative record and were not touched.
+
 ## 2026-09-06 -- DEV_HISTORY replaced by DESIGN_RECORDS
 
 Went looking for an incomplete rename around a log file remembered as `dEV_LOG.md`. No such file ever existed. The name was a blend of two real ones: `DEV_HISTORY.md`, documented in `AGENTS.md` since 2026-06-29, and `WORK_LOG.md`, established across five repos on 2026-08-15. Seven `WORK_LOG.md` files exist on disk; `DEV_HISTORY.md` has never once been created.
