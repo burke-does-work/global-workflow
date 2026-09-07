@@ -79,8 +79,8 @@ Use `uv` for all package management instead of `pip`. If `uv` isn't installed, t
 
 Tasks can be softly split into two modes.
 
-| Mode        | Use when                                                                       | Workflow                                     |
-| ----------- | ------------------------------------------------------------------------------ | -------------------------------------------- |
+| Mode        | Use when                                                                        | Workflow                                     |
+| ----------- | ------------------------------------------------------------------------------- | -------------------------------------------- |
 | **Simple**  | Isolated, low-risk, single-file change with clear scope and no design decisions | Implement directly; keep scope to the prompt |
 | **Complex** | Multi-file, architectural, ambiguous, or has meaningful tradeoffs               | Plan -> implement and test                   |
 
@@ -147,15 +147,13 @@ Apply `/style-guide` conventions to entries in both.
 
 ### Design records
 
-When `DESIGN_RECORDS.md` exists in the project root, it holds the decisions that shaped the project -- what was chosen, what was rejected, and what the choice cost. It is a reference document, not a changelog.
+When `DESIGN_RECORDS.md` exists in the project root, it holds the key design decisions that shaped the project at critical checkpoints. It is a reference document, not a changelog.
 
-Design decisions are significant calls made on the direction of the work. The human requests additions as needed. Do not ask whether something belongs here unless a `SPEC.md` is being retired -- at retirement, propose an entry for each decision it holds that is not already recorded.
-
-Where the repo has modules, prefix the title with the module: `## 2026-09-06 -- cad: Naming drops the vendor`.
+The human requests additions as needed. Do not ask whether something belongs here unless a `SPEC.md` is being retired -- at retirement, propose an entry for each decision it holds that is not already recorded.
 
 Entries are immutable. A reversed decision is a new entry naming the one it supersedes; the original is left as written.
 
-Keep an entry to the decision itself -- the context that forced it, what was chosen, the alternatives rejected, and the downside accepted. Cite the `WORK_LOG.md` date for the full narrative rather than repeating it.
+Keep an entry to the decision itself -- the context that forced it, what was chosen, the alternatives rejected, and the downside accepted.
 
 ### Work log
 
