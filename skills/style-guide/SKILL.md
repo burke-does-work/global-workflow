@@ -15,8 +15,9 @@ Where CommonMark is silent, defer to the [markdownlint rules](https://github.com
 ## Headings
 
 - Use heading tags for headings only.
-  Do not use emphasis (bold) as a heading.
-  Where a formatted heading is not wanted, use plain text with a colon.
+  Do not use emphasis (bold) as a heading -- a standalone bolded line, on its own with no other text, that stands in for a heading tag to introduce what follows.
+  Where a formatted heading is not wanted, use plain text with a colon instead of a bolded line.
+  Bold is otherwise unrestricted: an inline lead-in label sharing a line with its content (e.g., "**Note:** ...", "**Purpose**: ...") is not a heading and does not fall under this rule.
 - Increment heading levels by one at a time.
 - The H1 matches the title in the YAML front matter.
 
