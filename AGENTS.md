@@ -63,6 +63,21 @@ The human owns the git workflow.
 - Do not infer the style from `git log` -- history carries strays that are not valid vocabulary.
 - Never add AI self-attribution or co-author footers, per Human ownership above.
 
+When a change spans more than one repository, track which repo each file belongs to. Name the repos and their files separately, and draft a separate commit message for each. Never present a single message covering files from two repos.
+
+### File annotations
+
+The human annotates working files in place -- PLAN, SPEC, or any file under discussion -- to direct changes rather than make them. This applies in every mode and skill.
+
+- `#>>` at line start is a directive. Make the change.
+- `#??` at line start is a question. Answer it in the response, not in the file.
+
+The `#` prefix keeps markers clear of markdown's blockquote and code rendering. Markers sit on their own line, directly beneath the heading, bullet, or step they refer to. Indentation is for the human's reading and carries no meaning.
+
+**Annotation is never approval.** A file edited and handed back carries no assent, and an absent marker is not agreement. Approval is stated in the prompt, in words. A silent file means do nothing.
+
+Act on markers when the human points you at the file -- any phrasing. Do not re-read a file and act on its markers unprompted. Work top to bottom, and delete every marker once addressed: `#>>` when the change is made, `#??` when the question is answered. The file holds only what is outstanding.
+
 ---
 
 ## Tooling
@@ -188,4 +203,15 @@ Skills are behavioral guides loaded when the task calls for them; many harnesses
 
 ## Tool-specific direction
 
-Direction that applies to one agent or harness rather than all of them -- for example, Claude Code or Codex specifics. Empty for now.
+Direction that applies to one agent or harness rather than all of them -- for example, Claude Code or Codex specifics.
+
+### Shell commands
+
+The human reads every command before approving it. Keep them readable.
+
+- One shell command per Bash call. Do not join independent operations with `&&`, `;`, or `||` to reduce turns.
+- A single pipeline performing one operation is fine -- `grep pattern file | head`.
+- Output shaping is fine and encouraged -- `| tail -5`, `2>&1`. It is easy to read and keeps context small.
+- No marker echoes labelling sections of a combined command.
+
+Beyond readability: Claude Code splits compound commands and saves a separate permission rule per subcommand when the human picks "don't ask again". Chaining degrades what the allowlist learns.

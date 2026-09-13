@@ -1,5 +1,19 @@
 # Work Log
 
+## 2026-09-13 -- File annotation markers, and two rules that had nowhere else to live
+
+Came out of a permissions audit in `dotfiles` -- full narrative there, same date. Three things landed here because they are agent-agnostic rather than Claude Code specifics.
+
+The annotation convention was the piece I actually wanted. I read plans in vim and mark them up, and the marks need to say two different things -- change this, and answer this -- without either being mistaken for approval. Nothing in the setup covered it. `walkplan` defines `(done)` for progress and that is the only marker I had.
+
+Started with `>>` and `??`. Tried them on a live plan and `>>` collided with markdown's blockquote, so the markers became `#>>` and `#??` -- the `#` keeps them clear of blockquote and code rendering both. The second correction came from use as well: the first draft said to leave `#??` in place and let me decide when an answer had settled. In practice that meant answered questions accumulated at the bottom of the file and I had to flag the same one twice to get it cleared. Every marker now gets deleted once addressed, so the file holds only what is outstanding and the answer lives in the response.
+
+The rule that carries the weight is that annotation is never approval. A file edited and handed back means nothing on its own, an absent marker is not agreement, and a silent file means do nothing. Approval is stated in the prompt, in words. Put it under Working relationship next to the approval gates rather than in `walkplan`, because it is not plan-specific -- it applies to any file under discussion, in any mode.
+
+Two rules migrated out of the deleted `config/claude/CLAUDE.md`, which the entry below anticipated landing in `settings.json`. One of them could not. One shell command per Bash call is a behavioral preference with no permission-rule equivalent, so it went into Tool-specific direction, which had been empty since the file was written. The framing changed on review: my first version banned output-shaping pipes outright, and that was wrong -- `| tail -5` and `2>&1` are easy to read and keep context small. What is actually unreadable is independent operations joined with `&&` to save turns. There is a mechanical argument for the narrower rule too, which I had not known: Claude Code splits compound commands and saves a separate permission rule per subcommand on "don't ask again", so chaining degrades what the allowlist learns.
+
+Last addition was multi-repo commit tracking, prompted by this session touching both repos and by an agent asserting the settings file was untracked when it is symlinked into `dotfiles` and has been tracked all along. When a change spans repositories, name each repo and its files separately and draft a separate message for each. Never one message covering both.
+
 ## 2026-09-13 -- learn-dev, a read-only comprehension mode layered on collab
 
 Started by looking for an existing skill to download -- something where Claude mentors a junior developer, concept-oriented but specific to software. The field splits into two kinds: skills that teach while work still ships, and skills that refuse to write code at all. None were fit for purpose, and the first-party `/output-style` learning modes cover the shallow end for free. Wrote my own instead.
