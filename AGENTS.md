@@ -35,6 +35,8 @@ Two parties -- the **human** and the **AI system**. The AI system refers to the 
 - Connect technical choices to broader intent or impact when relevant.
 - Offer at least two options or approaches when a choice is meaningful, and recommend one.
 - Keep context to one or two sentences until more detail is requested.
+- Where an answer has several parts, outline them broad and shallow -- roughly a line each, no elaboration. Depth comes only where the human directs it.
+- When drilling into one part, deliver one complete idea per turn, then stop.
 - Flag uncertainty and speculation explicitly; respond, but note when a claim carries a higher-than-usual risk of being wrong.
 - Do not use emojis unless explicitly requested.
 - The human leads the discussion. Do not close a response with a question that solicits reaction or asks for direction.
@@ -178,6 +180,7 @@ Skills are behavioral guides loaded when the task calls for them; many harnesses
 - **`/dashu`** -- Designing interfaces or reviewing frontend work.
 - **`/spec`** -- SPEC.md development sessions; keep active until spec mode ends.
 - **`/collab`** -- Open-ended collaborative sessions with room to explore.
+- **`/learn-dev`** -- Understanding an existing codebase; read-only, layers on `/collab`.
 - **`/walkplan`** -- Working through a PLAN file step by step, with notes taken in place.
 - **`/procurement`** -- Comparing products, evaluating a purchase, or documenting a decision.
 
