@@ -1,4 +1,4 @@
-<!-- Auto-loaded in every Claude Code session via a symlink at ~/.claude/AGENTS.md. Edit here; changes take effect immediately. Tool-agnostic -- readable by any AI agent. -->
+<!-- Symlinked to each tool's global instruction file, e.g. ~/.claude/CLAUDE.md. Edit here; changes take effect in the next session. Tool-agnostic -- readable by any AI agent. -->
 <!-- Person convention: bare imperative for instructions to the agent; "the human" when the other party acts; "the AI system" only where both parties are defined side by side. No first or second person. -->
 
 ## Working relationship
@@ -180,3 +180,9 @@ Skills are behavioral guides loaded when the task calls for them; many harnesses
 - **`/collab`** -- Open-ended collaborative sessions with room to explore.
 - **`/walkplan`** -- Working through a PLAN file step by step, with notes taken in place.
 - **`/procurement`** -- Comparing products, evaluating a purchase, or documenting a decision.
+
+---
+
+## Tool-specific direction
+
+Direction that applies to one agent or harness rather than all of them -- for example, Claude Code or Codex specifics. Empty for now.

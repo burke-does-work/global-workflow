@@ -10,9 +10,10 @@ Where a project conflicts with anything here, the project decision wins for that
 ## Contents
 
 - `AGENTS.md` - the working relationship and AI behavior contract.
-  Auto-loaded in every Claude Code session via a symlink at `~/.claude/AGENTS.md`.
+  Symlinked directly to each tool's global instruction file, currently `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`, so it loads at the start of every session.
   Covers ownership, communication style, command and approval behavior, the Simple/Complex workflow, and the skills index.
 - `skills/` - reference guides that are not auto-loaded.
+  Symlinked to each tool's user skill directory, currently `~/.claude/skills` and `~/.agents/skills`.
   An AI system reads the relevant file when a task calls for it.
   See the Skills section in `AGENTS.md` for the full index.
 - `README.md` - this index.

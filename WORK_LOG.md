@@ -1,5 +1,27 @@
 # Work Log
 
+## 2026-09-13 -- Codex global instructions load direct from AGENTS.md
+
+Checked whether Codex received the shared global instructions before reading any files. It did not: `~/.codex/AGENTS.md` was an empty regular file, so Codex skipped it, and no override, config import, or project instruction supplied the missing content. The shared skills were already working through the direct `~/.agents/skills` symlink, confirmed by all eight appearing in the session's initial skill metadata.
+
+Considered routing the file through `config.toml`, including Codex's instruction-file setting, but that would add an unnecessary layer whose failure could again be silent. Chose the same direct arrangement as Claude Code instead: replaced the empty file with an absolute `~/.codex/AGENTS.md` symlink to this repo's `AGENTS.md`. Left `AGENTS.md`, the working skill link, and Codex's unrelated settings unchanged. Updated the README with the direct instruction and skill paths for both tools.
+
+Verified the result with a new ephemeral Codex process. Without tools or file access, it returned all seven `AGENTS.md` H2 headings in order from context, proving that the content loaded at session start rather than merely resolving on disk.
+
+## 2026-09-13 -- Global instructions load direct from AGENTS.md
+
+Asked mid-session whether `AGENTS.md` had loaded. It had not. The import had been failing silently for an unknown period, so every session since the wiring was set up had run without the working relationship, the ownership split, or the communication rules, and nothing in the setup made that visible.
+
+Two independent faults, found by inspection. `~/.claude/CLAUDE.md` symlinked to `dotfiles/config/claude/CLAUDE.md`, whose first line was the relative import `@AGENTS.md`; the loader resolves a relative import against the importing file's real directory, `dotfiles/config/claude/`, where no `AGENTS.md` has ever existed. Separately, the `~/.claude/AGENTS.md` symlink created in June pointed at the right file from a path Claude Code does not read. Both mechanisms looked plausible and both did nothing.
+
+Worked through the alternatives -- an absolute import path, a second symlink beside the importing file, a `SessionStart` hook injecting the file, a bootstrap script owning the wiring for every tool. Rejected all four for the same reason: each keeps or re-creates a layer of indirection whose failure is invisible. The hook was the strongest of them, since a script can test for the file and shout when it is missing, but it is Claude-specific and does nothing for other agents.
+
+Settled on making the global Claude config *be* `AGENTS.md`, with `~/.claude/CLAUDE.md` symlinked straight at it. No import line, no path arithmetic, nothing left to resolve. This is the mechanism already proven by `~/.claude/skills`, which has pointed at `global_workflows/skills` since June and has always worked. Top-level symlinks in `~/.claude` resolve correctly; only the nested import ever failed.
+
+Added a `Tool-specific direction` stub at the end of the file, deliberately empty, to mark where Claude- or Codex-specific content belongs when it is needed. Three rules were displaced by the change and are not carried forward. Two were permission rules that had landed in `CLAUDE.md` as a workaround while permissions were being sorted out, and they go to `settings.json` next. The third, a formatting preference for copy-pasteable CLI commands, has no home yet.
+
+Also corrected the header comment, which still described the retired `~/.claude/AGENTS.md` mechanism and claimed edits take effect immediately; they take effect at the next session start. The stale comment was part of why the failure was hard to read. Worth recording alongside it: HTML comments never reach the loaded context at all -- the old header comment was stripped every session -- so anything an agent must actually follow cannot live in one.
+
 ## 2026-09-09 -- Commit-sized plan steps; a verification slot per repo
 
 Asked for current best practice on building software with Claude Code, and for the places where improvement pays off most. The review put this setup as strong on process and weak on verification. Roles, the spec/plan/implement staging, the disposable `PLAN.md`, and the prose skills are all in place, but nothing in `AGENTS.md` names tests, lint, or a command the agent can run to check its own work. The framing worth keeping is that the differentiator is not prompt quality, it is whether the agent can verify without me in the loop -- that single fact reorders the whole list, since automated review, subagent delegation and parallel worktrees all pay off only once verification runs unattended.
