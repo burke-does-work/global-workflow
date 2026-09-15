@@ -1,5 +1,39 @@
 # Work Log
 
+## 2026-09-15 -- Git workflow options for agent sessions, left open
+
+Asked for current best practice on git workflows when programming with Claude, with research rather than recall. What came back was consistent across sources: start sessions on a clean tree so the diff means something, branch per task, commit at task boundaries, review at hunk level rather than PR level, squash-merge for linear history, and worktrees for parallel agents. The one recommendation I rejected outright was marking agent commits with `Assisted-by` trailers, which contradicts the ownership rule in `AGENTS.md`. The concern behind it -- being able to identify agent-written code later -- would go to branch naming if it ever matters.
+
+Settled the review surface early. I work in the terminal but review diffs in VS Code, and that is not moving. The mechanism that fits is staging ranges from the diff editor gutter, which makes the index a review ledger: staged means read and accepted, unstaged means not yet looked at. That is stateful in a way that reading a diff is not -- I can stop mid-review and return without losing my place -- and it gives a clean end condition when the Changes list empties.
+
+Then spent most of the session correcting the shape of the recommendation rather than advancing it.
+
+Called out anchoring twice. The first time the argument for gating review at every commit rested on "you already do this", which is familiarity dressed as merit, and it had hidden a real error: the objection to checkpoint commits polluting history is void under squash-merge, since the branch is discarded at the merge and never reaches `main` intact. The second time squash-merge had been written into an option label, selected as part of that option, and then treated as decided -- while I had only asked what it was. Both are the same failure, a decision bundled where it cannot be seen.
+
+The reframe that survived: gating every commit spends my attention to save the agent's wasted work. Attention is the scarce input here and tokens are not, so that trade runs the wrong way. It also surfaced the option that had not been put on the table, gating at the task boundary, which reviews the net diff per completed task and never shows me the churn of a function written and then rewritten.
+
+Checked how each option reads as commit history, since having Claude read history is something I get value from. Trajectory and intent both favor fewer, larger, human-written commits; blame precision favors preserving every commit. My commit template already specifies one bullet per topic in the body, which recovers most of the blame granularity, so the split costs less than it looks -- with the caveat that squash concentrates all the history value into the message, making a thin body more destructive than it would otherwise be.
+
+Confirmed there is no convention bounding body length. Subject is 50 characters by convention and 72 as a hard limit; bodies have no limit anywhere, and my recent commits already run four to five bullets. Length is only a signal about branch scope, where a message needing a dozen bullets means the branch held too much. Worth recording that squash would not make my history higher level either. My current commits already bundle a session's work into one message, and the checkpoints being squashed do not exist today, so nothing of mine is compressed. Branch-per-task would likely make `main` slightly more granular, not less.
+
+The objection that actually moved things was branch churn. My commits cluster -- three on 13 September between 10:41 and 14:24, two on 6 September ninety minutes apart -- so branch-per-task means several full branch lifecycles in a morning. Tracing why exposed the coupling that reorders the whole decision: the branch exists to contain commits I want to discard, and if the agent never commits there is nothing to contain, because uncommitted work is thrown away with `git restore .`. Branch value is downstream of whether the agent commits, and the merge strategy question disappears with it.
+
+Repo size turned out not to be the variable either. What matters is whether anything consumes `main` -- a deploy, CI, a published package. Only `temp/aidlc-workflows` has a workflows directory and nothing else carries a deploy config, though Vercel deploys on push without one, so `field-notes-site`, `ignite-pitch/web` and `denning_and_outdoorsing_build` are unverified and I should check them myself.
+
+That leaves three coherent packages rather than a set of independent switches.
+
+| Package | For | Against |
+|---|---|---|
+| Trunk with pre-commit gate | No branch lifecycle; nothing unreviewed exists anywhere; discarding is one command | `main` moves on every commit; half-done work lives in the tree or a stash; the agent blocks on my review |
+| Branch, checkpoints, squash-merge | Agent runs unattended and banks progress; abandoning is `git branch -D` | Branch lifecycle per task; blame resolves only to task level; review target is a large net diff |
+| Branch, pre-commit gate, plain merge | `main`'s position protected until I merge; every commit reviewed, so history stays fine-grained | Same lifecycle cost; buys nothing where `main` is not consumed |
+
+Closed by interrogating checkpoint commits directly, since they are the hinge. The only strong case for them is long unattended runs, which is not how I work -- I review every diff and want to. The cost is concrete and I had not seen it: VS Code's Source Control panel shows the working tree against `HEAD`, so an agent commit removes that work from the Changes list. The uncommitted tree is my review queue, and commits empty it.
+
+Nearly took "Claude Code has rewind, so checkpoints are unnecessary" as the conclusion. Rewind is session-scoped, so it covers undoing a wrong turn but not durable recovery, and resting a rule on a tooling claim leaves it to go stale. The durable version is mine: an unreviewed commit carries no information because I am never going to read it. That holds regardless of what the harness does.
+
+No decision made, and nothing written to `AGENTS.md`. Thinking about it.
+
 ## 2026-09-13 -- File annotation markers, and two rules that had nowhere else to live
 
 Came out of a permissions audit in `dotfiles` -- full narrative there, same date. Three things landed here because they are agent-agnostic rather than Claude Code specifics.
