@@ -1,5 +1,19 @@
 # Work Log
 
+## 2026-09-15 -- Commit message drafting bound to a stated trigger
+
+Noticed I was getting a commit message draft on every turn that touched a file, including a directory rename and a one-line ignore rule. Asked why rather than just saying stop, and the cause was in my own file: "After each iteration, draft a commit message" left "iteration" loose enough to cover any change at all. The behavior followed the rule; the rule was wrong.
+
+Worth separating what was actually at fault. Drafting rather than committing is right, and so is writing the work log entry before the message so the two land together. The only broken part was when drafting fires.
+
+Considered two rewordings. On request only, which removes every judgment call but also removes the prompt -- if I forget to ask before committing, nothing reminds me and the template discipline rests on memory. Or bind it to the completion signal the work log rule already defines. Took the second. The failure was trigger vagueness rather than automation, and coupling the two rules keeps the message and the entry arriving together. Under the on-request version the pair would split: asking for a message still produces an entry, but saying "done" would produce an entry and no message.
+
+Dropped the "do not volunteer one" clause offered alongside it. The test is whether it would have caught this failure, and it would not -- the trigger was believed to have fired, not ignored. Two triggers joined by "or" already read as exhaustive. Prohibitions elsewhere in the file earn their place by ruling out a specific plausible alternative that the positive statement leaves open, and there is no such gap here.
+
+Separately, moved the `aidlc-workflows` reference clone from `ref/` to `scratch/`. Decided against carrying it in the repo at all. It is AWS's public repo, cloned to read while writing my own workflow docs, and vendoring several megabytes of someone else's markdown into a repo holding thirteen of my own files changes what the repo is. The clone also carries its own `.git`, so adding it would have created a gitlink -- a pointer recording only a commit SHA, with the files never committed and the directory empty on any clone. That failure is quiet, because the commit succeeds and looks correct. A gitignored directory should not carry a name that reads like part of the project either, which `ref/` did and `scratch/` does not. Noted `--filter=blob:none --sparse` with `sparse-checkout set` as the way to trim it on disk, and left it unused -- 31M costs nothing once it is untracked.
+
+The move exposed a stale assumption. I had been told `scratch/` was already in `.gitignore`, based on a read from earlier in the session, and the committed file did not have it. `git check-ignore -v <path>` settles that directly: exit code 1 with no output means no rule matches.
+
 ## 2026-09-15 -- Git workflow options for agent sessions, left open
 
 Asked for current best practice on git workflows when programming with Claude, with research rather than recall. What came back was consistent across sources: start sessions on a clean tree so the diff means something, branch per task, commit at task boundaries, review at hunk level rather than PR level, squash-merge for linear history, and worktrees for parallel agents. The one recommendation I rejected outright was marking agent commits with `Assisted-by` trailers, which contradicts the ownership rule in `AGENTS.md`. The concern behind it -- being able to identify agent-written code later -- would go to branch naming if it ever matters.

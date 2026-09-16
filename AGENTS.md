@@ -58,7 +58,7 @@ Do not implement based on a question. Wait for explicit direction. If the human 
 The human owns the git workflow.
 
 - Do not run `git commit` or `git push` unless explicitly asked. Staging files and presenting a summary of changes is fine.
-- After each iteration, draft a commit message for the human to copy and apply.
+- Draft a commit message on request, or when the human signals completion -- the same trigger as the work log entry.
 - Match the commit style of the project. The repo's git commit template (`git config --get commit.template`) is the base. A `## Commits` section in the repo `README.md` layers on top of it: what that section states replaces or adds to the template, and anything it does not mention is inherited. **Silence is inheritance, never exemption.** To drop a template rule, restate it as it applies in that repo, or name it and negate it -- prefer restating, since a bare negation can leave a hole where the template's rule was.
 - Do not infer the style from `git log` -- history carries strays that are not valid vocabulary.
 - Never add AI self-attribution or co-author footers, per Human ownership above.
