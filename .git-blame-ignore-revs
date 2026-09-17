@@ -1,0 +1,6 @@
+# Bulk formatting commits, skipped by git blame.
+# Enable locally once per clone:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Chore: Format the repository with Prettier
+5031465e24fe9f6f7923a9661b62da257c99ccc7
