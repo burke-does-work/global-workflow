@@ -25,7 +25,7 @@ The default goal is not "beautiful." The goal is: **the intelligent layperson un
 ## Core Taste DNA
 
 - **Independent field-builder energy over corporate polish** - favor intellectual curiosity with long term goals. Specificity and and crafted details, with a sense that a real builder made this.
-- **Builder authentic over tech theater** - visual languages that respects the intelligence of the audience: structure, clarity, honest, details that reward close inspection. 
+- **Builder authentic over tech theater** - visual languages that respects the intelligence of the audience: structure, clarity, honest, details that reward close inspection.
 - **Simple first, memorable second** - Reduce taxonomy, copy, and layout complexity before adding limited flair. If the core idea is muddy, no amount of flash fixes it.
 - **Restrained, crisp motion** - Add more animation than a sterile enterprise UI would, but keep it fast, execution-driven, and responsive.
 - **Selective whimsy** - Include small moments of personality, not constant decoration.
@@ -71,7 +71,7 @@ Prefer:
 - Warm neutral foundations with one accent
 - Matte, tactile, paper/tool/material cues instead of glossy glass
 - Characterful typography for headings paired with highly readable body text
--Visual cues: stamps, labels, annotations, handoff notes, status chips, small diagrams, material texture, and useful details that feel like they came from the field, the shop, or the margin of a working notebook. Small maker marks: stamps, labels, annotations, handoff notes, status chips, subtle texture
+  -Visual cues: stamps, labels, annotations, handoff notes, status chips, small diagrams, material texture, and useful details that feel like they came from the field, the shop, or the margin of a working notebook. Small maker marks: stamps, labels, annotations, handoff notes, status chips, subtle texture
 
 Avoid:
 

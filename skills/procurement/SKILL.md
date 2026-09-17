@@ -105,6 +105,7 @@ Flag these drift signals when they appear:
 Naming these does not mean cutting the content - it means moving it. Install steps belong in a project file or a plan, not in the procurement writeup that decides which product to buy.
 
 Example pattern:
+
 > "That is install sequencing, not procurement. As a rejected-path note, it could read: [reframed version]. Move it to the project file, or keep it and move on?"
 
 ---

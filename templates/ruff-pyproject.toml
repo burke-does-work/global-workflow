@@ -1,0 +1,52 @@
+# Ruff configuration. Copy this block into a project's pyproject.toml.
+#
+# Scoped to mechanical rules only -- things with one correct answer that a
+# tool can settle without judgment. Anything requiring judgment stays in
+# /code-guide and is checked by /reviewsimple and /reviewtech.
+#
+# Install with: uv add --dev ruff
+# Run with:     uv run ruff check .
+#               uv run ruff format .
+
+[tool.ruff]
+# Matches the line length in /code-guide, which owns the convention.
+line-length = 88
+
+[tool.ruff.lint]
+select = [
+    # Ruff's defaults: import placement, statement and syntax errors, and
+    # pyflakes -- which covers unused imports (F401) and undefined names (F821).
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    # Lines the formatter cannot split, such as a long string or comment.
+    "E501",
+    # Import sorting. Deterministic, needs no judgment.
+    "I",
+    # Real bugs rather than style: mutable default arguments, loop variables
+    # captured by closures, assert on a tuple.
+    "B",
+    # Clumsy list()/dict() calls that should be comprehensions.
+    "C4",
+    # PEP 8 naming. Catches little, but catches typos.
+    "N",
+    # pandas practice, including PD002 for inplace=True.
+    "PD",
+    # pathlib over os.path. Beyond style: pathlib handles platform path
+    # differences itself, which is the portability rule enforced by tooling.
+    "PTH",
+    # Convert %-formatting and .format() to f-strings.
+    "UP031",
+    "UP032",
+    # f-strings inside logging calls, which build the string even when the
+    # level would discard it. Use logging's own %s arguments there.
+    "G004",
+    # SQL built by string interpolation. Use parameterised queries.
+    "S608",
+]
+
+# No ignores. PD901, which objected to `df` as a variable name, was removed
+# from Ruff upstream -- listing it here only produces a warning. Naming a
+# dataframe stays a judgment call: `df` is fine with one frame in scope and
+# poor with several.

@@ -28,7 +28,8 @@ Code should be easy to read and manually review.
 ## Python
 
 **Base**: PEP 8
-**Formatter**: Black (line length 88)
+**Line length**: 88
+**Tooling**: Ruff, for both formatting and linting. Where a project runs it, its config is authoritative for whatever it checks and those rules are not restated here. Everything else in this guide is applied by hand.
 
 ### Docstrings (Python)
 
@@ -98,7 +99,7 @@ The intent is to prefer patterns that make it obvious what data you're changing,
 - Readability vs. vectorization:
   - Prefer vectorized solutions when they remain readable.
   - If a vectorized solution is significantly harder to read/maintain, choose the clearer approach.
-  
+
 - Naming in chained transforms:
   - In `.assign(..., lambda ...)`, use `d` for DataFrame and keep it consistent within the chain.
     - Example: `.assign(x=lambda d: ..., y=lambda d: ...)`
@@ -107,8 +108,6 @@ The intent is to prefer patterns that make it obvious what data you're changing,
 
 - Use `# ===...===` section banners to separate major sections (e.g., constants, queries, main)
 - For sub-sections, use `# --- foo ---`
-
-- Prefer f-strings for string formatting
 
 ## SQL
 

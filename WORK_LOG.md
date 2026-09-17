@@ -1,5 +1,67 @@
 # Work Log
 
+## 2026-09-16 -- A development workflow, from spec to implementation
+
+Came in with a wide git discussion behind me and needed something concrete enough to use. Dumped partial thoughts and asked for them organized rather than answered. The organizing pass was the right call -- it surfaced that most of what I had labelled settled was not, and that the resumption problem rather than testing was the thing where getting it wrong loses work.
+
+Wrote `docs/SPEC.draft.md` and worked it for most of the session. Approved it, then planned and implemented against it in the same sitting, which is not how the workflow it describes is meant to run. Worth noting as a thing to watch rather than repeat.
+
+The plan-mode question turned on a fact about how I work rather than on tool capability. Plan mode holds the plan in session state, and I routinely close the harness mid-plan and reopen later, so the plan would have to be reconstructed each time. `PLAN.md` carries it instead. Plan mode still earns its place for in-session work, and its `ctrl+g` handoff into a text editor is what makes the annotation convention usable. The second benefit only became clear afterwards: with a file there is no gate held in my memory, since nothing depends on me remembering to ask for the plan to be written before implementation starts.
+
+Approval state needed somewhere to live once plan mode stopped supplying a button. The case that decided it is the one I actually hit -- finishing a plan with no time for implementation, then returning weeks later unable to tell a draft from an approved document. A `.draft` suffix in the filename answers that from a directory listing without opening anything, and a dated line inside carries the record. Revision sends it back to draft, and the rename tracks scope rather than text, so a typo fix does not un-approve a plan.
+
+The commit decision took the longest and was worth it. Two of the three packages died to constraints already in the spec rather than to preference. What remained was whether the agent's commits are churn or meaningful units, and that turned out to be the hinge: if commit boundaries come from the plan, fixed before any code existed, the agent executes a boundary rather than choosing one, which makes an unreviewed commit structurally trustworthy and makes squash a real loss. Landed on agent commits per slice with a linear merge preserving them. I pushed back twice during this and both times was right -- once that I had not actually decided human-only commits, once that the two axes were being conflated.
+
+The slice ended up carrying four jobs: one commit, one rollback point, one review unit, and one future parallel-agent assignment. That is more weight than a planning convenience should hold, and it is why the slice definition became upstream of most of the git decisions. It also cut the other way when I pushed on complexity -- the slice went from four fields to two, because at this size the subject line is the intent and a list of expected files would be wrong as often as right.
+
+`ai-dlc` was useful as corroboration rather than as a source. Its two-tier arrangement -- agent churn squashed at the lower merge, the reviewed unit preserved at the upper one -- is the same distinction I arrived at independently, which is usually a sign the boundary is real. Its identity machinery exists because nobody in that system holds the context; here I am the reviewer, conflict resolver and merger in one sitting, so the guarantee buys nothing. Recorded the parallel-agent extension as a property of the structure rather than a gap, since it follows from decisions already made.
+
+Twice I had to correct where conclusions were coming from. `WORK_LOG.md` is contextual history and carries no standing decision, and an agent reading a past entry as a live ruling imports conclusions that were never settled. The sizing rule for slices was a clear case -- a no-conjunction-in-the-subject test lifted from a September entry, treated as decided, and then built on. Replaced it with one verification check per slice, which is not gameable in the same way. A related failure was a sentence written into `/style-guide` attributed to nothing, which reads as mine when it was not. Research later showed the substance matched Google's guidance; the attribution was still wrong.
+
+The markdown tooling was the longest detour and the most instructive. Started with markdownlint alone, pinned `MD060` to aligned to enforce the table style, and discovered it detects without fixing -- so the check failed and stayed failed over table whitespace. Accepted a ninety-line alignment script, then asked directly whether it was a hack. It was. The tell is that it rebuilt a narrow version of Prettier, which had been rejected earlier for reflowing prose, and `proseWrap: "preserve"` removes exactly that objection. Prettier went in and the script went in the bin.
+
+What made it finally clear was the division rather than the tools. Prettier is a formatter and rewrites layout; markdownlint is a linter and reports structure no formatter can fix. That is the conventional arrangement -- the same shape as ruff, and the reason `eslint-config-prettier` exists in the JavaScript world. Adopting a formatter made the linter config smaller, not bigger, because every overlapping rule comes out to stop the two fighting. I had been getting descriptions of each tool instead of the split, and said so.
+
+Dry-ran Prettier on copies before committing to it. Three findings: it right-aligns table cells to respect alignment markers, which is what I want; it forces `_emphasis_` over `*emphasis*` with no option to change it, which is cosmetic churn across the work log; and it collapsed a code span in `/style-guide` that carried meaningful spaces. Rewrote that rule in prose so no formatter can break it, which is better than fencing it off.
+
+`/style-guide` then got trimmed to what no tool enforces. The first attempt restated the enforced conventions as a list, which is the duplication the split exists to remove -- cut it to a pointer saying Prettier and markdownlint define what they cover. An agent reading the guide and glancing at the configs has everything it needs, and the check is the backstop.
+
+Ruff went in for Python with a template in `templates/` to copy per project, since ruff's user-level config is a fallback any project config shadows entirely. Added rules enforcing the f-string preference along with its two real exceptions -- f-strings in logging calls build the string even when discarded, and f-strings in SQL are an injection risk -- so the preference and its carve-outs are enforced together. Verified every rule code by running it rather than waiting for first use, which caught `PD901` having been removed upstream. The `df` naming question resolved itself: it is fine with one dataframe in scope and poor with several, and no tool can see the difference.
+
+VS Code settings updated to match. Prettier as the markdown formatter replacing markdown-all-in-one's formatting, ruff replacing Black for Python, and `prettier.requireConfig` so the rollout stays opt-in per repo. Black had been sitting there contradicting `/code-guide` since ruff was adopted.
+
+Two process failures worth recording. The agent wrote to the spec after I asked a question rather than gave an instruction -- "can you simplify?" is the form that fails, and the rule now names it. And a `git checkout --` discarded my uncommitted work log entry from the previous session along with the files it meant to revert. It was restored verbatim from context, but the lesson is that `git checkout --` against a file with pre-existing uncommitted changes is not recoverable from git, and nothing checked what else was in those changes first.
+
+Implementation landed all eight slices: the Prettier and markdownlint configs, `## Verify` in the README, the `/style-guide` trim, and `/buildplan`, `/reviewsimple` and `/reviewtech`. The two review passes are deliberately opposite -- simplicity runs without the plan because the plan explains away the complexity being questioned, correctness runs with it because intent is needed to judge it. The strongest thing correctness can do is compare what a slice claimed, what the code does, and what the check actually verifies; a check passing while the claim is unmet is the failure nothing else catches.
+
+Stopping before sign-off. The branch is uncommitted and both checks pass, so tomorrow starts from green. Drafted a separate rollout plan to `scratch/` for the other repos, scoped to five of them -- consistency across repos is the objective, and the spec rule excluding markdownlint from Python projects contradicts it and needs correcting at close-out.
+
+## 2026-09-15 -- Git practice without the AI layer, and where the real gap is
+
+Set the AI question aside to get the git fundamentals straight first. The failure mode I am actually guarding against is mimicking best practice loosely and then forgetting, which is a different problem from choosing the wrong practice.
+
+The useful split was between settled and contested. Settled: one logical change per commit, why rather than what in the message, never rewrite published history, trunk always in a working state, integrate frequently. Contested: rebase against merge, squash against preserve, trunk-based against feature branches, conventional commits against prose. The contested ones turn on team size and review model rather than on correctness, and knowing which list an argument belongs to is most of the value.
+
+Trunk-based has two forms. Direct to trunk, no branches, everyone committing to `main` several times a day. And scaled trunk-based, short-lived branches that exist mainly to hold a pull request for review -- which is what most teams using the label actually run. The defining constraint is branch lifetime, not branch existence. GitFlow's real problem is not feature branches but `develop` and `release` as permanent parallel trunks.
+
+Direct to trunk reads as reckless and mostly is, but the teams that run it do not remove the gate, they move it. Pair programming makes review continuous. Test coverage heavy enough becomes the gate itself. And a fast revert culture optimizes mean time to recovery over mean time between failures, which is a real engineering position rather than carelessness, though it only holds where reverting is genuinely cheap.
+
+Pulled the session up twice. Once for reasoning entirely from this repo and concluding a review-before-commit gate is sufficient -- true for markdown, false for the Python and JavaScript in three other repos. Once for moving into conclusions and writing essays against one-line turns.
+
+The markdown-against-code distinction is the one worth keeping. For a document, human review is a complete gate: reading it is the only verification that exists, so having read it I have verified everything verifiable. For code it is partial, because a diff can read as correct and still break something three files away. That gap is the whole reason code workflows carry machinery document workflows do not. It also supplies a reason to branch I had not heard before -- code is routinely in a state that does not compile, and that state has to live somewhere other than trunk. A half-written document is still a document.
+
+Landed on short-lived branches for individual features, with quick fixes and chores allowed on `main`. Written to `docs/WORKFLOW_REBOOT.md`.
+
+Worked through merging `main` into the branch. There is no settled name for it; back-merge is closest but collides with GitFlow's meaning, so the file will say it in words. Cadence should not be measured in days -- the standard daily advice is a proxy for divergence calibrated to full-time work. Solo, `main` does not move unless I move it, so the trigger is an event I caused rather than a schedule. Ordering matters: merge after the commit, not before, since merging into a dirty tree tangles `main`'s changes with unfinished work and makes an abort awkward. Session start is the natural home, because the tree is clean there by definition.
+
+Asked whether any of this is automated. Git Town is the real tool -- `git town sync` with continue, skip and undo for conflicts -- but deliberately on demand rather than triggered. The genuine automation is all server-side: cascade merges, merge queues, Dependabot rebasing its own branches. Post-commit hooks are a poor fit, since a hook that merges can leave the repo conflicted immediately after a commit succeeded. `git rerere` is the one piece of real conflict automation worth knowing, replaying a recorded resolution when the same conflict recurs.
+
+What a mature pipeline is for: every class of problem has one designated catcher, and each gate exists because the previous one cannot see that class. Linting misses logic, local tests miss environment, branch CI misses semantic conflicts between branches. Scaling down collapses the stages but keeps the question. For part-time solo work the value of automation is not scale, it is memory -- an unenforced practice quietly stops happening across a three-week gap.
+
+Which points at the gap. The git workflow is close to settled and is not the bottleneck. The bottleneck is the one recorded here on 9 September and still open: nothing names tests, lint, or a command that checks a repo's own work. Each repo wants one verification command named in `AGENTS.md`, and everything above it -- CI, pre-commit hooks -- is that same command run at a different moment.
+
+The two test files in `shop-system` are not a foundation. They were dropped in without review, so coverage there is effectively zero. Looking at what `cad/` actually is changes the shape of the answer anyway -- `fetch.py` and `generate.py` against the Onshape API, with output landing in `out/`. Unit tests on an API client mostly test the mocks. The check that would mean something is a golden-file smoke test: run the generator against recorded input and compare against known-good output. Smaller work than a test suite, and the kind that survives a long gap.
+
 ## 2026-09-15 -- Commit message drafting bound to a stated trigger
 
 Noticed I was getting a commit message draft on every turn that touched a file, including a directory rename and a one-line ignore rule. Asked why rather than just saying stop, and the cause was in my own file: "After each iteration, draft a commit message" left "iteration" loose enough to cover any change at all. The behavior followed the rule; the rule was wrong.
@@ -36,11 +98,11 @@ Repo size turned out not to be the variable either. What matters is whether anyt
 
 That leaves three coherent packages rather than a set of independent switches.
 
-| Package | For | Against |
-|---|---|---|
-| Trunk with pre-commit gate | No branch lifecycle; nothing unreviewed exists anywhere; discarding is one command | `main` moves on every commit; half-done work lives in the tree or a stash; the agent blocks on my review |
-| Branch, checkpoints, squash-merge | Agent runs unattended and banks progress; abandoning is `git branch -D` | Branch lifecycle per task; blame resolves only to task level; review target is a large net diff |
-| Branch, pre-commit gate, plain merge | `main`'s position protected until I merge; every commit reviewed, so history stays fine-grained | Same lifecycle cost; buys nothing where `main` is not consumed |
+| Package                              | For                                                                                             | Against                                                                                                  |
+| ------------------------------------ | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| Trunk with pre-commit gate           | No branch lifecycle; nothing unreviewed exists anywhere; discarding is one command              | `main` moves on every commit; half-done work lives in the tree or a stash; the agent blocks on my review |
+| Branch, checkpoints, squash-merge    | Agent runs unattended and banks progress; abandoning is `git branch -D`                         | Branch lifecycle per task; blame resolves only to task level; review target is a large net diff          |
+| Branch, pre-commit gate, plain merge | `main`'s position protected until I merge; every commit reviewed, so history stays fine-grained | Same lifecycle cost; buys nothing where `main` is not consumed                                           |
 
 Closed by interrogating checkpoint commits directly, since they are the hinge. The only strong case for them is long unattended runs, which is not how I work -- I review every diff and want to. The cost is concrete and I had not seen it: VS Code's Source Control panel shows the working tree against `HEAD`, so an agent commit removes that work from the Changes list. The uncommitted tree is my review queue, and commits empty it.
 
@@ -98,7 +160,7 @@ Two independent faults, found by inspection. `~/.claude/CLAUDE.md` symlinked to 
 
 Worked through the alternatives -- an absolute import path, a second symlink beside the importing file, a `SessionStart` hook injecting the file, a bootstrap script owning the wiring for every tool. Rejected all four for the same reason: each keeps or re-creates a layer of indirection whose failure is invisible. The hook was the strongest of them, since a script can test for the file and shout when it is missing, but it is Claude-specific and does nothing for other agents.
 
-Settled on making the global Claude config *be* `AGENTS.md`, with `~/.claude/CLAUDE.md` symlinked straight at it. No import line, no path arithmetic, nothing left to resolve. This is the mechanism already proven by `~/.claude/skills`, which has pointed at `global_workflows/skills` since June and has always worked. Top-level symlinks in `~/.claude` resolve correctly; only the nested import ever failed.
+Settled on making the global Claude config _be_ `AGENTS.md`, with `~/.claude/CLAUDE.md` symlinked straight at it. No import line, no path arithmetic, nothing left to resolve. This is the mechanism already proven by `~/.claude/skills`, which has pointed at `global_workflows/skills` since June and has always worked. Top-level symlinks in `~/.claude` resolve correctly; only the nested import ever failed.
 
 Added a `Tool-specific direction` stub at the end of the file, deliberately empty, to mark where Claude- or Codex-specific content belongs when it is needed. Three rules were displaced by the change and are not carried forward. Two were permission rules that had landed in `CLAUDE.md` as a workaround while permissions were being sorted out, and they go to `settings.json` next. The third, a formatting preference for copy-pasteable CLI commands, has no home yet.
 
@@ -118,15 +180,15 @@ What makes this hold together is that the plan step and the commit are the same 
 
 Then asked who does what, since the six steps read like work. All six are agent-written and none are mine to author.
 
-| Step | Who | Note |
-|---|---|---|
-| Extract acceptance criteria | Agent, unprompted | Transcription from the spec. Skim to confirm nothing was dropped. |
-| Walking skeleton | Agent drafts, I approve | Judgment call about what the thinnest real path is here. |
-| Assign criteria to slices | Agent, unprompted | Mechanical once the vertical-cut rule is stated. |
-| Order by dependency | Agent finds | Requires reading the codebase, already covered by the research step in Plan. |
-| Order by uncertainty | Me | The agent does not reliably know what it does not know. |
-| Size test | Agent applies, I audit | The commit-subject test takes seconds to eyeball. |
-| Write the four fields | Agent, unprompted | Output formatting. |
+| Step                        | Who                     | Note                                                                         |
+| --------------------------- | ----------------------- | ---------------------------------------------------------------------------- |
+| Extract acceptance criteria | Agent, unprompted       | Transcription from the spec. Skim to confirm nothing was dropped.            |
+| Walking skeleton            | Agent drafts, I approve | Judgment call about what the thinnest real path is here.                     |
+| Assign criteria to slices   | Agent, unprompted       | Mechanical once the vertical-cut rule is stated.                             |
+| Order by dependency         | Agent finds             | Requires reading the codebase, already covered by the research step in Plan. |
+| Order by uncertainty        | Me                      | The agent does not reliably know what it does not know.                      |
+| Size test                   | Agent applies, I audit  | The commit-subject test takes seconds to eyeball.                            |
+| Write the four fields       | Agent, unprompted       | Output formatting.                                                           |
 
 Four of those run with no involvement at all. The walking skeleton and the size test want a glance at the existing plan-confirmation gate, which is a two-minute pass rather than a new stage. The one genuine human item is ordering by uncertainty, and the reason is precise: dependency order is derivable from the code so the agent will produce it and stop, while risk order needs both business context and knowing what it does not know. Rather than remember to supply it, the better shape is to have the plan state which step it thinks carries the most uncertainty, so I react to a claim instead of generating one -- faster, and it surfaces the case where the agent's read of the risk differs from mine.
 
@@ -246,7 +308,7 @@ Two alternatives were considered and rejected. Giving each docs repo its own com
 
 Two Claude memory files duplicating that README section were deleted in the same pass, leaving the README as the single source. The README was already the more complete of the two, carrying a rule the memories did not record.
 
-The Work Log rule itself was rewritten in the same session, after Claude missed it three times in a row. The cause was a genuine conflict: the rule said to *ask* whether to write an entry, while the newer interaction rule at the top of the file says not to ask questions unless prompted. Under that tension the ask kept losing, particularly mid-execution.
+The Work Log rule itself was rewritten in the same session, after Claude missed it three times in a row. The cause was a genuine conflict: the rule said to _ask_ whether to write an entry, while the newer interaction rule at the top of the file says not to ask questions unless prompted. Under that tension the ask kept losing, particularly mid-execution.
 
 Resolved by making the entry unconditional -- write it, do not ask -- with two additions. The entry is written before the commit message is drafted, so it lands in the same commit as the work it describes rather than trailing it by one, which is what happened throughout this session. And writing it must be flagged in the response, so an unwanted entry is visible and can be removed; entries are appended to the top of the file, so undoing one is trivial. That trade was chosen over keeping the prompt and carving out an exemption in the interaction rules, on the grounds that an entry has been wanted every time so far and the unconditional version removes a decision point instead of adding a caveat.
 

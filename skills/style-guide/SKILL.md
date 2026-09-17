@@ -12,13 +12,17 @@ Where CommonMark is silent, defer to the [markdownlint rules](https://github.com
 
 ---
 
+## Tooling
+
+Prettier formats and markdownlint lints. Where a repo runs them, they define every convention they cover, and those rules are not restated here. Follow them when writing rather than relying on a format pass to clean up afterwards.
+
+Everything below is applied by hand. No tool checks it.
+
+---
+
 ## Headings
 
 - Use heading tags for headings only.
-  Do not use emphasis (bold) as a heading -- a standalone bolded line, on its own with no other text, that stands in for a heading tag to introduce what follows.
-  Where a formatted heading is not wanted, use plain text with a colon instead of a bolded line.
-  Bold is otherwise unrestricted: an inline lead-in label sharing a line with its content (e.g., "**Note:** ...", "**Purpose**: ...") is not a heading and does not fall under this rule.
-- Increment heading levels by one at a time.
 - The H1 matches the title in the YAML front matter.
 
 ### Capitalization
@@ -39,9 +43,6 @@ The purpose is to enable easy refactoring of lists and steps and consistency.
 ### Lists
 
 - Prefer unordered lists to ordered lists.
-- Use "-" for unordered list markers.
-  Do not mix in "*".
-- Single blank line between a list block and the text above and below it.
 - No blank line between a parent list item and its nested sub-items.
   A blank line makes the list "loose" and wraps items in `<p>` tags when rendered to HTML.
 
@@ -67,9 +68,9 @@ Prefer ASCII sequences over Unicode typographic equivalents. Do not rely on auto
 
 ---
 
-## File ending
+## Tables
 
-- End every document with a newline.
+Use a table for data that is scanned -- short values compared across rows. Use a list or prose for anything longer.
 
 ---
 
@@ -81,22 +82,22 @@ SAE units (lb, ft, in, mph) follow the same no-punctuation approach for consiste
 
 Percentage follows Chicago Manual of Style: attached to the numeral with no space (`50%`).
 
-| Unit | Symbol | Example |
-|---|---|---|
-| Millimeters | mm | `1 mm` |
-| Meters | m | `1 m` |
-| Kilograms | kg | `1 kg` |
-| Pounds | lb | `1 lb` (not `lbs`, not `lb.`) |
-| Feet (symbol) | ' | `1'` (ASCII U+0027, not prime mark) |
-| Inches (symbol) | " | `1"` (ASCII U+0022, not prime mark) |
-| Feet (prose) | ft | `1 ft` |
-| Volts | V | `1 V` |
-| Watts | W | `1 W` |
-| Amperes | A | `1 A` |
-| PSI | psi | `30 psi` (lowercase) |
-| Celsius | deg C | `10 deg C` (informal; `°` is a nuisance character) |
-| Percentage | % | `50%` |
-| Newton-meters | Nm | `44 Nm` |
+| Unit            | Symbol | Example                                            |
+| --------------- | ------ | -------------------------------------------------- |
+| Millimeters     | mm     | `1 mm`                                             |
+| Meters          | m      | `1 m`                                              |
+| Kilograms       | kg     | `1 kg`                                             |
+| Pounds          | lb     | `1 lb` (not `lbs`, not `lb.`)                      |
+| Feet (symbol)   | '      | `1'` (ASCII U+0027, not prime mark)                |
+| Inches (symbol) | "      | `1"` (ASCII U+0022, not prime mark)                |
+| Feet (prose)    | ft     | `1 ft`                                             |
+| Volts           | V      | `1 V`                                              |
+| Watts           | W      | `1 W`                                              |
+| Amperes         | A      | `1 A`                                              |
+| PSI             | psi    | `30 psi` (lowercase)                               |
+| Celsius         | deg C  | `10 deg C` (informal; `°` is a nuisance character) |
+| Percentage      | %      | `50%`                                              |
+| Newton-meters   | Nm     | `44 Nm`                                            |
 
 Compound units use a solidus with no surrounding spaces; the space goes before the whole compound: `14 W/m`.
 
@@ -112,7 +113,7 @@ Prose: `1 ft`, `1 inch`, `6 foot leash`, `degrees Celsius` are all acceptable in
 - Key names: all lowercase - `ctrl+c`, `ctrl+shift+t`, `alt+space`.
 - Separator: `+` with no surrounding spaces.
 - Multi-key chords: space between them - `ctrl+k ctrl+p`.
-- Multiple shortcuts on one line: ` / ` between them - `` `ctrl+u` / `ctrl+d` ``.
+- Multiple shortcuts on one line: separate with a slash surrounded by single spaces - `` `ctrl+u` / `ctrl+d` ``.
 - Always wrap keybindings in backticks.
 
 ---
