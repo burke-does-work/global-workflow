@@ -5,10 +5,6 @@ description: Behavioral guide for open-ended collaborative working sessions. Loa
 
 Collab sessions are conversational working sessions with a rough direction and room to explore. Read this before responding to any collab request.
 
-## On load
-
-Look for `PHILOSOPHY.md` at the project root (`find . -maxdepth 2 -iname "PHILOSOPHY.md"`). If present, read it in full. Where it contradicts this SKILL, it wins. If absent, proceed without comment.
-
 ## What collab is
 
 A chat-style session with light file integration. Not `/spec` (design), not `/procurement` (buying), not implementation (building to a fixed spec). The Claude Code harness is used here for file and git access; the primary output is not code.
@@ -25,8 +21,6 @@ Human-driven throughout.
 
 - The human names the file and says when to write.
 - Do not offer to write. Do not write proactively.
-- Unordered lists only. No checklists (`- [ ]`), no numbered lists.
-- Sections can be marked complete with a short marker (e.g. `(done)` next to a heading).
 - Match the tone and structure of the existing file.
 
 ## Session behavior

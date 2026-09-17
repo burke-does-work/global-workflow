@@ -77,6 +77,10 @@ One to resolve: the guide requires tight lists, with no blank line between a par
 
 ### Trim /style-guide to what the linter cannot enforce (done)
 
+**Deviation.** The review running ahead of sign-off went past a trim. `## Typographic substitutions` became `## Punctuation and symbols`, carrying an ASCII rule, a dash system and exceptions split by whether an ASCII form exists or is wrong. `## Tables` was rewritten around fragment cells and a six-column cap. `### Task lists` was added. The Markdown dialect line moved to `## Style hierarchy`. None of it is linter-enforced, so the split this slice established holds, but the guide was rewritten rather than trimmed.
+
+**Scope addition.** `/collab` lost its list, checklist and status-marker rules in the same pass, because the new `### Task lists` rule made them duplicates. `/collab` is not named in `## Scope` and was not touched by the branch.
+
 Anything markdownlint enforces comes out of the guide, the same split `/code-guide` made for ruff. A rule stated in both places is a rule that drifts, and the guide should hold only what needs a human.
 
 Expected to leave, subject to the coverage report: dash bullets, blank lines around list blocks, no bold-as-heading, heading increments, trailing newline.
@@ -119,6 +123,12 @@ The guide keeps a line naming markdownlint as the enforcing tool without restati
 
 ### Update the AGENTS.md skills list (done)
 
+**Deviation.** The review reversed this slice. `## Skills` was deleted entirely rather than corrected: Claude reads skill front matter directly, so the twelve descriptions were a second copy that had already drifted once, which is what this slice existed to fix. Codex holds no copy of the skills and is being addressed separately. The slice's check no longer applies.
+
+**Deviation.** The same review reworked `AGENTS.md` well past a skills-list edit. `## Context and philosophy` was added, carrying the two repository shapes, idea dispersal, the partial nature of skills, and the cross-domain framing. `## Modes` was cut. `## Development workflow` was rewritten around the full arc with compression stated as a property rather than an exception. `## Completion` gained the reconcile step that `SPEC.md:71` has and `AGENTS.md` lacked, and now admits archiving alongside disposal. `### Implement and test` became `### Implement and verify`, pointed at the `## Verify` convention. A conciseness pass and a `--` sweep ran across the file.
+
+**Scope addition.** `/collab` was touched a second time: the `## On load` block reading `PHILOSOPHY.md` moved into `AGENTS.md`, so the lookup applies in every mode rather than one skill. `/collab` remains outside `## Scope`.
+
 - Adds the three new skills with their triggers.
 - Corrects the `/walkplan` entry, which currently reads as a coding mode and is used for physical builds.
 
@@ -146,6 +156,11 @@ After sign-off, the spec folds and is disposed:
 - The key decisions behind `design.md` go to `ADR.md`.
 
 Items deliberately held at the reconcile and still to be sorted here: `PLAN.md` lifetime, the slice definition, the `.draft` convention, and the stop triggers.
+
+Corrections to make in `docs/SPEC.md` at the same point, tracked here rather than edited now:
+
+- `SPEC.md:321` excludes markdownlint from Python projects. That contradicts the consistency objective set later, and `shop-system` holds nine markdown files.
+- `SPEC.md:247` names "the check", singular, where a project may declare more than one command. This repo declares two.
 
 ---
 

@@ -6,16 +6,6 @@ description: Behavioral guide for procurement sessions - technical parts, tools,
 This skill governs how the AI system participates in procurement sessions.
 Read it before responding to any procurement request.
 
-## Also read: project philosophy file
-
-Before the first procurement response, look for a `PHILOSOPHY.md` at the project root (use `find . -maxdepth 2 -iname "PHILOSOPHY.md"` if the location is not obvious). If present, read it in full - it is intentionally short.
-
-This file documents the human's durable stances - procurement and design - that constrain recommendations across sessions. Where a principle in `PHILOSOPHY.md` contradicts a default in this SKILL, the philosophy file wins.
-
-If `PHILOSOPHY.md` is absent, proceed on the defaults here and mention that no philosophy file was found.
-
----
-
 ## On load: locate domain context, do not front-load
 
 Do not read the domain reference files end-to-end at session start. Reading them wholesale wastes attention and drifts the session.

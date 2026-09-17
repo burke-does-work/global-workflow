@@ -3,15 +3,6 @@ name: style-guide
 description: Global style guide — writing conventions, formatting, units of measurement, and document structure.
 ---
 
-Custom addendums always take precedence over the base style guides.
-
-## Base
-
-Default to [CommonMark](https://spec.commonmark.org/0.31.2/).
-Where CommonMark is silent, defer to the [markdownlint rules](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md).
-
----
-
 ## Tooling
 
 Prettier formats and markdownlint lints. Where a repo runs them, they define every convention they cover, and those rules are not restated here. Follow them when writing rather than relying on a format pass to clean up afterwards.
@@ -38,7 +29,7 @@ Everything below is applied by hand. No tool checks it.
 
 ## Numbering and lists
 
-The purpose is to enable easy refactoring of lists and steps and consistency.
+The purpose is to enable easy refactoring of lists and steps, consistency, and human edits.
 
 ### Lists
 
@@ -51,6 +42,11 @@ The purpose is to enable easy refactoring of lists and steps and consistency.
 - In addition to list preferences, do not use numbering for steps or stages, including in headings.
 - For example, use "Stage: Setup style guide", not "Stage 1: Setup style guide".
 
+### Task lists
+
+- Avoid task lists.
+- Where status should be indicated, use a word such as "done", "open", or "deferred".
+
 ---
 
 ## Sections
@@ -59,18 +55,46 @@ The purpose is to enable easy refactoring of lists and steps and consistency.
 
 ---
 
-## Typographic substitutions
+## Punctuation and symbols
 
-Prefer ASCII sequences over Unicode typographic equivalents. Do not rely on automatic substitution. Common cases:
+Use ASCII. Unicode typographic characters are awkward to reach on a keyboard and mostly arrive uninvited from editor autocorrect, so turn smart substitution off rather than cleaning up after it.
 
-- Dashes: "--" or "---", not "—".
-- Arrows: "->", not "→".
+Watch for the non-breaking space (U+00A0). It is the one violation you cannot see - invisible in a diff, and it breaks search. macOS inserts it on option+space.
+
+### Dashes
+
+- Joined words and spans: a hyphen, no spaces either side - `well-known`, `10-20`, `Mon-Fri`.
+- A break in a sentence: a hyphen with a space either side. It offsets an aside or stands in for a semicolon.
+- `---` is structural only - the break between sections, and front matter fences. Never punctuation.
+
+### Exceptions
+
+Use the real character in two cases.
+
+Where no ASCII form exists:
+
+- Non-Latin scripts.
+- Currency symbols - `£`, `€`, `¥`.
+- The micro sign in unit symbols - `µm`, `µF`.
+
+Where an ASCII form exists but is wrong:
+
+- Diacritics in words from languages that use them, common nouns and names alike - `Gemütlichkeit`, `piñata`, `Gödel`. Stripping one misspells the word.
+
+Where English has naturalized a spelling without the diacritic - `cafe`, `naive`, `uber` - that is an English word rather than a substitution, and the style hierarchy decides it.
+
+This does not reopen cases settled elsewhere: the units table takes `deg C` over the degree sign, and ASCII `'` and `"` over the prime marks.
 
 ---
 
 ## Tables
 
-Use a table for data that is scanned -- short values compared across rows. Use a list or prose for anything longer.
+Tables suit items compared on shared attributes, where the eye scans down a column.
+
+- Cells hold fragments, not sentences.
+- Past six columns, split the table or switch to a list.
+
+Detail that outgrows a cell goes in prose above or below the table. Where the content is long throughout, prefer a list.
 
 ---
 
@@ -129,6 +153,8 @@ For anything this guide does not explicitly cover, apply these in order:
 Use American English. Vocabulary is flexible: Australian-isms are not flagged in a style check.
 
 For Chinese-language writing, use [The China Story Style Guide](https://www.thechinastory.org/submission-guide/style-guide/).
+
+For Markdown, default to [CommonMark](https://spec.commonmark.org/0.31.2/) with [GitHub Flavored Markdown](https://github.github.com/gfm/) extensions.
 
 ---
 

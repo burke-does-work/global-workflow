@@ -43,7 +43,8 @@ Read `/code-guide` before starting so a deliberate house convention is not repor
 - Indirection that adds a hop without adding a decision. Wrappers, passthroughs, a layer that only forwards.
 - Generality nobody asked for. Handling cases the spec does not contain.
 - A dependency carrying a small amount of work.
-- Anything the human would have to look up to read. That is the whole test, stated plainly.
+- Anything the human would have to ask a senior developer with domain expertise to explain. That is the whole test, stated plainly.
+- Code that, after implementation, carries a lot of weight but only adds limited feature or structural value.
 
 ---
 

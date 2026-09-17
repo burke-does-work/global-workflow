@@ -75,7 +75,7 @@ The route from intent to merged work.
 
 - `SPEC.md` is not a backlog. Scope enters it when it is ready to be worked; anything earlier stays in scratch or a notes file, neither of which this spec defines.
 - Two live specs means nothing states what the system is being built toward. Two live plans means nothing states what is being done now.
-- All three live together in `branch_work/` -- `branch_work/SPEC.md`, `branch_work/PLAN.md`, `branch_work/STATE.md` -- to keep the project root for permanent files. Not `docs/`, which holds permanent design documents.
+- All three live together in `branch_work/` -- `branch_work/SPEC.md`, `branch_work/PLAN.md`, `branch_work/STATE.md` -- to keep the project root for permanent files. Not `docs/`, which holds permanent design documents. This repository used `docs/` and never reconciled it, which is the deviation the rule exists to prevent: working files sat beside the permanent design documents for the life of the branch.
 - Permanent files stay at root: `README.md`, `ADR.md`, `WORK_LOG.md`, `pyproject.toml`, and the env files.
 
 ### Plan
@@ -244,7 +244,7 @@ The one piece that would need rethinking rather than extending is review. Three 
 
 ## Verification
 
-- The project declares its check in one place, named in `README.md` under `## Verify`. This mirrors the existing `## Commits` convention rather than inventing a second lookup.
+- The project declares its check in one place, named in `README.md` under `## Verify`. More than one command is fine; the slot is one lookup, not one command. This mirrors the existing `## Commits` convention rather than inventing a second lookup.
 - The check is defined during spec and plan, not discovered during implementation.
 - A check must name its mechanism and its moment, not only its intent. The failure being guarded against is not a failing test; it is a check that was never runnable -- wrong environment, missing tool, or a check that can only pass somewhere the code has not reached yet.
 - A check is proven runnable before implementation begins.
@@ -318,13 +318,14 @@ The destinations are deliberate rather than redundant.
 - Mechanical only: unused imports, undefined names, formatting. Anything in `/code-guide` that requires judgment stays there and is checked by `/reviewsimple` and `/reviewtech`.
 - It gives the `## Verify` slot something concrete from day one rather than waiting on a test suite.
 
-**Decision**: `markdownlint-cli2` for markdown-only repositories. Not for Python projects.
+**Decision**: Prettier formats markdown and `markdownlint-cli2` lints it, wherever markdown lives.
 
-- `/style-guide` already names markdownlint as its base, so the tool and the written rules are the same thing rather than two implementations that can drift.
-- It is a Node package. That is toolchain sprawl in a Python project for the sake of a README, and it is no burden in a repository that is markdown throughout.
+- The split is the conventional arrangement and the same shape as ruff for Python. Prettier owns layout and rewrites it; markdownlint reports structure no formatter can fix. Adopting the formatter made the linter config smaller, because every overlapping rule comes out to stop the two fighting.
+- Prettier was rejected initially for reflowing prose. `proseWrap: "preserve"` removes that objection. It was adopted because `MD060` in aligned mode detects table misalignment and has no fixer, so enforcing the table style required a formatter at all.
+- `/style-guide` holds only what neither tool enforces, and names them as the enforcing tools without restating their rules.
 - The config is derived from `/style-guide` and validated by running it against files already considered correct, tuning until only real defects remain. Rule-by-rule review is not the method.
-- Line length is disabled, since the prose does not wrap. Heading case and the ASCII-over-Unicode preference have no markdownlint equivalent and stay human.
-- Building and validating the config belongs in the plan, not here.
+- Line length is disabled, since the prose does not wrap. Heading case and the ASCII-only rule have no markdownlint equivalent and stay human.
+- Correction: this originally excluded markdownlint from Python projects on toolchain-sprawl grounds. That contradicts the consistency objective set later, and `shop-system` holds nine markdown files. Markdown is linted wherever it lives.
 
 ---
 
@@ -339,7 +340,14 @@ Changes to make at the reconcile. The first three stand regardless of how this s
 - The commit rule needs scoping. `AGENTS.md` bars the agent from running `git commit` unless explicitly asked, and this spec has the agent committing per slice. Resolution: inside an approved plan on a branch, the agent commits per slice; everywhere else the global rule stands unchanged.
 - The work log trigger needs rebinding. `AGENTS.md` ties an entry to drafting a commit message, which under agent commits would fire constantly. The entry is written on the human's request only. This is the same trigger-vagueness failure already fixed once.
 
-**Open**: reconcile the two once this spec settles. General practice belongs in `AGENTS.md`; anything specific to this project envelope stays here. A rule stated in both files is a rule that will drift.
+**Resolved**: the reconcile ran, and the branch review went further than the list above.
+
+- `## Modes` was cut. The simple-versus-complex criteria misfired on the work they were written to catch, and complexity is signalled by the human rather than inferred.
+- `## Skills` was cut. Both harnesses read skill front matter directly, so twelve descriptions were a second copy that had already drifted once.
+- `## Context and philosophy` was added, carrying the two repository shapes, idea dispersal, skills as partial, and the cross-domain framing.
+- The `PHILOSOPHY.md` read moved out of `/collab`, `/spec` and `/procurement` into `AGENTS.md`, with precedence over this file and any skill.
+- Implementation now records every decision that changes what the plan or spec described, and close-out reads that list and names the divergence before updating the spec. This closes the gap under Review passes, where coherence was cut on the grounds that close-out does it while close-out had no mechanism.
+- Overall coherence is named as the human's check at the end of the plan, on top of the agent's passes rather than in place of them.
 
 ---
 

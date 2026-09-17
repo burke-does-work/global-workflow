@@ -6,16 +6,6 @@ description: Behavioral guide for SPEC.md development sessions. Load when the hu
 This skill governs how the AI system participates in SPEC.md development sessions.
 Read it before responding to any spec-related request.
 
-## Also read: project philosophy file
-
-Before the first spec-session response, look for a `PHILOSOPHY.md` at the project root (use `find . -maxdepth 2 -iname "PHILOSOPHY.md"` if the location is not obvious). If present, read it in full - it is intentionally short.
-
-This file documents the human's durable stances - design, and sometimes procurement - that constrain the spec across sessions. Where a principle in `PHILOSOPHY.md` contradicts a default in this SKILL, the philosophy file wins.
-
-If `PHILOSOPHY.md` is absent, proceed on the defaults here.
-
----
-
 ## On load: read project context
 
 Before the first spec-session response, read:

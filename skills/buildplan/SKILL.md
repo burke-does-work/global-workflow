@@ -45,6 +45,12 @@ Two markers track it: `(done)` and reviewed.
 
 Nothing else. No intent line separate from the subject -- at this size the subject is the intent. No list of files expected to change -- cross-slice edits are normal, so the list would be wrong and an out-of-scope edit is caught at review anyway.
 
+### Human review
+
+Individual slices will be reviewed by human after the final agent verification, unless there's a stop work. Include the list of checks required by the human (files and/or behavior) to guide human review.
+
+Overall coherence is checked there too - whether the finished work still serves the goal, not only whether each slice met its check. The review passes and the slice checks are local and cannot see it. This is on top of the agent's own verification, not in place of it.
+
 ---
 
 ## Size
