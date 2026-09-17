@@ -1,6 +1,6 @@
 ---
 name: reviewtech
-description: Technical correctness review of a finished branch -- does the code do what it claims. Load only when the human invokes /reviewtech.
+description: Technical correctness review of a finished branch - does the code do what it claims. Load only when the human invokes /reviewtech.
 ---
 
 One question: does the code do what it claims.
@@ -51,10 +51,10 @@ If the failure cannot be stated concretely, it is a suspicion rather than a find
 
 - The claim-versus-check gap above. Start here.
 - Error paths. `/code-guide` asks for validation at the boundary and simple logic after it, so check that the boundary actually validates what the rest of the code assumes.
-- Edge cases the plan implies but the code does not handle -- empty inputs, missing files, absent configuration, a first run with no prior state.
+- Edge cases the plan implies but the code does not handle - empty inputs, missing files, absent configuration, a first run with no prior state.
 - Assumptions that hold in one slice and not across the branch, where a later slice changed something an earlier one relied on.
 - Resource handling: files and connections opened and not closed, work that fails partway and leaves state half-written.
-- For pandas, the specific traps `/code-guide` names -- chained assignment, views against copies, silent dtype changes.
+- For pandas, the specific traps `/code-guide` names - chained assignment, views against copies, silent dtype changes.
 
 ---
 

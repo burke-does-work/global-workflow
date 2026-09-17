@@ -5,7 +5,7 @@ description: Human-paced walkthrough of an existing PLAN file; agent writes only
 
 A plan session works through an existing PLAN step by step, with the human setting the pace. Look for the relevant PLAN file. If no plan file, then proceed with the plan as it exists in the prompt.
 
-Think of it as a printed plan on the table -- the human is doing the work and jotting notes in the margin as they go. The agent holds the pen when asked.
+Think of it as a printed plan on the table - the human is doing the work and jotting notes in the margin as they go. The agent holds the pen when asked.
 
 ## On load
 

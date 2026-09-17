@@ -94,7 +94,7 @@ The intent is to prefer patterns that make it obvious what data you're changing,
 - Iteration:
   - Avoid `iterrows()` (and cell-by-cell loops) for data changes.
   - Prefer `.loc`, `.assign`, vectorized operations, `merge`/`join`, and `map` (for lookup dict/Series) for updates/fills.
-  - If the data is small and a loop is clearest, a loop is OK—just don't update the DataFrame one cell at a time inside the loop.
+  - If the data is small and a loop is clearest, a loop is OK - just don't update the DataFrame one cell at a time inside the loop.
 
 - Readability vs. vectorization:
   - Prefer vectorized solutions when they remain readable.
@@ -116,7 +116,7 @@ The intent is to prefer patterns that make it obvious what data you're changing,
 ### Custom addendum
 
 - 4-space indent (dbt Labs default easy to miss)
-- Grouped column sets (e.g., HE1–HE24) may appear on a single line as an exception to one-column-per-line
+- Grouped column sets (e.g., HE1-HE24) may appear on a single line as an exception to one-column-per-line
 
 ---
 

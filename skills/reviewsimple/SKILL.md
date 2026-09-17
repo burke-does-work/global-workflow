@@ -1,6 +1,6 @@
 ---
 name: reviewsimple
-description: Simplicity review of a finished branch -- is this more than the job needs, and can the human read all of it. Load only when the human invokes /reviewsimple.
+description: Simplicity review of a finished branch - is this more than the job needs, and can the human read all of it. Load only when the human invokes /reviewsimple.
 ---
 
 One question: is this more than the job needed, and can the human read all of it.
@@ -23,7 +23,7 @@ If a piece of code cannot be understood without the plan, that is a finding rath
 
 Findings only. Edit nothing.
 
-The human decides what to act on. A finding that gets rejected is not a failure of the review -- half of them should be, because the judgment being applied is theirs.
+The human decides what to act on. A finding that gets rejected is not a failure of the review - half of them should be, because the judgment being applied is theirs.
 
 ---
 
@@ -60,6 +60,6 @@ If the simpler version cannot be stated, the finding is not ready. "This feels c
 
 ## Ordering
 
-Lead with the finding that removes the most code. Simplicity findings compound -- an abstraction removed often takes its configuration and its tests with it -- and the largest one frequently makes the smaller ones moot.
+Lead with the finding that removes the most code. Simplicity findings compound - an abstraction removed often takes its configuration and its tests with it - and the largest one frequently makes the smaller ones moot.
 
 State plainly when there is nothing to report. A short review is a real outcome, not a failure to find something.

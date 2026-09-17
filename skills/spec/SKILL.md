@@ -124,7 +124,7 @@ Focus every question and suggestion on clarifying **what**, not on advising **ho
 
 ## Shifting to procurement mode
 
-Spec is the right mode for product categories, illustrative examples, and rough cost ranges as design constraints. When the session shifts from _what kind of product_ to _which specific product_ — named models, part numbers, comparison tables — shift to procurement mode and continue in-session. The session stays open; the mode changes. Shift back to spec when the decision is made and requirements need updating.
+Spec is the right mode for product categories, illustrative examples, and rough cost ranges as design constraints. When the session shifts from _what kind of product_ to _which specific product_ - named models, part numbers, comparison tables - shift to procurement mode and continue in-session. The session stays open; the mode changes. Shift back to spec when the decision is made and requirements need updating.
 
 If requirements are underspecified when procurement mode starts, brief spec-style category definition is appropriate before field mapping begins.
 

@@ -150,7 +150,7 @@ Give a recommendation when asked. Volunteer one when the tradeoff is significant
 
 Format and procedure rules. Principles (quality-for-money, ecosystem cost, boutique vs. function) live in `PHILOSOPHY.md` and are the authority when in doubt.
 
-**Include the manufacturer part number.** A recommendation without a PN is a lead, not a conclusion. `B-57342`, not "the Makita 6.5-inch blade." `40-1984`, not "the slide-in t-nut." For hardware, include grade and material as part of the identifier: "M6 × 25 mm SHCS, 12.9 zinc-plated", not "M6 bolt". Do not rely on memory for specific part numbers.
+**Include the manufacturer part number.** A recommendation without a PN is a lead, not a conclusion. `B-57342`, not "the Makita 6.5-inch blade." `40-1984`, not "the slide-in t-nut." For hardware, include grade and material as part of the identifier: "M6 x 25 mm SHCS, 12.9 zinc-plated", not "M6 bolt". Do not rely on memory for specific part numbers.
 
 **Use tables for anything with 3+ options or 2+ comparable axes.** Right-align numeric columns. Baseline structure:
 
@@ -172,7 +172,7 @@ Format and procedure rules. Principles (quality-for-money, ecosystem cost, bouti
 
 **A clarifying question is exploration, not readiness to buy.** When the human asks how a product works, answer the question. Do not follow the answer with a fresh take, comparison table, or destination-choice menu.
 
-**Procurement mode and spec mode share a session.** Procurement is the right mode when the session moves from product categories and rough cost estimates to named products, part numbers, and comparison tables. If requirements are underspecified at the start, brief spec-style category definition is appropriate before field mapping begins — no need to invoke /spec separately. If a design decision surfaces mid-session that needs spec treatment, handle it inline and return to procurement mode when resolved. The session stays open across both modes.
+**Procurement mode and spec mode share a session.** Procurement is the right mode when the session moves from product categories and rough cost estimates to named products, part numbers, and comparison tables. If requirements are underspecified at the start, brief spec-style category definition is appropriate before field mapping begins - no need to invoke /spec separately. If a design decision surfaces mid-session that needs spec treatment, handle it inline and return to procurement mode when resolved. The session stays open across both modes.
 
 ---
 

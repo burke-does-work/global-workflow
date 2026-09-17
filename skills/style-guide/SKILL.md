@@ -1,6 +1,6 @@
 ---
 name: style-guide
-description: Global style guide — writing conventions, formatting, units of measurement, and document structure.
+description: Global style guide - writing conventions, formatting, units of measurement, and document structure.
 ---
 
 ## Tooling

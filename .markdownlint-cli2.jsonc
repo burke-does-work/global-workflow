@@ -1,6 +1,6 @@
 // Markdown linting for this repo.
 //
-// Prettier is the formatter and owns layout -- table alignment, list markers,
+// Prettier is the formatter and owns layout - table alignment, list markers,
 // blank lines, horizontal rule style, trailing newline, whitespace. Rules that
 // overlap it are disabled below so the two cannot fight.
 //
@@ -29,7 +29,7 @@
     // their front matter uses `name` rather than `title`.
     "MD041": false,
     // Repeated subsection names under different parents are deliberate
-    // structure -- "Custom addendum" appears under both Python and SQL in
+    // structure - "Custom addendum" appears under both Python and SQL in
     // /code-guide. Siblings still may not collide.
     "MD024": { "siblings_only": true }
   }
