@@ -1,0 +1,25 @@
+{
+  "name": "global_workflows",
+  "version": "1.0.0",
+  "description": "The central source of truth for my global rules, voice, and conventions. Two audiences: AI systems that read these files during a session, and me, as the reference I treat as canonical.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/burke-does-work/global-workflow.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/burke-does-work/global-workflow/issues"
+  },
+  "homepage": "https://github.com/burke-does-work/global-workflow#readme",
+  "devDependencies": {
+    "markdownlint-cli2": "0.23.2",
+    "prettier": "3.9.8"
+  }
+}

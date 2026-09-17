@@ -10,7 +10,7 @@
 // Run with: npx markdownlint-cli2
 {
   "globs": ["**/*.md"],
-  "ignores": ["scratch/**", "node_modules/**"],
+  "ignores": ["scratch/**", "node_modules/**", "archive/**"],
   "config": {
     // Owned by Prettier.
     "MD004": false,
