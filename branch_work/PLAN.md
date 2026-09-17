@@ -10,11 +10,11 @@ Bring every repo to the same formatter and linter setup. Consistency is the obje
 
 ## Tools and what each owns
 
-| Tool | Applies to | Role |
-| --- | --- | --- |
-| Prettier | `.md`, `.json`, `.jsonc`, `.yaml`, `.yml`, `.css`, `.js`, `.mjs`, `.ts`, `.tsx`, `.html` | Formatter. Rewrites layout |
-| markdownlint-cli2 | `.md` | Linter. Reports structure a formatter cannot fix |
-| ruff | `.py` | Formatter and linter in one |
+| Tool              | Applies to                                                                               | Role                                             |
+| ----------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------ |
+| Prettier          | `.md`, `.json`, `.jsonc`, `.yaml`, `.yml`, `.css`, `.js`, `.mjs`, `.ts`, `.tsx`, `.html` | Formatter. Rewrites layout                       |
+| markdownlint-cli2 | `.md`                                                                                    | Linter. Reports structure a formatter cannot fix |
+| ruff              | `.py`                                                                                    | Formatter and linter in one                      |
 
 They do not overlap. Ruff owns Python, Prettier owns everything else it supports, and markdownlint is configured with every Prettier-owned rule disabled so the two cannot fight.
 
@@ -28,15 +28,15 @@ ESLint is deliberately out of scope.
 
 Under `~/local/documents` unless noted. `temp/aidlc-workflows` is a vendored third-party clone and is excluded.
 
-| Repo | Prettier covers | Gets |
-| --- | --- | --- |
-| `global_workflows` | md, json, jsonc | Prettier, markdownlint |
-| `media-dev` | md | Prettier, markdownlint |
-| `network-infra` | md | Prettier, markdownlint |
-| `shop-system` | md | ruff, Prettier, markdownlint |
-| `denning_and_outdoorsing/denning_and_outdoorsing_build` | md | Prettier, markdownlint |
-| `~/local/dotfiles` | md, json, yml | Prettier, markdownlint |
-| `field-notes-rusty` | ts, mjs, json, md | Prettier, markdownlint |
+| Repo                                                    | Prettier covers   | Gets                         |
+| ------------------------------------------------------- | ----------------- | ---------------------------- |
+| `global_workflows`                                      | md, json, jsonc   | Prettier, markdownlint       |
+| `media-dev`                                             | md                | Prettier, markdownlint       |
+| `network-infra`                                         | md                | Prettier, markdownlint       |
+| `shop-system`                                           | md                | ruff, Prettier, markdownlint |
+| `denning_and_outdoorsing/denning_and_outdoorsing_build` | md                | Prettier, markdownlint       |
+| `~/local/dotfiles`                                      | md, json, yml     | Prettier, markdownlint       |
+| `field-notes-rusty`                                     | ts, mjs, json, md | Prettier, markdownlint       |
 
 Out of scope. Do not touch:
 

@@ -31,6 +31,6 @@
     // Repeated subsection names under different parents are deliberate
     // structure - "Custom addendum" appears under both Python and SQL in
     // /code-guide. Siblings still may not collide.
-    "MD024": { "siblings_only": true }
-  }
+    "MD024": { "siblings_only": true },
+  },
 }
