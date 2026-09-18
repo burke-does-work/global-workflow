@@ -4,6 +4,18 @@ Key decisions and the reasoning that forced them. Entries are immutable. A rever
 
 ---
 
+## 2026-09-17 - Formatters installed per repo rather than invoked ad hoc
+
+Rolling the formatter and linter across every repository forced a question the original adoption did not have to answer: where the tools come from. Running them through `npx` with no manifest resolves whatever npm offers that day, so two machines, or the same machine a month apart, can format the same file differently. The editor is the sharper version of the problem, because the VS Code Prettier extension resolves a repo-local copy when one exists and falls back to its own bundled version when it does not, which puts format-on-save and the `## Verify` command on different builds without saying so.
+
+Prettier and markdownlint are therefore local dev dependencies, installed with `--save-exact`, in every repository the workflow covers. The check is reproducible, and the editor and the CLI resolve the same build by construction.
+
+Rejected: `npx --yes prettier@3`, which pins only the major version and leaves the editor free to differ. Rejected: a single shared install outside the repositories, which does not travel with a clone.
+
+Downside accepted: `package.json`, a lockfile and `node_modules` in repositories that hold nothing but prose. Six of the seven repositories in scope are knowledge repositories, so this is the common case rather than the exception. Reproducibility was judged worth the clutter, and `.gitignore` keeps `node_modules` out of history.
+
+---
+
 ## 2026-09-17 - Formatter and linter split, and records kept separate from design
 
 Enforcing the table style in `/style-guide` required a formatter: `MD060` in aligned mode detects misalignment and has no fixer, so the check failed and stayed failed over table whitespace. Prettier had been rejected earlier for reflowing prose, and a ninety-line alignment script was written instead. That script was a narrow rebuild of Prettier, and `proseWrap: "preserve"` removes the original objection entirely.
