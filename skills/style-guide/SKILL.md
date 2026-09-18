@@ -25,6 +25,10 @@ Everything below is applied by hand. No tool checks it.
   Capitalize only the first word, or a word after a dash or colon.
   - Examples: "Publishing workflow"; "Image handling and path management".
 
+## Wrapping
+
+Do not hard-wrap prose in Markdown: keep each paragraph and list item on one source line, and let the editor or renderer wrap it visually.
+
 ---
 
 ## Numbering and lists
