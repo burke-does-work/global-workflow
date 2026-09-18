@@ -208,7 +208,7 @@ Each slice's check is the same: **every command in that repo's `## Verify` secti
 - `Chore: Ignore the formatting commit in blame`
 - Also in commit one: correct `## Verify` in `README.md` to `--check .`, rewrite the paragraph at `README.md:39` so it does not describe Prettier's scope in markdown-only terms, and add `node_modules/` to `.gitignore`.
 - Markdown and one `.jsonc`, and it is the repo the plan lives in, so a mistake is visible immediately. Establishes the config files every later slice copies, and is the first real diff the `proseWrap: "preserve"` setting is tested against.
-- `(done)` / reviewed:
+- **(done)** / reviewed:
 
 ### 2. `dotfiles` - editor and CLI parity
 
@@ -217,7 +217,7 @@ Each slice's check is the same: **every command in that repo's `## Verify` secti
 - That file is symlinked into the active VS Code profile, so the change takes effect live. `config/Code/global/settings.json`, which is symlinked into the default profile, carries no Prettier configuration at all - decide whether to mirror the change there or leave the default profile without Prettier.
 - Separate from slice 7 because it is editor configuration, not repo tooling, and it must land before the bulk of the repos are formatted.
 - Check: in `global_workflows`, the only repo carrying `.prettierrc` at this point, save a `.md` and a `.json` file and confirm format-on-save fires on both. Confirm Prettier stays inert in a repo without a `.prettierrc`. TypeScript cannot be checked here - no repo in scope has both a `.prettierrc` and a `.ts` file until slice 8, which carries that confirmation.
-- `(done)` / reviewed:
+- **(done, editor check outstanding)** / reviewed:
 
 ### 3. `media-dev`
 
@@ -226,7 +226,7 @@ Each slice's check is the same: **every command in that repo's `## Verify` secti
 - `Chore: Format the repository with Prettier`
 - `Chore: Ignore the formatting commit in blame`
 - First repo needing a `.gitignore` created from scratch.
-- `(done)` / reviewed:
+- **(done)** / reviewed:
 
 ### 4. `network-infra`
 
@@ -234,7 +234,7 @@ Each slice's check is the same: **every command in that repo's `## Verify` secti
 - `Chore: Format the repository with Prettier`
 - `Chore: Ignore the formatting commit in blame`
 - Second repo needing a `.gitignore` created. First repo with an `archive/` directory, so it is where the exclusion is observed working.
-- `(done)` / reviewed:
+- **(done)** / reviewed:
 
 ### 5. `shop-system`
 
@@ -244,7 +244,7 @@ Each slice's check is the same: **every command in that repo's `## Verify` secti
 - Adds ruff to the procedure for the first time. Has a `.gitignore` already, and gains its first declared `## Verify` check, which `DESIGN.md` says a Python project should already have.
 - Only 5 Python files, and no JSON that Prettier will touch - all 21 are excluded as fixtures, cache, archive or tool-local. In practice this slice is ruff over 5 files and Prettier over markdown.
 - Run `uv run pytest` after the formatting commit as well as the `## Verify` commands. Ruff reformatting the source is a real change to code, even at this size.
-- `(done)` / reviewed:
+- **(done)** / reviewed:
 
 ### 6. `denning_and_outdoorsing_build`
 
@@ -254,7 +254,7 @@ Each slice's check is the same: **every command in that repo's `## Verify` secti
 - The large markdown one, and the reason the formatting commit is kept separate. Low risk despite the size.
 - This repo has a root `PHILOSOPHY.md`, so read it in full before starting the slice, per the global rules.
 - `scratch.md` is excluded by the root `.gitignore` alone, not by `.prettierignore`. Prettier reads that file by default, so it should be untouched; confirm it after the formatting commit.
-- `(done)` / reviewed:
+- **(done)** / reviewed:
 
 ### 7. `dotfiles` - repository tooling
 
@@ -264,7 +264,7 @@ Each slice's check is the same: **every command in that repo's `## Verify` secti
 - `Chore: Ignore the formatting commit in blame`
 - 13 JSON, 9 markdown and 1 YAML file. The TOML, shell, Lua and extensionless config files are untouched. `karabiner.json` and `lazy-lock.json` are excluded as machine-managed.
 - Watch that reformatting `config/Code/**` and `config/claude/**` does not disturb live tool behaviour; these files are read by running applications.
-- `(done)` / reviewed:
+- **(done)** / reviewed:
 
 ### 8. `field-notes-rusty`
 
@@ -276,7 +276,7 @@ Each slice's check is the same: **every command in that repo's `## Verify` secti
 - Check `deploy/` before the formatting commit. It is not gitignored and holds a systemd unit and a runtime `package.json`.
 - Carries the TypeScript confirmation deferred from slice 2: save a `.ts` file and confirm format-on-save fires and produces no diff the CLI would not.
 - Run `npm run test:final` after the formatting commit, not only the `## Verify` block. It chains the build, `scripts/check-code.mjs` and five test suites. Prettier rewriting 43 source files is the one place in this plan where a formatter can break something that still passes a format check. `check-code.mjs` enforces no formatting rules of its own, so there is nothing for Prettier to contradict.
-- `(done)` / reviewed:
+- **(done)** / reviewed:
 
 ### 9. `global_workflows` - correct the records
 
@@ -284,8 +284,52 @@ Each slice's check is the same: **every command in that repo's `## Verify` secti
 - `ADR.md:11` reads "Prettier formats and markdownlint lints, wherever markdown lives." That is the origin of the markdown-only scoping. Edit the sentence in place so it states that Prettier covers every file type it supports and markdownlint covers markdown. Leave the rest of the entry as written.
 - `DESIGN.md` "Setup" names only ruff for a new Python project, which contradicts the consistency objective.
 - `README.md:16` points at `docs/design.md`, but the file now sits at the root as `DESIGN.md`.
+- `templates/ruff-pyproject.toml` gains the `archive/` exclusion that `shop-system` needed, so a new project starts with it.
 - Last, because it describes what the rollout established.
-- `(done)` / reviewed:
+- **(done)** / reviewed:
+
+---
+
+## Deviations
+
+Decisions taken during implementation that changed what this plan described. Input to the close-out reconcile.
+
+**Approved by the human mid-implementation:**
+
+- **All VS Code profiles, not one.** Slice 2 left mirroring the change into `config/Code/global/settings.json` as an open question. Answered: change every profile. Both files now carry the same per-language blocks.
+- **Per-language blocks rather than a global default formatter.** Not specified either way. Chosen so ruff keeps Python and so types Prettier cannot parse are never handed to it.
+- **The npm audit advisory is accepted, not fixed.** `markdownlint-cli2` pulls in `smol-toml`, which carries a high-severity DoS advisory against malformed TOML. The only remedy npm offers is a downgrade to `markdownlint-cli2@0.21.0`. Declined: dev dependency, run locally, on the repo's own files.
+- **`MD036` stays on, and content gains punctuation instead.** One true positive in `media-dev/README.md`. Resolved by adding a full stop, because the rule only fires on a standalone bold line with no terminal punctuation - which is exactly the heading-versus-sentence distinction wanted. No config change, so all repos keep an identical `.markdownlint-cli2.jsonc`.
+
+**Taken by the agent, within the plan's intent:**
+
+- **A `workflow-rollout` branch in every repo.** The plan named no branch outside `global_workflows`. One per repo, so nothing lands on `main`.
+- **Ruff excludes `archive/`.** The archive decision was written for Prettier and markdownlint and never carried into the ruff block. Without it, `shop-system` reported 108 errors, 54 of them star-import warnings from retired `build123d` code where star imports are idiomatic. With it, 5. **This leaves `templates/ruff-pyproject.toml` out of step with what `shop-system` now carries** - the template needs the same exclusion, which is not yet done.
+- **`.pytest_cache/` excluded in `shop-system`.** pytest hides its cache with a nested `.gitignore`, which Prettier does not read. First practical instance of the nested-gitignore constraint recorded in Decisions.
+- **Bare code fences tagged rather than `MD040` disabled.** Five in `network-infra`, three in `shop-system`, all plain text, shell, or URLs. Consistent with the `MD036` precedent: fix the content, keep the rule.
+- **The plan itself committed as a `Docs:` commit** ahead of slice 1, so slice 1's `Build:` commit holds only config and dependencies.
+- **`shop-system`'s `Build:` commit amended** rather than adding a fourth commit, when the ruff and pytest-cache exclusions were discovered after it had landed. Nothing was pushed, so the amend is local.
+
+**Approved by the human during slices 6 to 9:**
+
+- **Hard-wrapped prose removed everywhere, not just where noticed.** `/style-guide` gained a rule against hard-wrapping mid-plan. 888 line breaks joined in `denning_and_outdoorsing_build` and 33 in `dotfiles`, verified by comparing per-file word counts before and after: none changed.
+- **The dead `markdownlint.config` block removed** from the VS Code settings, which configured an extension that is not installed.
+- **`check-code.mjs` file limit recalibrated, 400 to 450**, against Prettier-formatted source. The old number measured hand-wrapped code; the same modules grew about 1.45x on formatting with nothing added. It still failed both files, which is what sent the work to the code.
+- **`plugin.ts` and `store.ts` split** rather than the limit raised until they passed. 618 to 152 and 541 to 402, eight new modules, public surface unchanged, 33 tests passing before and after.
+
+**Taken by the agent, within the plan's intent:**
+
+- **The setext repair in `denning_and_outdoorsing_build` was committed separately** from the formatting, so 185 content fixes are readable without 380 lines of table padding around them.
+- **`templates/ruff-pyproject.toml` gained the `archive/` exclusion** in slice 9, closing the gap the `shop-system` change opened.
+
+**A mistake worth recording, because the plan's own procedure caused it:**
+
+- **Tool order matters, and the plan had it wrong.** The procedure said format, then lint in fix mode. In `denning_and_outdoorsing_build` that stripped the terminal punctuation from 50 paragraphs, because `markdownlint --fix` applies `MD026` to anything it parses as a heading, and 185 paragraphs were being mis-parsed as setext headings. Both checks passed on the damaged result. Caught by reading the diff, fixed by resetting and re-running with the blank-line repair first. **Any repo with mis-parsed headings has the same trap: repair the parse before running a fixer, and scan the diff for lost punctuation rather than trusting the checks.**
+
+**Not a deviation, but outstanding:**
+
+- Slice 2's editor check cannot be performed by an agent. Format-on-save behaviour in VS Code needs the human. The TypeScript half is now testable, since `field-notes-rusty` has a `.prettierrc`.
+- `scratch.md` in `denning_and_outdoorsing_build` is gitignored, so the first pass's `MD026` edits to it could not be reverted with the rest. Untracked and disposable, but not restored.
 
 ---
 
