@@ -8,7 +8,7 @@ Key decisions and the reasoning that forced them. Entries are immutable. A rever
 
 Enforcing the table style in `/style-guide` required a formatter: `MD060` in aligned mode detects misalignment and has no fixer, so the check failed and stayed failed over table whitespace. Prettier had been rejected earlier for reflowing prose, and a ninety-line alignment script was written instead. That script was a narrow rebuild of Prettier, and `proseWrap: "preserve"` removes the original objection entirely.
 
-Prettier formats and markdownlint lints, wherever markdown lives. Adopting the formatter made the linter config smaller rather than larger, because every overlapping rule comes out to stop the two fighting. Ruff plays the same role for Python, scoped to mechanical rules so that anything needing judgment stays in `/code-guide` and the review passes.
+Prettier formats every file type it supports and markdownlint lints markdown, wherever either lives. Adopting the formatter made the linter config smaller rather than larger, because every overlapping rule comes out to stop the two fighting. Ruff plays the same role for Python, scoped to mechanical rules so that anything needing judgment stays in `/code-guide` and the review passes.
 
 Rejected: the hand-written alignment script. Rejected: excluding markdownlint from Python projects on toolchain-sprawl grounds, which contradicted the consistency objective and left nine markdown files unlinted in `shop-system`.
 

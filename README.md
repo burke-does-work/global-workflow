@@ -13,7 +13,7 @@ Where a project conflicts with anything here, the project decision wins for that
   Symlinked directly to each tool's global instruction file, currently `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`, so it loads at the start of every session.
   Covers context and philosophy, ownership, communication style, command and approval behavior, the development workflow, and close-out.
 - `ADR.md` - key design decisions and the reasoning that forced them. Immutable entries, newest at the top.
-- `docs/design.md` - the development workflow specification: the project shape it assumes, the portability constraints it satisfies, and what is deliberately out of scope.
+- `DESIGN.md` - the development workflow specification: the project shape it assumes, the portability constraints it satisfies, and what is deliberately out of scope.
 - `skills/` - reference guides that are not auto-loaded.
   Symlinked to each tool's user skill directory, currently `~/.claude/skills` and `~/.agents/skills`.
   An AI system reads the relevant file when a task calls for it.

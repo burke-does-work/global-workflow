@@ -24,9 +24,10 @@ What a new project needs before the first cycle.
 
 - `pyproject.toml` via `uv init`, with `ruff` added as a dev dependency.
 - The ruff block copied from `templates/ruff-pyproject.toml`. Settings are standardised there and live per project, because ruff's user-level config is a fallback that any project config shadows entirely, and a cloned repo needs its config to travel with it.
+- Prettier and markdownlint as local dev dependencies, pinned exactly, with `.prettierrc`, `.prettierignore` and `.markdownlint-cli2.jsonc` copied from this repo. Every project gets them, not only markdown-only ones: Prettier covers every file type it supports, and a Python project still holds markdown, JSON and YAML.
 - `.gitignore`, and `.env` alongside a committed `.env.example` where there are secrets.
 - `branch_work/`, empty.
-- `README.md` with a `## Verify` section naming the check. At minimum `uv run ruff check .`
+- `README.md` with a `## Verify` section naming the check. At minimum `npx prettier --check .`, `npx markdownlint-cli2`, and `uv run ruff check .`
 
 ---
 

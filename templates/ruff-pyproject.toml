@@ -12,6 +12,11 @@
 # Matches the line length in /code-guide, which owns the convention.
 line-length = 88
 
+# Retired work, kept because it still runs. Not held to current conventions,
+# and excluded from Prettier and markdownlint on the same grounds. Drop this
+# line in a project with no archive/ directory.
+exclude = ["archive/"]
+
 [tool.ruff.lint]
 select = [
     # Ruff's defaults: import placement, statement and syntax errors, and
