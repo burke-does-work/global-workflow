@@ -1,5 +1,5 @@
 {
-  "name": "global_workflows",
+  "name": "global_workflow",
   "version": "1.0.0",
   "description": "The central source of truth for my global rules, voice, and conventions. Two audiences: AI systems that read these files during a session, and me, as the reference I treat as canonical.",
   "main": "index.js",
