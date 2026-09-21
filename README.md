@@ -12,12 +12,13 @@ Where a project conflicts with anything here, the project decision wins for that
 - `AGENTS.md` - the working relationship and AI behavior contract.
   Symlinked directly to each tool's global instruction file, currently `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`, so it loads at the start of every session.
   Covers context and philosophy, ownership, communication style, command and approval behavior, the development workflow, and close-out.
-- `ADR.md` - key design decisions and the reasoning that forced them. Immutable entries, newest at the top.
-- `DESIGN.md` - the development workflow specification: the project shape it assumes, the portability constraints it satisfies, and what is deliberately out of scope.
 - `skills/` - reference guides that are not auto-loaded.
   Symlinked to each tool's user skill directory, currently `~/.claude/skills` and `~/.agents/skills`.
   An AI system reads the relevant file when a task calls for it.
 - `templates/` - configuration blocks to copy into new projects.
+- `docs/ADR.md` - key design decisions and the reasoning that forced them. Immutable entries, newest at the top.
+- `docs/DESIGN.md` - the development workflow specification: the project shape it assumes, the portability constraints it satisfies, and what is deliberately out of scope.
+- `docs/WORK_LOG.md` - contextual history of past sessions. Written on request, not a standing record.
 - `README.md` - this index.
 
 ---

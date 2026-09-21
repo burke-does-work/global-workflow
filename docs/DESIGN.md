@@ -33,11 +33,11 @@ What a new project needs before the first cycle.
 
 ## Working files
 
-`SPEC.md`, `PLAN.md` and `STATE.md` live together in `branch_work/`, which keeps the project root for permanent files and `docs/` for permanent design documents.
+`SPEC.md` and `PLAN.md` live together in `branch_work/`, ephemeral and disposed at close-out.
 
 A document in draft carries `.draft` in its name: `PLAN.draft.md`, `SPEC.draft.md`. On approval it is renamed and a dated approval line is written inside. Revising an approved document renames it back. The rename tracks scope, not text: if the document now commits to something different it goes back to draft, and if it only reads differently it does not.
 
-Permanent files stay at root: `README.md`, `ADR.md`, `WORK_LOG.md`, `pyproject.toml`, and the env files.
+Root holds `README.md`, `pyproject.toml`, and the env files - the entry point and what tooling expects to find there by convention. `docs/` holds what's equally permanent but read by a human or an agent following a pointer, not auto-discovered: `ADR.md`, `DESIGN.md`, `WORK_LOG.md`.
 
 ---
 
@@ -90,7 +90,7 @@ Practice has converged on spec, plan, tasks, implement as files rather than sess
 
 - **GitHub Spec Kit** - MIT licensed, installs into an existing agent rather than replacing it. Workflow is specify, plan, tasks, implement, converge. <https://github.com/github/spec-kit>
 - **AWS Kiro** - an IDE built around specs as the unit of work, with hooks that watch file events and flag code drifting from `requirements.md`.
-- **`ai-dlc`** - over-engineered for this purpose, but two ideas carry: determinism belongs in tools and hooks, knowledge in agents, judgment with humans; and a state file holds progress in tracked files rather than session memory.
+- **`ai-dlc`** - over-engineered for this purpose, but one idea carries: determinism belongs in tools and hooks, knowledge in agents, judgment with humans.
 
 Spec Kit is corroboration rather than supply. Two pieces here were arrived at independently and match it: one place for project rules consulted by every command, which `AGENTS.md` already does, and a dependency-ordered breakdown between plan and implement. The difference is that Spec Kit orders tasks without tying one to a commit, so it has no equivalent of the size test.
 
@@ -105,3 +105,4 @@ One mechanical constraint found while evaluating enforcement: Claude checks file
 - Security beyond `.env` hygiene.
 - Multi-developer review, approval gates, or branch protection.
 - Copying `ai-dlc`. Its useful idea is that the spec is the durable artifact; its ceremony is the part rejected.
+- A dedicated branch-position file (`STATE.md`), `ai-dlc`'s other idea. Tried, then dropped - see `ADR.md`.

@@ -137,14 +137,6 @@ Plans come at two weights.
 
 Challenge on edge cases at either weight.
 
-### State
-
-`STATE.md` holds current position - not the target (`SPEC.md`) or the route (`PLAN.md`), but what's done, in progress, and diverged. Overwritten, not appended: a superseded position has no value.
-
-No request needed - position is observation, not decision, so the AI system keeps it current. Update at every commit, riding along rather than triggering one, and at any unpaused stop, so the next session never reconstructs position from memory that isn't there.
-
-No decisions or rationale - those belong in `SPEC.md`, on the human's schedule.
-
 ### Implement and verify
 
 - If a blocker is encountered, stop and report before proceeding - do not work around it without approval.
@@ -181,7 +173,7 @@ Apply `/style-guide` conventions to entries in both.
 
 ### Design records
 
-When `ADR.md` exists in the project root, it holds the key design decisions that shaped the project. It is a reference document, not a changelog. The name borrows the acronym, not the ceremony - one file, entries at the top, no file per decision and no status fields.
+When `ADR.md` exists in `docs/`, it holds the key design decisions that shaped the project. It is a reference document, not a changelog. The name borrows the acronym, not the ceremony - one file, entries at the top, no file per decision and no status fields.
 
 The human requests additions as needed. Do not ask whether something belongs here unless a `SPEC.md` is being retired - at retirement, propose an entry for each decision it holds that is not already recorded.
 
@@ -191,7 +183,7 @@ Keep an entry to the decision itself - the context that forced it, what was chos
 
 ### Work log
 
-When `WORK_LOG.md` exists in the project root, write a log entry when the human requests one. That is the only trigger.
+When `WORK_LOG.md` exists in `docs/`, write a log entry when the human requests one. That is the only trigger.
 
 `WORK_LOG.md` is contextual history. It records what was thought at the time and carries no standing decision - a past entry describing a choice is not a live ruling, and its conclusions are not settled unless they were settled elsewhere. Durable decisions live in `ADR.md` and `README.md`.
 

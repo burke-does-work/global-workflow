@@ -4,6 +4,12 @@ Key decisions and the reasoning that forced them. Entries are immutable. A rever
 
 ---
 
+## 2026-09-21 - Dropped STATE.md as a workflow file
+
+Added to hold branch position across session gaps without committing just to save. The one real sample reviewed showed a different pattern: the position content it held mostly duplicated `git log`/`git status` and the SPEC's own inline status markers, the one fact neither covered had already gone stale without anyone catching it, and the file kept absorbing decisions and process guidance it was explicitly barred from holding. Tightening its wording twice did not hold the line, because the cause was structural - it was the one file open for unrestricted writing, so anything with nowhere else sanctioned to go ended up there regardless of fit.
+
+Dropped rather than narrowed further. Position is read fresh each session from git and from the SPEC's own status markers; nothing is stored in a standing summary. Downside accepted: a mid-slice interruption with no self-describing SPEC/PLAN convention in place has less to resume cold from than a snapshot file nominally promised, though that promise was not being kept reliably either. This retires the second idea `DESIGN.md` had credited to `ai-dlc`; the first, that determinism belongs in tools rather than agents, stands unchanged.
+
 ## 2026-09-17 - Formatters installed per repo rather than invoked ad hoc
 
 Rolling the formatter and linter across every repository forced a question the original adoption did not have to answer: where the tools come from. Running them through `npx` with no manifest resolves whatever npm offers that day, so two machines, or the same machine a month apart, can format the same file differently. The editor is the sharper version of the problem, because the VS Code Prettier extension resolves a repo-local copy when one exists and falls back to its own bundled version when it does not, which puts format-on-save and the `## Verify` command on different builds without saying so.
