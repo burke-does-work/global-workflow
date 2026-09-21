@@ -130,7 +130,7 @@ See `/spec` for detail on spec session behavior.
 
 Plans come at two weights.
 
-- Lighter, quick-turnaround work that is still multi-step: a plan in the prompt, covering intent, scope, approach, and the checks that prove it. No tracked file, and `/buildplan` is not loaded.
+- Lighter, quick-turnaround work that is still multi-step: a plan in the prompt, covering intent, scope, approach, and the checks that prove it. Often held in the harness's own plan mode, but the vehicle isn't the point - no tracked file, and `/buildplan` is not loaded. "In-prompt," "prompt," or "simple plan" from the human names this weight outright, whichever vehicle ends up holding it.
 - More complex work: `/buildplan` and `PLAN.md`. The skill carries slice structure, sizing, and the approval and handoff rules.
 
 `PLAN.md` holds the procedural work to get from the current state to the target state - tasks, steps, check results, final human validation list, and implementation notes. The AI system writes it directly, with iterative feedback.
