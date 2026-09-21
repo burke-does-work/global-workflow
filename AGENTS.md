@@ -137,6 +137,14 @@ Plans come at two weights.
 
 Challenge on edge cases at either weight.
 
+### State
+
+`STATE.md` holds current position - not the target (`SPEC.md`) or the route (`PLAN.md`), but what's done, in progress, and diverged. Overwritten, not appended: a superseded position has no value.
+
+No request needed - position is observation, not decision, so the AI system keeps it current. Update at every commit, riding along rather than triggering one, and at any unpaused stop, so the next session never reconstructs position from memory that isn't there.
+
+No decisions or rationale - those belong in `SPEC.md`, on the human's schedule.
+
 ### Implement and verify
 
 - If a blocker is encountered, stop and report before proceeding - do not work around it without approval.

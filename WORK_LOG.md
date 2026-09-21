@@ -1,5 +1,25 @@
 # Work Log
 
+## 2026-09-21 - Renaming the local folder, and giving STATE.md a job
+
+Renamed the local folder from `global_workflows` to `global_workflow`, dropping the plural. The remote had already been `global-workflow` for a while, and the README's own framing is singular throughout - "the central source of truth," not a source of truths - so the local name was the odd one out, not the remote.
+
+The rename touched more than the directory. Four real symlinks pointed at it by absolute path - `~/.claude/CLAUDE.md`, `~/.codex/AGENTS.md`, `~/.claude/skills`, `~/.agents/skills` - and needed relinking after the `mv`. The less obvious find was that two path-keyed Claude Code state stores would have been silently orphaned by a plain move: the `projects` entry in `~/.claude.json`, which carries trust-dialog state and usage stats, and the per-project transcript and memory directory under `~/.claude/projects/`.
+
+Migrating the `.claude.json` key went wrong once. I popped the old plural key and assigned its value straight onto the new singular key, without checking whether a singular entry already existed from before the folder was ever renamed to plural. One did. I found it by comparing the app's own periodic backup snapshots by timestamp, tracing exactly when the singular key first appeared against when my migration ran, and cross-checking `lastSessionId` on both keys until the history made sense. Nothing of substance was actually lost - neither entry carried a persisted tool allowlist - but the shape of the mistake is worth keeping: renaming a path that other systems key on breaks things invisibly, and the break only surfaces if you go looking for it.
+
+Verified with the repo's own declared check, `prettier --check` and `markdownlint-cli2`, from the new path, then closed the session and reopened cold to confirm `AGENTS.md` still loaded through the relinked symlink.
+
+Separately, picked back up the long-running friction of re-litigating SPEC across sessions. The first framing I reached for, anchoring a state update to slice commits, did not hold, since most of the re-litigating happens upstream in `SPEC.md`, before there is a `PLAN.md` to commit against. Checked whether the spec skill already accounted for this before assuming a gap: it does. `skills/spec/SKILL.md` already names "Design decisions" and "Design history" sections whose stated job is preventing exactly this. So the missing piece was never the mechanism, it was the crystallization gate - a decision gets settled in conversation but only gets written to `SPEC.md` on explicit request, and session close only asks for a spoken one-line recap rather than a written update. A decision can be closed twice over, once in dialogue and once in the recap, and still not exist in the file when the next session opens cold.
+
+Decided not to loosen that gate. Controlling when SPEC gets written is intentional - it stops the agent from taking a still-open decision and writing it down as though it were settled. Re-litigation is being treated as a process problem that is already improving on its own, not something this workflow needs to fix.
+
+That reframing cleared up what `STATE.md` was actually for. It was never in competition with `SPEC.md`'s job - the spec skill already bars implementation notes and "what was done versus what should be" from a spec, so branch position could never legitimately live there no matter how well decisions get captured. `STATE.md` holds position: what is done, in progress, and already diverged - not rationale.
+
+Checked `ADR.md` and `DESIGN.md` before writing anything, on the chance this was already recorded. Neither documents `STATE.md`'s purpose or update timing, only its file location and one passing mention - which is correct, not a gap, since neither document states `SPEC.md`'s or `PLAN.md`'s purpose either. That split belongs to `AGENTS.md`.
+
+Landed on the update rule: no request needed, unlike `SPEC.md`, because position is an observation rather than a decision - the agent keeps it current on its own. It updates at every commit, riding along rather than triggering one, and at any stop or pause without a commit, so a cold session never has to reconstruct position from memory that was never written down. Wrote this into a new `### State` section in `AGENTS.md`, between `### Plan` and `### Implement and verify`. Checked `DESIGN.md` again against the finished text and it needs no change - everything settled this session is behavior, which stays out of a structural document.
+
 ## 2026-09-17 - Branch review, close-out, and the coherence gap
 
 Came back to a branch committed and pushed but never signed off. Rather than approve it whole, I ran a file-by-file review ordered by dependency, with the markdownlint config first because it is the instrument every other slice was measured against. That ordering came out of the plan's own gate logic, and it held: reviewing the standard last would have meant seven checks ran against something unreviewed.
