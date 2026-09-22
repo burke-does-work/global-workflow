@@ -4,6 +4,16 @@ Key decisions and the reasoning that forced them. Entries are immutable. A rever
 
 ---
 
+## 2026-09-21 - Brownfield boundary-drawing belongs to /buildplan, not /spec
+
+Most work here is brownfield, and `/spec` kept defaulting to a greenfield read - silence about the existing system got treated as undefined rather than preserved, forcing either a full re-description of the system or the human drawing function-level boundaries by hand, neither of which a spec should require.
+
+Split by document: `/spec` states the delta framing only - absence means unchanged, named at the grain that matters conceptually - and hands off exactly what needs to change to `/buildplan`, which already reads the code before proposing a plan and is where the boundary actually gets drawn. Current state is that plan's benchmark for anything it doesn't name.
+
+Rejected: a granular `Scope` section inside the SPEC, which solves the ambiguity by turning a conceptual document into an implementation ledger; and the human drawing it directly, which needs codebase familiarity that isn't their strength. Downside accepted: a boundary drawn wrong surfaces at plan time, not spec time - caught by review and the existing stop-on-undescribed-change condition rather than guaranteed upfront.
+
+---
+
 ## 2026-09-21 - Dropped STATE.md as a workflow file
 
 Added to hold branch position across session gaps without committing just to save. The one real sample reviewed showed a different pattern: the position content it held mostly duplicated `git log`/`git status` and the SPEC's own inline status markers, the one fact neither covered had already gone stale without anyone catching it, and the file kept absorbing decisions and process guidance it was explicitly barred from holding. Tightening its wording twice did not hold the line, because the cause was structural - it was the one file open for unrestricted writing, so anything with nowhere else sanctioned to go ended up there regardless of fit.

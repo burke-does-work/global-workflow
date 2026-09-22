@@ -23,6 +23,7 @@ Nothing enforces this. The backstop is git: plan from a clean tree, and the chan
 - Read the spec. It is the target state and the plan is the route to it.
 - Read the project `README.md`, including its `## Verify` section. That names the check the slices have to satisfy.
 - Research the code before proposing anything. Dependency order comes from what is there, not from what sounds reasonable.
+- Against an existing project, this research is also where the touched-versus-preserved boundary gets drawn precisely - the spec named it conceptually; this is where it gets named exactly. Genuine uncertainty here is exactly the kind a slice already states and lets the human react to, not a reason to guess.
 
 ---
 
@@ -50,6 +51,8 @@ Nothing else. No intent line separate from the subject - at this size the subjec
 Individual slices will be reviewed by human after the final agent verification, unless there's a stop work. Include the list of checks required by the human (files and/or behavior) to guide human review.
 
 Overall coherence is checked there too - whether the finished work still serves the goal, not only whether each slice met its check. The review passes and the slice checks are local and cannot see it. This is on top of the agent's own verification, not in place of it.
+
+Current state is the benchmark for anything the plan doesn't name - existing behavior continuing unchanged next to a slice's edit is not a defect to flag. It only becomes one if the spec's requirement implies it should have changed and the plan missed it, which is a plan gap, not the code being wrong.
 
 ---
 

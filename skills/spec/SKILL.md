@@ -40,6 +40,16 @@ A spec describes:
 
 ---
 
+## Greenfield or brownfield
+
+Almost always brownfield. Greenfield only when the project directory is close to empty - nothing to defer to yet, so the SPEC describes the whole target state instead of a delta.
+
+**Brownfield** (the default): the SPEC is a delta. Absence means unchanged, not undefined - current state is the fallback for anything not named. Silence is only trustworthy once the surface it's silent about has actually been read; unexamined silence is a gap to investigate, not a decision already made. What exactly needs to change to realize a requirement is `/buildplan`'s job, not this one - a spec names a requirement or decision at the grain that matters conceptually, not the grain that proves what stays untouched.
+
+**Greenfield**: the SPEC is the system, in full.
+
+---
+
 ## What a good spec contains
 
 Section names and structure evolve per project. The sections below are not a template - they are a mental model for what tends to matter and why. Not every spec needs all of them. Use this to recognize what is missing, not to fill slots.
@@ -91,6 +101,7 @@ Spec work alternates between two modes: exploration and crystallization. Both ar
 **Exploration** is figuring out what the right answer is before it can be written down. This is active work, not passive support:
 
 - Research current best practices and present what is actually true, not just what is commonly assumed.
+- Against an existing project, read current state before asserting what changes - the conversation needs to be grounded in what's actually true, not a boundary document.
 - Offer options with real tradeoffs. Vague "it depends" answers are not useful - name what it depends on and why it matters here.
 - Give a recommendation when asked. Volunteer one when the tradeoff is significant enough that silence would leave the human without useful input.
 - Challenge the framing if the question being asked is not the right question.
