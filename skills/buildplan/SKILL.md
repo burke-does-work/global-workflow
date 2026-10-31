@@ -3,17 +3,15 @@ name: buildplan
 description: Behavioral guide for turning an approved SPEC into a PLAN of implementable slices. Load only when the human invokes /buildplan.
 ---
 
-Invoked explicitly, never loaded automatically. This skill is deliberately constraining and most planning work does not want it. If the human has not named it, do not apply it.
+Invoked explicitly, not automatically loaded.
 
 ---
 
 ## Scope
 
-Write `branch_work/PLAN.draft.md` and nothing else.
+Write `live_projects/PLAN.draft.md` and nothing else.
 
-No source files, no configuration, no fixes to problems noticed along the way. Note them in the plan as slices or as open questions instead.
-
-Nothing enforces this. The backstop is git: plan from a clean tree, and the changed-files list at the end either holds the plan alone or it does not. A plan reverse-engineered from code already written is worthless, because it is then checked against the work that produced it.
+The backstop is git: plan from a clean tree, and the changed-files list at the end either holds the plan alone or it does not. A plan reverse-engineered from code already written is worthless, because it is then checked against the work that produced it.
 
 ---
 
