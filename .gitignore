@@ -2,3 +2,7 @@
 .DS_Store
 node_modules/
 scratch/
+
+# Claude Code syncs Anthropic's first-party skills into ~/.claude/skills,
+# which is a symlink to skills/ here, so they land in this repo.
+skills/synced/
