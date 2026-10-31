@@ -14,6 +14,8 @@ Code should be easy to read and manually review.
 - Write beginner/intermediate level Python and SQL code
 - Avoid clever abstractions or complex one-liners
 - Prefer explicit over implicit code
+- Default to inline. A function earns its name by serving more than one context, or by being the seam a test needs - two call sites in one flow is duplication, not modularity
+- Do not extract to shorten a block or to hold an explanation. Rationale goes in a comment above the code
 - Avoid large `lambda` functions. Prefer long-form function definition. But use in pandas to facilitate method chaining
 
 ### Project structure

@@ -29,7 +29,7 @@ The human decides what to act on. A finding that gets rejected is not a failure 
 
 ## The standard
 
-`/code-guide` defines readable for this human. Beginner to intermediate Python and SQL, explicit over implicit, no clever abstractions or complex one-liners. Measure against that, not against what is readable in general.
+`/code-guide` defines readable for this human. Beginner to intermediate Python and SQL, explicit over implicit, inline by default, no clever abstractions or complex one-liners. Measure against that, not against what is readable in general.
 
 Read `/code-guide` before starting so a deliberate house convention is not reported as a problem.
 
@@ -37,10 +37,9 @@ Read `/code-guide` before starting so a deliberate house convention is not repor
 
 ## What to look for
 
-- Abstraction with one caller. A function, class, or module extracted before a second use existed.
+- A jump that does not earn itself. A function, class, or module extracted for one context, or a wrapper that forwards without deciding anything. `/code-guide` sets the inline default; measure against that.
 - Configuration for something that does not vary. Parameters, flags, and settings with one real value.
 - Defensive code past the boundary. `/code-guide` asks for validation on entry and simple logic after it. Repeated checks downstream are the failure it names.
-- Indirection that adds a hop without adding a decision. Wrappers, passthroughs, a layer that only forwards.
 - Generality nobody asked for. Handling cases the spec does not contain.
 - A dependency carrying a small amount of work.
 - Anything the human would have to ask a senior developer with domain expertise to explain. That is the whole test, stated plainly.
