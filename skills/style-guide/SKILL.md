@@ -53,41 +53,39 @@ The purpose is to enable easy refactoring of lists and steps, consistency, and h
 
 ---
 
-## Sections
-
-- Use a horizontal rule (`---`) between sections introduced by a level-two heading (`##`).
-
----
-
 ## Punctuation and symbols
 
-Use ASCII. Unicode typographic characters are awkward to reach on a keyboard and mostly arrive uninvited from editor autocorrect, so turn smart substitution off rather than cleaning up after it.
+### Characters
 
-Watch for the non-breaking space (U+00A0). It is the one violation you cannot see - invisible in a diff, and it breaks search. macOS inserts it on option+space.
+Use ASCII only and no Unicode typographic characters. Turn smart substitution off rather than cleaning up after it.
 
-### Dashes
+Watch for the non-breaking space (U+00A0) since they are invisible in a diff, but it breaks search.
 
-- Joined words and spans: a hyphen, no spaces either side - `well-known`, `10-20`, `Mon-Fri`.
-- A break in a sentence: a hyphen with a space either side. It offsets an aside or stands in for a semicolon.
-- `---` is structural only - the break between sections, and front matter fences. Never punctuation.
+#### Exceptions
 
-### Exceptions
+Use the real character in 3 cases.
 
-Use the real character in two cases.
-
-Where no ASCII form exists:
+1. Where no ASCII form exists:
 
 - Non-Latin scripts.
 - Currency symbols - `£`, `€`, `¥`.
 - The micro sign in unit symbols - `µm`, `µF`.
 
-Where an ASCII form exists but is wrong:
+1. Where an ASCII form exists but is wrong:
 
-- Diacritics in words from languages that use them, common nouns and names alike - `Gemütlichkeit`, `piñata`, `Gödel`. Stripping one misspells the word.
+- Diacritics in words from languages that use them, common nouns and names alike - `Gemütlichkeit`, `piñata`, `Gödel`. Stripping one misspells the word. Doesn't apply where English has naturalized a spelling without the diacritic - `cafe`, `naive`, `uber`.
 
-Where English has naturalized a spelling without the diacritic - `cafe`, `naive`, `uber` - that is an English word rather than a substitution, and the style hierarchy decides it.
+This doesn't reopen cases settled elsewhere: the units table takes `deg C` over the degree sign, and ASCII `'` and `"` over the prime marks.
 
-This does not reopen cases settled elsewhere: the units table takes `deg C` over the degree sign, and ASCII `'` and `"` over the prime marks.
+1. In box diagrams where the purpose is visual representation.
+
+### Sentence breaks, dashes, contractions
+
+- Joined words and spans: a hyphen, no spaces either side - `well-known`, `10-20`, `Mon-Fri`.
+- A break in a sentence: a hyphen (`-`) or double hyphen (`--`) with a space either side. It offsets an aside or stands in for a semicolon.
+- Do not use semicolons.
+- Use contractions.
+- Use a horizontal rule (`---`) between sections introduced by a level-two heading (`##`). `---` is structural only, never punctuation.
 
 ---
 
@@ -98,17 +96,21 @@ Tables suit items compared on shared attributes, where the eye scans down a colu
 - Cells hold fragments, not sentences.
 - Past six columns, split the table or switch to a list.
 
-Detail that outgrows a cell goes in prose above or below the table. Where the content is long throughout, prefer a list.
+Detail that outgrows a cell goes above or below the table.
+
+Where the content is long throughout, prefer a list.
 
 ---
 
 ## Units of measurement
 
-SI units follow NIST SP 811: one space between numeral and unit symbol, no trailing period, no plural suffix.
+SI units follow NIST SP 811:
+
+- One space between numeral and unit symbol.
+- No trailing period.
+- No plural suffix.
 
 SAE units (lb, ft, in, mph) follow the same no-punctuation approach for consistency with SI.
-
-Percentage follows Chicago Manual of Style: attached to the numeral with no space (`50%`).
 
 | Unit            | Symbol | Example                                            |
 | --------------- | ------ | -------------------------------------------------- |
@@ -128,6 +130,8 @@ Percentage follows Chicago Manual of Style: attached to the numeral with no spac
 | Newton-meters   | Nm     | `44 Nm`                                            |
 
 Compound units use a solidus with no surrounding spaces; the space goes before the whole compound: `14 W/m`.
+
+Percentage follows Chicago Manual of Style: attached to the numeral with no space (`50%`).
 
 Dual-unit specs: space before each symbol: `44 lb/20 kg`.
 
