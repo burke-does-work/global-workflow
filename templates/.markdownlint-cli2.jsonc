@@ -1,0 +1,36 @@
+// Markdown linting for this repo.
+//
+// Prettier is the formatter and owns layout - table alignment, list markers,
+// blank lines, horizontal rule style, trailing newline, whitespace. Rules that
+// overlap it are disabled below so the two cannot fight.
+//
+// markdownlint is left with the structural rules no formatter can fix, and it
+// reports rather than repairs.
+//
+// Run with: npx markdownlint-cli2
+{
+  "globs": ["**/*.md"],
+  "ignores": ["scratch/**", "node_modules/**", "archive/**"],
+  "config": {
+    // Owned by Prettier.
+    "MD004": false,
+    "MD009": false,
+    "MD012": false,
+    "MD032": false,
+    "MD035": false,
+    "MD047": false,
+    "MD060": false,
+
+    // Guide sets no line length. Prose does not wrap.
+    "MD013": false,
+    // Guide is silent on inline HTML, which is used occasionally by choice.
+    "MD033": false,
+    // Skills open with front matter and then prose, with no H1 by design, and
+    // their front matter uses `name` rather than `title`.
+    "MD041": false,
+    // Repeated subsection names under different parents are deliberate
+    // structure - "Custom addendum" appears under both Python and SQL in
+    // /code-guide. Siblings still may not collide.
+    "MD024": { "siblings_only": true },
+  },
+}
