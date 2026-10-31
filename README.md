@@ -1,25 +1,31 @@
 # Global Workflow
 
-The central source of truth for my global rules, voice, and conventions.
-Two audiences: AI systems that read these files during a session, and me, as the reference I treat as canonical.
+The central source of truth for workflow across projects.
+
+Two audiences: AI systems and humans.
 
 Where a project conflicts with anything here, the project decision wins for that project, but this repo remains the default.
 
+Note: This project, `global_workflow`, contains both the files and specifications for global workflow, and the global workflow files used to define and manage this project.
+
 ---
 
-## Contents
+## Workflow contents
 
 - `AGENTS.md` - the working relationship and AI behavior contract.
-  Symlinked directly to each tool's global instruction file, currently `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`, so it loads at the start of every session.
-  Covers context and philosophy, ownership, communication style, command and approval behavior, the development workflow, and close-out.
+  - Symlinked directly to each tool's global instruction file so it loads at the start of every session.
+  - Currently symlinked to `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`
+  - Covers context, ownership, communication style, command and approval behavior, and the development workflow.
 - `skills/` - reference guides that are not auto-loaded.
-  Symlinked to each tool's user skill directory, currently `~/.claude/skills` and `~/.agents/skills`.
-  An AI system reads the relevant file when a task calls for it.
+  - Symlinked to each tool's user skill directory.
 - `templates/` - configuration blocks to copy into new projects.
-- `docs/ADR.md` - key design decisions and the reasoning that forced them. Immutable entries, newest at the top.
-- `docs/DESIGN.md` - the development workflow specification: the project shape it assumes, the portability constraints it satisfies, and what is deliberately out of scope.
-- `docs/WORK_LOG.md` - contextual history of past sessions. Written on request, not a standing record.
-- `README.md` - this index.
+
+## Project docs
+
+- `README.md`
+- `docs/ADR.md`
+- `docs/DESIGN.md`
+- `docs/WORK_LOG.md`
 
 ---
 
