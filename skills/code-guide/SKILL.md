@@ -33,6 +33,14 @@ Code should be easy to read and manually review.
 **Line length**: 88
 **Tooling**: Ruff, for both formatting and linting. Where a project runs it, its config is authoritative for whatever it checks and those rules are not restated here. Everything else in this guide is applied by hand.
 
+### Package management
+
+Use `uv` for all package management instead of `pip`. If `uv` isn't installed, then flag for installation.
+
+- Use `uv venv` instead of `python -m venv`
+- Use `uv sync` to install from lock files
+- Use `uv pip install` instead of `pip install`
+
 ### Docstrings (Python)
 
 - Use triple double quotes """ and always write docstrings in multi-line form. The closing """ must be on its own line.

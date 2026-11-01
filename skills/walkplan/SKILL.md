@@ -1,6 +1,7 @@
 ---
 name: walkplan
-description: Human-paced walkthrough of an existing PLAN file; agent writes only on request. Load when the human invokes /walkplan. Not for drafting a plan, and not for autonomous or gated implementation.
+description: Human-paced walkthrough of an existing PLAN file; agent writes only on request. Not for drafting a plan, and not for autonomous or gated implementation.
+disable-model-invocation: true
 ---
 
 A plan session works through an existing PLAN step by step, with the human setting the pace. Look for the relevant PLAN file. If no plan file, then proceed with the plan as it exists in the prompt.

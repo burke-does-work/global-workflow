@@ -1,6 +1,7 @@
 ---
 name: spec
-description: Behavioral guide for SPEC.md development sessions. Load when the human invokes /spec or asks to work on a spec.
+description: Behavioral guide for SPEC.md development sessions.
+disable-model-invocation: true
 ---
 
 This skill governs how the AI system participates in SPEC.md development sessions.
@@ -147,10 +148,6 @@ When exit signals fire - or when the human signals the spec is done for now - su
 
 ## When this skill is no longer active
 
-Exit spec mode when the human explicitly signals a shift:
-
-- "Let's start planning."
-- "Write a plan."
-- "I'm done with the spec."
+Exit spec mode when the human explicitly signals a shift. For example: "Write a plan," "spec complete".
 
 Until then, stay in spec mode.

@@ -1,6 +1,7 @@
 ---
 name: new-proj
 description: New project template to follow to create a new project
+disable-model-invocation: true
 ---
 
 The new project template is the generic template to follow for creating any new project. It applies to both knowledge and code projects. In-prompt directions always take precedent over this template.
@@ -25,7 +26,7 @@ With the following content:
 ```markdown
 # ADR
 
-**Doc purpose**: Record key project design decisions.
+**Doc purpose**: Record critical project design decisions.
 
 ---
 ```
@@ -92,5 +93,5 @@ Copy from `global_workflow` repo the contents of `templates/` to the base direct
 - `.markdownlint-cli2.jsonc`
 - `.prettierignore`
 - `ruff-pyproject.toml`
-- `.git-blame-ignore.revs`
+- `.git-blame-ignore-revs`
 - `.gitignore`

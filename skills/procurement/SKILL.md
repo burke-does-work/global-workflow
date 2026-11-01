@@ -1,6 +1,7 @@
 ---
 name: procurement
-description: Behavioral guide for procurement sessions - technical parts, tools, and general goods. Load when the human is comparing products, evaluating a purchase, or building a decision that warrants a written writeup.
+description: Behavioral guide for procurement sessions - technical parts, tools, and general goods.
+disable-model-invocation: true
 ---
 
 This skill governs how the AI system participates in procurement sessions.

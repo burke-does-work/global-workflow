@@ -1,6 +1,20 @@
 # Design records
 
-Key decisions and the reasoning that forced them. Entries are immutable. A reversed decision is a new entry naming the one it supersedes.
+Critical decisions and the reasoning that forced them. Entries are immutable. A reversed decision is a new entry naming the one it supersedes.
+
+---
+
+## 2026-10-31 - Branches are optional, and any branch merges at close-out
+
+Supersedes the branch and merge parts of "2026-09-17 - Agent commits once per slice, and the merge preserves them." Commits per slice and no squashing still stand.
+
+The work is one person, often running several efforts in parallel. A branch for every effort adds clutter without protecting anyone else's work.
+
+The human decides whether work uses a branch. Where it does, the plan names it, and it merges to `main` at close-out, after SPEC and PLAN are deleted. If `main` has moved, it is merged into the branch only then, so the final merge fast-forwards. Commits are not squashed or rewritten unless the human explicitly directs it.
+
+Rejected: a branch for all plan work, which gets messy with parallel efforts. Merging `main` into the branch during work, which adds a step before the point it's needed.
+
+Downside accepted: work without a branch commits straight to `main`, with parallel efforts sharing one tree. Staging by file name keeps efforts apart, but two efforts changing one file need the human to step in. Conflicts on a branch surface late, at close-out.
 
 ---
 

@@ -1,6 +1,7 @@
 ---
 name: collab
-description: Behavioral guide for open-ended collaborative working sessions. Load when the human invokes /collab.
+description: Behavioral guide for open-ended collaborative working sessions.
+disable-model-invocation: true
 ---
 
 Collab sessions are conversational working sessions with a rough direction and room to explore. Read this before responding to any collab request.

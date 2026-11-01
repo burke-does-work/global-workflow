@@ -1,10 +1,7 @@
 ---
 name: buildplan
-description: Behavioral guide for turning an approved SPEC into a PLAN of implementable slices. Load only when the human invokes /buildplan.
----
-
-Invoked explicitly, not automatically loaded.
-
+description: Behavioral guide for turning an approved SPEC into a PLAN of implementable slices.
+disable-model-invocation: true
 ---
 
 ## Scope
@@ -34,6 +31,8 @@ A slice is a vertical cut: one user-visible capability, end to end, including th
 **The first slice is the walking skeleton** - the thinnest end-to-end path that does something real. It proves the environment sound and the check runnable before anything depends on either. Where no test suite exists yet, this is what bootstraps the first check.
 
 **Order by dependency, then by uncertainty.** Dependency order is derivable from the code. Uncertainty is not, so state which slice carries the most and why, letting the human react to a claim rather than generate one.
+
+The human decides whether the work uses a branch. Where it does, the plan names it.
 
 **Each slice carries two fields:**
 

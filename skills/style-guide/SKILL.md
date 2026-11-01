@@ -1,6 +1,6 @@
 ---
 name: style-guide
-description: Global style guide - writing conventions, formatting, units of measurement, and document structure.
+description: Global style guide - writing conventions, formatting, units of measurement, and document structure. Load before writing or editing any document.
 ---
 
 ## Tooling
@@ -11,19 +11,30 @@ Everything below is applied by hand. No tool checks it.
 
 ---
 
+## Drafting
+
+- One idea per sentence.
+- Limit repetition.
+- New or updated sections must fit the document's flow and structure.
+
+---
+
 ## Headings
 
 - Use heading tags for headings only.
 - The H1 matches the title in the YAML front matter.
+- Use a horizontal rule (`---`) between sections introduced by a level-two heading (`##`). `---` is structural only, never punctuation.
 
 ### Capitalization
 
 - H1: Title Case.
   Capitalize each word except articles, conjunctions, and prepositions, unless the word starts the heading or follows a dash or colon.
-  - Examples: "The Quick Brown Fox Jumps Over the Lazy Dog"; "Publishing Workflow: A Guide for Writers".
+  - Examples: "The Quick Brown Fox Jumps Over the Lazy Dog" and "Publishing Workflow: A Guide for Writers".
 - H2-H5: Sentence case.
   Capitalize only the first word, or a word after a dash or colon.
-  - Examples: "Publishing workflow"; "Image handling and path management".
+  - Examples: "Publishing workflow" and "Image handling and path management".
+
+---
 
 ## Wrapping
 
@@ -37,13 +48,13 @@ The purpose is to enable easy refactoring of lists and steps, consistency, and h
 
 ### Lists
 
-- Prefer unordered lists to ordered lists.
+- Prefer unordered lists to prose and to ordered lists.
 - No blank line between a parent list item and its nested sub-items.
   A blank line makes the list "loose" and wraps items in `<p>` tags when rendered to HTML.
 
 ### Numbers
 
-- In addition to list preferences, do not use numbering for steps or stages, including in headings.
+- Do not number steps or stages, including in headings.
 - For example, use "Stage: Setup style guide", not "Stage 1: Setup style guide".
 
 ### Task lists
@@ -59,25 +70,21 @@ The purpose is to enable easy refactoring of lists and steps, consistency, and h
 
 Use ASCII only and no Unicode typographic characters. Turn smart substitution off rather than cleaning up after it.
 
-Watch for the non-breaking space (U+00A0) since they are invisible in a diff, but it breaks search.
+Watch for the non-breaking space (U+00A0) since it is invisible in a diff but breaks search.
 
 #### Exceptions
 
 Use the real character in 3 cases.
 
-1. Where no ASCII form exists:
-
-- Non-Latin scripts.
-- Currency symbols - `£`, `€`, `¥`.
-- The micro sign in unit symbols - `µm`, `µF`.
-
-1. Where an ASCII form exists but is wrong:
-
-- Diacritics in words from languages that use them, common nouns and names alike - `Gemütlichkeit`, `piñata`, `Gödel`. Stripping one misspells the word. Doesn't apply where English has naturalized a spelling without the diacritic - `cafe`, `naive`, `uber`.
+- Where no ASCII form exists:
+  - Non-Latin scripts.
+  - Currency symbols - `£`, `€`, `¥`.
+  - The micro sign in unit symbols - `µm`, `µF`.
+- Where an ASCII form exists but is wrong:
+  - Diacritics in words from languages that use them, common nouns and names alike - `Gemütlichkeit`, `piñata`, `Gödel`. Stripping one misspells the word. Doesn't apply where English has naturalized a spelling without the diacritic - `cafe`, `naive`, `uber`.
+- In box diagrams where the purpose is visual representation.
 
 This doesn't reopen cases settled elsewhere: the units table takes `deg C` over the degree sign, and ASCII `'` and `"` over the prime marks.
-
-1. In box diagrams where the purpose is visual representation.
 
 ### Sentence breaks, dashes, contractions
 
@@ -85,7 +92,6 @@ This doesn't reopen cases settled elsewhere: the units table takes `deg C` over 
 - A break in a sentence: a hyphen (`-`) or double hyphen (`--`) with a space either side. It offsets an aside or stands in for a semicolon.
 - Do not use semicolons.
 - Use contractions.
-- Use a horizontal rule (`---`) between sections introduced by a level-two heading (`##`). `---` is structural only, never punctuation.
 
 ---
 
@@ -125,24 +131,21 @@ SAE units (lb, ft, in, mph) follow the same no-punctuation approach for consiste
 | Watts           | W      | `1 W`                                              |
 | Amperes         | A      | `1 A`                                              |
 | PSI             | psi    | `30 psi` (lowercase)                               |
-| Celsius         | deg C  | `10 deg C` (informal; `°` is a nuisance character) |
-| Percentage      | %      | `50%`                                              |
+| Celsius         | deg C  | `10 deg C` (`°` is a nuisance character)           |
+| Percentage      | %      | `50%` (no space, Chicago Manual of Style)          |
 | Newton-meters   | Nm     | `44 Nm`                                            |
 
-Compound units use a solidus with no surrounding spaces; the space goes before the whole compound: `14 W/m`.
-
-Percentage follows Chicago Manual of Style: attached to the numeral with no space (`50%`).
+Compound units use a solidus with no surrounding spaces. The space goes before the whole compound: `14 W/m`.
 
 Dual-unit specs: space before each symbol: `44 lb/20 kg`.
 
-Prose: `1 ft`, `1 inch`, `6 foot leash`, `degrees Celsius` are all acceptable in running text.
+Prose: `1 inch`, `6 foot leash`, `degrees Celsius` are all acceptable in running text.
 
 ---
 
 ## Keybindings
 
-- Modifier names: all lowercase - `ctrl`, `alt`, `shift`, `super`, `hyper`.
-- Key names: all lowercase - `ctrl+c`, `ctrl+shift+t`, `alt+space`.
+- Modifier and key names: all lowercase - `ctrl`, `shift`, `super`, `ctrl+shift+t`, `alt+space`.
 - Separator: `+` with no surrounding spaces.
 - Multi-key chords: space between them - `ctrl+k ctrl+p`.
 - Multiple shortcuts on one line: separate with a slash surrounded by single spaces - `` `ctrl+u` / `ctrl+d` ``.

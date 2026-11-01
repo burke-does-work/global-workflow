@@ -1,11 +1,12 @@
 ---
 name: reviewsimple
-description: Simplicity review of a finished branch - is this more than the job needs, and can the human read all of it. Load only when the human invokes /reviewsimple.
+description: Simplicity review of finished work - is this more than the job needs, and can the human read all of it.
+disable-model-invocation: true
 ---
 
 One question: is this more than the job needed, and can the human read all of it.
 
-Invoked explicitly, in a fresh session, on a finished branch. Not during the work.
+Run in a fresh session, on finished work. Not during the work.
 
 ---
 

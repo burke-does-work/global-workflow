@@ -26,14 +26,14 @@ What a new project needs before the first cycle.
 - The ruff block copied from `templates/ruff-pyproject.toml`. Settings are standardised there and live per project, because ruff's user-level config is a fallback that any project config shadows entirely, and a cloned repo needs its config to travel with it.
 - Prettier and markdownlint as local dev dependencies, pinned exactly, with `.prettierrc`, `.prettierignore` and `.markdownlint-cli2.jsonc` copied from this repo. Every project gets them, not only markdown-only ones: Prettier covers every file type it supports, and a Python project still holds markdown, JSON and YAML.
 - `.gitignore`, and `.env` alongside a committed `.env.example` where there are secrets.
-- `branch_work/`, empty.
+- `live_projects/`, empty.
 - `README.md` with a `## Verify` section naming the check. At minimum `npx prettier --check .`, `npx markdownlint-cli2`, and `uv run ruff check .`
 
 ---
 
 ## Working files
 
-`SPEC.md` and `PLAN.md` live together in `branch_work/`, ephemeral and disposed at close-out.
+`SPEC.md` and `PLAN.md` live together in `live_projects/`, ephemeral and disposed at close-out.
 
 A document in draft carries `.draft` in its name: `PLAN.draft.md`, `SPEC.draft.md`. On approval it is renamed and a dated approval line is written inside. Revising an approved document renames it back. The rename tracks scope, not text: if the document now commits to something different it goes back to draft, and if it only reads differently it does not.
 
@@ -67,7 +67,7 @@ Implementation stops and reports when any of these fire.
 - The work needs a decision the plan does not contain.
 - A slice requires changes the plan does not describe.
 
-The branch closes when every slice is done, reviewed and green. Plan size is bounded by review capacity, roughly five to ten slices. Work larger than that means the spec is too big: narrow the spec rather than lengthening the plan or splitting it in two.
+The work closes when every slice is done, reviewed and green. Plan size is bounded by review capacity, roughly five to ten slices. Work larger than that means the spec is too big: narrow the spec rather than lengthening the plan or splitting it in two.
 
 ---
 
@@ -75,7 +75,7 @@ The branch closes when every slice is done, reviewed and green. Plan size is bou
 
 Not built. Recorded because it is a property of the structure rather than a gap in it.
 
-- Each agent takes a non-dependent slice on its own branch, cut from the spec's branch, and squash-merges back as one slice commit.
+- Each agent takes a non-dependent slice on its own branch, cut from the spec's branch, and at the human's direction squash-merges back as one slice commit.
 - The spec's branch and its merge to `main` are unchanged.
 - Dependency ordering in the plan identifies which slices can run at once.
 - An agent that goes wrong is a branch deleted rather than a commit reverted.

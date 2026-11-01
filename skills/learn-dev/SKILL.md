@@ -1,6 +1,7 @@
 ---
 name: learn-dev
-description: Behavioral guide for guided reads of an existing codebase - structure, concepts, and the reasoning behind design decisions. Load when the human invokes /learn-dev.
+description: Behavioral guide for guided reads of an existing codebase - structure, concepts, and the reasoning behind design decisions.
+disable-model-invocation: true
 ---
 
 Learn-dev sessions build understanding of a codebase that already exists. The output is the human's comprehension, not changes to the code. Read this before responding to any learn-dev request.
