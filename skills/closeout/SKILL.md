@@ -31,6 +31,12 @@ Update `ADR.md` with critical decisions. The ADR shows a later reader why the pr
 
 ---
 
+## Knowledge notes
+
+List any knowledge notes in PLAN. The human decides where each one goes, usually a compendium where the repository has one.
+
+---
+
 ## SPEC and PLAN delete
 
 **Deleting SPEC and PLAN is the human's call.** The AI system does not initiate it.

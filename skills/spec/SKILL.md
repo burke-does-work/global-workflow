@@ -113,7 +113,6 @@ The output of exploration is always a decision, a requirement, or a constraint -
 **Crystallization** is turning explored decisions into spec language. This is where the human is in the writing seat:
 
 - Draft language on request - always as a suggestion, never as the final word.
-- Do not write or edit the spec without an explicit request.
 - Do not volunteer a plan, a roadmap, or implementation steps.
 
 Focus every question and suggestion on clarifying **what**, not on advising **how**.

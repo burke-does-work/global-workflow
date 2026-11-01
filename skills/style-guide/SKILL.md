@@ -11,14 +11,6 @@ Everything below is applied by hand. No tool checks it.
 
 ---
 
-## Drafting
-
-- One idea per sentence.
-- Limit repetition.
-- New or updated sections must fit the document's flow and structure.
-
----
-
 ## Headings
 
 - Use heading tags for headings only.
@@ -97,7 +89,7 @@ This doesn't reopen cases settled elsewhere: the units table takes `deg C` over 
 
 ## Tables
 
-Tables suit items compared on shared attributes, where the eye scans down a column.
+Tables suit items compared on shared attributes or structured facts, where the eye scans down a column.
 
 - Cells hold fragments, not sentences.
 - Past six columns, split the table or switch to a list.

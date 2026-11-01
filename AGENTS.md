@@ -21,7 +21,7 @@ Two parties - the **human** and the **AI system**. The AI system includes **tool
 
 ### Human ownership
 
-- The final product.
+- The final product, including durable documents.
 - Work intent and context.
 - Decision framework and system-level fit across moving parts.
 - Final approval on plans and important changes.
@@ -54,6 +54,14 @@ When introducing technical concepts or changing code, briefly cover:
 - What the practical impact is.
 - What alternatives were considered, if meaningful.
 - How technical choices connect to broader intent.
+
+#### Document drafting
+
+When writing to a document, don't write without full document context. Write in outline form but without losing required detail.
+
+- One idea per sentence.
+- Limit repetition.
+- New or updated sections must fit the document's flow and structure.
 
 ### Command and approval behavior
 
@@ -105,16 +113,19 @@ The development workflow is applicable to both code and knowledge work.
 
 Doc types include but are not limited to:
 
-- `README.md` - the current state of the system.
-- `docs/PHILOSOPHY.md` - durable stances that constrain the project across sessions.
-- `docs/WORKING.md` - early ideas, initial spec drafting, future phase work.
-- `docs/DESIGN.md` - specification that has outgrown a README.
-- `docs/ADR.md` - critical design decisions.
-- `docs/WORK_LOG.md` - contextual history of the human's thinking and actions.
-- `live_projects/SPEC.md` - the target state. What the system will be when done.
-- `live_projects/PLAN.md` - the procedural route from the current state to the target state.
+- `README.md` (durable) - the current state of the system.
+- `docs/PHILOSOPHY.md` (durable) - stances that constrain the project across sessions.
+- `docs/WORKING.md` (working) - early ideas, initial spec drafting, future phase work.
+- `docs/DESIGN.md` (durable) - specification that has outgrown a README.
+- `docs/ADR.md` (durable) - critical design decisions.
+- `docs/WORK_LOG.md` (agent) - contextual history of the human's thinking and actions.
+- `COMPENDIUM.md` (durable) - a permanent store of durable research, ideas, and write-ups. Optional, with no fixed name or location.
+- `live_projects/SPEC.md` (working) - the target state. What the system will be when done.
+- `live_projects/PLAN.md` (agent) - the procedural route from the current state to the target state.
 
 When a project has parallel components or work, docs can be annotated with `*_<foo>.md`.
+
+The AI system can write to all documents but requires human direction to do so, except for docs labelled as agent. Approving a plan is not direction to write to these documents. Flag the write or request it.
 
 ### Workflow arc
 
@@ -129,12 +140,9 @@ The full arc, in order:
 
 #### Compression and exit
 
-The human decides the workflow and when to deviate from the arc. Compression will happen, especially with fixes, chores, documentation changes, and in knowledge repositories. A skipped stage does not have to be justified. The structure exists to prevent drift, but it shouldn't add ceremony when not required.
+The human decides the workflow and when to deviate from the arc. Compression will happen, especially with fixes, chores, documentation changes, and in knowledge repositories. A skipped stage does not have to be justified.
 
-Two common failures to avoid, in opposite directions:
-
-- Forcing a small change back through the full arc.
-- Treating a knowledge repository as grounds for abandoning the arc.
+Small changes shouldn't be forced back through the arc.
 
 #### Plan types
 
@@ -149,6 +157,12 @@ Implementation is agent-led or human-led. Human-led work includes physical work.
 - Verify against the check the project declares under `## Verify` in its `README.md`. A check the human invokes as a skill is a valid entry there.
 - Where the check is automated, cover edge cases. Where it's human review, direct the human to it.
 - Record every decision in PLAN that's taken during implementation that changes SPEC or PLAN. This is the input to the close-out reconcile.
+
+### Durable knowledge notes
+
+Knowledge notes outline items for possible entry into a compendium at closeout. They can include decisions or an explicit approach in SPEC, PLAN, or implementation, but they are durable beyond the specific workflow arc.
+
+They are written at the direction of human. Do not offer proactively. Keep technical specifics. Drop project references. A note should read correctly to someone who doesn't know this project.
 
 ---
 
@@ -166,15 +180,13 @@ Apply `/style-guide` conventions to entries in both.
 
 When `ADR.md` exists in `docs/`, it holds the **critical design decisions** that shaped the project. It is a reference document, not a changelog. The ADR is one file, no file per decision and no status fields.
 
-Do not write to the ADR unless requested or as specified in `/closeout`.
-
 Entries are immutable. A reversed decision is a new entry naming the one it supersedes. The original is left as written.
 
 Keep an entry to the decision itself - the context that forced it, what was chosen, the alternatives rejected, and the downside accepted.
 
 ### Work log
 
-When `WORK_LOG.md` exists, write a log entry when the human requests one. That is the only trigger.
+When `WORK_LOG.md` exists, write a log entry when the human requests one. The AI system can also write an entry without a request.
 
 `WORK_LOG.md` is contextual history. It records what was thought at the time and carries no standing decision - a past entry describing a choice is not a live ruling, and its conclusions are not settled unless they were settled elsewhere.
 

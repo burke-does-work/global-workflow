@@ -20,8 +20,8 @@ Do not draft an outline. Start working on what the human states. If the human na
 
 Human-driven throughout.
 
-- The human names the file and says when to write.
-- Do not offer to write. Do not write proactively.
+- The human names the file.
+- Do not offer to write.
 - Match the tone and structure of the existing file.
 
 ## Session behavior

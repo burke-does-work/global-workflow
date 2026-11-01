@@ -11,12 +11,11 @@ Code should be easy to read and manually review.
 
 ### Code writing
 
-- Write beginner/intermediate level Python and SQL code
-- Avoid clever abstractions or complex one-liners
-- Prefer explicit over implicit code
-- Default to inline. A function earns its name by serving more than one context, or by being the seam a test needs - two call sites in one flow is duplication, not modularity
-- Do not extract to shorten a block or to hold an explanation. Rationale goes in a comment above the code
-- Avoid large `lambda` functions. Prefer long-form function definition. But use in pandas to facilitate method chaining
+- Write beginner/intermediate level Python and SQL code.
+- Avoid clever abstractions or complex one-liners.
+- Prefer explicit over implicit code.
+- Don't create a new function by default. Keep the code inside the function already doing the work. Only split it out if different parts of the system need it, or a test needs to reach it directly. Using the same code twice in one piece of work is not enough of a reason
+- Don't extract to shorten a block or to hold an explanation. Rationale goes in a comment above the code.
 
 ### Project structure
 
@@ -24,8 +23,8 @@ Code should be easy to read and manually review.
 
 ### Comments in scripts
 
-- Comment to explain intent
-- Script should be well-commented but not verbose
+- Comment to explain intent.
+- Script should be well-commented but not verbose.
 
 ## Python
 
@@ -49,7 +48,7 @@ Use `uv` for all package management instead of `pip`. If `uv` isn't installed, t
   - Blank line (between summary and next section)
   - Returns
 - Optional:
-  - longer description following one-line summary, as required
+  - longer description following one-line summary, and parameters, as required
 
 Template:
 
@@ -64,55 +63,75 @@ def func(...) -> ...:
     """
 ```
 
+### Loops, comprehensions, and lambdas
+
+Default to a `for` loop. More lines are fine if they read quickly.
+
+- Comprehensions and generator expressions: one line, one `for`, at most one simple `if`, and no side effects.
+- `lambda`: only for a single, simple expression in a Pandas method chain. Use `def` everywhere else.
+- If a reviewer has to stop and work out what the code does, rewrite it as a loop.
+
 ### Error Handling
 
 - Fail early and loudly. Raise on invalid inputs, schema, config.
 - Use clear messages but succinct messages.
-- Prefer exceptions. Do not use values for errors.
+- Prefer exceptions. Don't use values for errors.
 - Check data and parameters when they enter the system.
 - Do not add error handling everywhere. After validation, keep core logic simple and avoid repetitive defensive checks.
 
 ### Pandas
 
-The intent is to prefer patterns that make it obvious what data you're changing, minimize ambiguity around views vs. copies, and reduce the chance of hard-to-debug behavior. This guidance prioritizes clarity and correctness over micro-optimizations, and should be consistent with the general guidance in this doc.
+The intent is to prefer patterns that make it obvious what data the code is changing, minimize ambiguity around views vs. copies, and reduce the chance of hard-to-debug behavior.
 
-- Selecting and updating existing data:
-  - Prefer `.loc[...]` when selecting and updating rows/columns.
-  - Avoid chained selections like `df[mask]["col"] = ...` (can trigger `SettingWithCopyWarning` and may not update what you expect).
+This guidance prioritizes clarity and correctness over micro-optimizations, and should be consistent with the general guidance in this doc.
 
-- Avoid `inplace=True` by default:
-  - Prefer `df = df.method(...)` or `df["col"] = df["col"].method(...)` over `inplace=True` variants.
-  - Rationale: `inplace=True` is harder to read and edit.
+Use language that passes pandas >= 3.0, even if project is pinned to pandas < 3.0.
 
-- Adding / transforming columns (derived data):
-  - Prefer **method chaining** for multi-step transformations (pipelines). Makes the sequence of operations explicit and reduce intermediate mutations.
-    - Prefer `.assign(...)` for adding/overwriting derived columns inside chains.
-    - Prefer `.pipe(...)` to break a long chain into named, testable steps.
-    - Split chains based on code logic and for `return` statements.
-  - `df["new"] = ...` is **allowed but secondary** for small changes.
+Selecting and updating existing data:
+
+- Prefer `.loc[...]` when selecting and updating rows/columns.
+- Avoid chained selections like `df[mask]["col"] = ...` (can trigger `SettingWithCopyWarning` and may not update what you expect).
+
+Avoid `inplace=True` by default:
+
+- Prefer `df = df.method(...)` or `df["col"] = df["col"].method(...)` over `inplace=True` variants.
+- Rationale: `inplace=True` is harder to read and edit.
+
+Adding / transforming columns (derived data):
+
+- Prefer **method chaining** for multi-step transformations (pipelines). Makes the sequence of operations explicit and reduce intermediate mutations.
+  - Prefer `.assign(...)` for adding/overwriting derived columns inside chains.
+  - Prefer `.pipe(...)` to break a long chain into named, testable steps.
+  - Split chains based on code logic and for `return` statements.
+- `df["new"] = ...` is **allowed but secondary** for small changes.
 - Prefer vectorized operations (`fillna`, `where`, arithmetic on Series, `astype`, etc.) over `apply(...)` for simple elementwise logic.
 
-- Combining DataFrames:
-  - Prefer `pd.concat(...)` for stacking/concatenation. Do not use `DataFrame.append` (deprecated).
-  - Prefer `merge` when matching data from another table by keys.
+Combining DataFrames:
 
-- Copying:
-  - Avoid `.copy()` by default, except where to explicitly establish a copied DataFrame.
-  - Do not use `.copy()` as a quick fix to silence `SettingWithCopyWarning`.
-  - Write the code to avoid chained assignment (typically with `.loc` or `.assign`).
+- Prefer `pd.concat(...)` for stacking/concatenation. Do not use `DataFrame.append` (deprecated).
+- Prefer `merge` when matching data from another table by keys.
 
-- Iteration:
-  - Avoid `iterrows()` (and cell-by-cell loops) for data changes.
-  - Prefer `.loc`, `.assign`, vectorized operations, `merge`/`join`, and `map` (for lookup dict/Series) for updates/fills.
-  - If the data is small and a loop is clearest, a loop is OK - just don't update the DataFrame one cell at a time inside the loop.
+Copying:
 
-- Readability vs. vectorization:
-  - Prefer vectorized solutions when they remain readable.
-  - If a vectorized solution is significantly harder to read/maintain, choose the clearer approach.
+- Avoid `.copy()` by default, except where to explicitly establish a copied DataFrame.
+- Do not use `.copy()` as a quick fix to silence `SettingWithCopyWarning`.
+- Write the code to avoid chained assignment (typically with `.loc` or `.assign`).
 
-- Naming in chained transforms:
-  - In `.assign(..., lambda ...)`, use `d` for DataFrame and keep it consistent within the chain.
-    - Example: `.assign(x=lambda d: ..., y=lambda d: ...)`
+Iteration:
+
+- Avoid `iterrows()` (and cell-by-cell loops) for data changes.
+- Prefer `.loc`, `.assign`, vectorized operations, `merge`/`join`, and `map` (for lookup dict/Series) for updates/fills.
+- If the data is small and a loop is clearest, a loop is OK - just don't update the DataFrame one cell at a time inside the loop.
+
+Readability vs. vectorization:
+
+- Prefer vectorized solutions when they remain readable.
+- If a vectorized solution is significantly harder to read/maintain, choose the clearer approach.
+
+Naming in chained transforms:
+
+- In `.assign(..., lambda ...)`, use `d` for DataFrame and keep it consistent within the chain.
+  - Example: `.assign(x=lambda d: ..., y=lambda d: ...)`
 
 ### Custom addendum
 

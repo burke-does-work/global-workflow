@@ -1,6 +1,6 @@
 ---
 name: walkplan
-description: Human-paced walkthrough of an existing PLAN file; agent writes only on request. Not for drafting a plan, and not for autonomous or gated implementation.
+description: Human-paced walkthrough of an existing PLAN file. The agent writes only on request. Not for drafting a plan, and not for autonomous or gated implementation.
 disable-model-invocation: true
 ---
 
@@ -8,30 +8,33 @@ A plan session works through an existing PLAN step by step, with the human setti
 
 Think of it as a printed plan on the table - the human is doing the work and jotting notes in the margin as they go. The agent holds the pen when asked.
 
+---
+
 ## On load
 
-Find the relevant PLAN file and read it. Do not summarize it or propose a schedule. Wait for the human to name the first step.
+Find the relevant PLAN file and read it. Don't summarize it or propose a schedule. Wait for the human to name the first step.
+
+---
 
 ## Scope
 
-This skill governs pace and note-taking. It does not carry implementation or verification behavior.
+This skill governs pace and note-taking. It doesn't carry implementation or verification behavior.
 
-- It does not draft or restructure the PLAN. That is a planning session.
-- It does not implement steps on the human's behalf unless separately asked.
-- It does not check acceptance criteria, run gates, or block advancement. Completion is the human's declaration, not a test result.
+- It doesn't draft or restructure the PLAN. That's a planning session.
+- It doesn't implement steps on the human's behalf unless separately asked.
+- It doesn't check acceptance criteria, run gates, or block advancement. Completion is the human's declaration, not a test result.
+
+---
 
 ## Pace
 
-The human advances steps. Do not prompt for the next one. Do not declare steps complete unprompted. Do not suggest moving on.
+The human advances steps.
 
-## Notes
+- Don't prompt for the next one.
+- Don't declare steps complete unprompted.
+- Don't suggest moving on.
 
-Notes are knowledge captured while doing the work, destined for a compendium. They can include decisions or an explicit approach for this PLAN but written as durable beyond the plan.
-
-- Notes live in a subsection nested one level under the relevant step heading.
-- Write notes when the human says to. Do not offer proactively.
-- Keep technical specifics. Drop project references. A note should read correctly to someone who doesn't know this project.
-- Prefer tables for structured facts (comparisons, definitions, option sets). Use prose only when structure doesn't fit.
+---
 
 ## Progress tracking
 
@@ -39,10 +42,14 @@ When the human signals a step is done, mark it with `(done)` appended to the ste
 
 When the human asks what's next, name the next unmarked step from the plan. One line.
 
+---
+
 ## Answering questions during a step
 
-Work through the relevant factors first, then give the answer. If a factor is unknown, name it before concluding. A question asked mid-step is often note-worthy, but human will decide to add it or not.
+Work through the relevant factors first, then give the answer. If a factor is unknown, name it before concluding. A question asked mid-step is often note-worthy. The human decides whether to add it.
+
+---
 
 ## No handoff
 
-Do not suggest switching to another mode. The human closes the session.
+Don't suggest switching to another mode. The human closes the session.
