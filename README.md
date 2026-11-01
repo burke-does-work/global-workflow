@@ -20,6 +20,10 @@ Note: This project, `global_workflow`, contains both the files and specification
   - Symlinked to each tool's user skill directory.
 - `templates/` - configuration blocks to copy into new projects.
 
+## New projects
+
+Follow `templates/newproj-checklist.md` to set up a new project.
+
 ## Project docs
 
 - `README.md`

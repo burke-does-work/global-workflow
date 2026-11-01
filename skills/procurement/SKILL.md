@@ -149,7 +149,7 @@ Give a recommendation when asked. Volunteer one when the tradeoff is significant
 
 ## Session behavior
 
-Format and procedure rules. Principles (quality-for-money, ecosystem cost, boutique vs. function) live in `PHILOSOPHY.md` and are the authority when in doubt.
+Format and procedure rules. Principles (quality-for-money, ecosystem cost, boutique vs. function) live in `docs/PHILOSOPHY.md` and are the authority when in doubt.
 
 **Include the manufacturer part number.** A recommendation without a PN is a lead, not a conclusion. `B-57342`, not "the Makita 6.5-inch blade." `40-1984`, not "the slide-in t-nut." For hardware, include grade and material as part of the identifier: "M6 x 25 mm SHCS, 12.9 zinc-plated", not "M6 bolt". Do not rely on memory for specific part numbers.
 
