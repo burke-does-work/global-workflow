@@ -10,9 +10,9 @@ The behaviour an agent follows is in `AGENTS.md` and the skills. The reasoning b
 
 The workflow assumes a project of this shape. Outside it, the workflow is a guideline rather than a rule.
 
-- Python, managed with `uv`, declared in `pyproject.toml`.
+- Code, knowledge, or both.
 - One repository, one git remote, no CI.
-- Starts as a script, CLI, or library that runs locally. May later grow a deployed surface or a front end.
+- A code project defaults to Python, managed with `uv`, declared in `pyproject.toml`. It starts as a script, CLI, or library that runs locally, and may later grow a deployed surface or a front end.
 - One developer. No reviewer other than the human.
 - Secrets in `.env`, gitignored, with `.env.example` committed so the required variables survive a gap.
 
@@ -20,14 +20,9 @@ Where a concern is genuinely project-specific, testing above all, the workflow n
 
 ### Setup
 
-What a new project needs before the first cycle.
+`docs/newproj-checklist.md` lists what a new project needs before the first cycle.
 
-- `pyproject.toml` via `uv init`, with `ruff` added as a dev dependency.
-- The ruff block copied from `templates/ruff-pyproject.toml`. Settings are standardised there and live per project, because ruff's user-level config is a fallback that any project config shadows entirely, and a cloned repo needs its config to travel with it.
-- Prettier and markdownlint as local dev dependencies, pinned exactly, with `.prettierrc`, `.prettierignore` and `.markdownlint-cli2.jsonc` copied from this repo. Every project gets them, not only markdown-only ones: Prettier covers every file type it supports, and a Python project still holds markdown, JSON and YAML.
-- `.gitignore`, and `.env` alongside a committed `.env.example` where there are secrets.
-- `live_projects/`, empty.
-- `README.md` with a `## Verify` section naming the check. At minimum `npx prettier --check .`, `npx markdownlint-cli2`, and `uv run ruff check .`
+Ruff settings are standardised in `templates/ruff-pyproject.toml` and live per project, because ruff's user-level config is a fallback that any project config shadows entirely, and a cloned repo needs its config to travel with it.
 
 ---
 
@@ -37,7 +32,7 @@ What a new project needs before the first cycle.
 
 A document in draft carries `.draft` in its name: `PLAN.draft.md`, `SPEC.draft.md`. On approval it is renamed and a dated approval line is written inside. Revising an approved document renames it back. The rename tracks scope, not text: if the document now commits to something different it goes back to draft, and if it only reads differently it does not.
 
-Root holds `README.md`, `pyproject.toml`, and the env files - the entry point and what tooling expects to find there by convention. `docs/` holds what's equally permanent but read by a human or an agent following a pointer, not auto-discovered: `ADR.md`, `DESIGN.md`, `WORK_LOG.md`.
+Root holds `README.md`, `pyproject.toml`, and the env files - the entry point and what tooling expects to find there by convention. `docs/` holds what's equally permanent but read by a human or an agent following a pointer, not auto-discovered: `ADR.md`, `DESIGN.md`, `WORK_LOG.md`, `newproj-checklist.md`.
 
 ---
 

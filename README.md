@@ -22,7 +22,7 @@ Note: This project, `global_workflow`, contains both the files and specification
 
 ## New projects
 
-Follow `templates/newproj-checklist.md` to set up a new project.
+Follow `docs/newproj-checklist.md` to set up a new project.
 
 ## Project docs
 
