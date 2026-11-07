@@ -1,5 +1,53 @@
 # Work Log
 
+## 2026-11-07 - Annotation markers as an ownership control
+
+Rewrote the file annotations section in `AGENTS.md` and moved it under Development workflow, next to the documents table it now depends on. Converted the documents list to a table in the same pass.
+
+`#>>:` changed meaning. It had been a directive - make the change. It's now a message: the agent responds in the prompt and doesn't implement unless directed. That brings it in line with the rule that a question is never an instruction, and with approval being stated in the prompt. `#??:` went away, since a message covers it.
+
+The new marker is `#<<:`, and the first framing of it was wrong. A review read it as a flag on agent behavior and asked what defines its trigger. The trigger was never the problem - most agent writes to durable docs happen at my request. The problem is mine. The agent drafts a lot of durable text, and that text is useful - it drops in specifics I'd otherwise look up and gives my edits a starting structure. I don't want to write from scratch, but I need to be stricter about actually owning what lands. So `#<<:` marks agent-drafted text I haven't taken ownership of, and deleting it is the act of taking ownership. It's a control on my participation, not a fix to agent behavior.
+
+Placement followed from how I edit. Both markers sit on their own line directly above their text, so clearing one is `dd` in Vim. Scope was the harder call. Per line is too noisy. Per section is too coarse - a one-line agent addition would mark my own surrounding text as unowned. One marker per run of agent text has no reliable end once the doc is edited. Opening and closing markers double the deletes. Landed on position: above a heading covers the section, above a paragraph covers that paragraph. The cost is a marker over every single-line addition inside my own sections, which is exactly where agent text sits beside mine.
+
+Two rules keep the control from leaking. The agent re-marks a block it revises even when I already own it, otherwise ownership erodes quietly. And annotations apply in every mode and skill - the old section said so and the rewrite had dropped it. Skills like `/closeout` write durable docs and can't skip the marker.
+
+`#>>:` deletion went through two options. The agent deleting on my word risks a passing "ok" read as resolved. Me deleting mirrors `#<<:`. Took both: I delete it or direct the agent to. A `#>>:` carries nothing for the document, so an agent overstep costs nothing and the rule doesn't need guarding.
+
+Added a marker check to `/closeout`, after folding and before SPEC and PLAN delete. It lists leftover `#<<:` and `#>>:` with file and line, then stops for review. It's a list rather than a gate, since skipping steps stays my call. The checkpoint means the control doesn't rest on memory.
+
+Smaller: the commit style line in Git workflow now ends "match the commit style these define," tying it to the template and README section. Before, it read as a pointer back into history, sitting next to the rule not to infer style from `git log`.
+
+`AGENTS.md` isn't in the documents table, so these edits carry no `#<<:`.
+
+## 2026-11-02 - A hard push boundary, and where it actually has to sit
+
+Started from wanting a firm limit on Claude pushing. `AGENTS.md` already says I own push, but an instruction is not a boundary. If the remote can't be touched without me, I can always restore from it, and that buys room to give Claude much broader permissions locally. I already know the limits of that restore - unpushed and untracked work isn't covered - and set them aside.
+
+The first pass ranked the options by how hard they actually are. Claude Code deny rules, `PreToolUse` hooks and a git `pre-push` hook are all bypassable - by a command variant, by `--no-verify`, or by Claude editing its own settings. The Claude Code sandbox is real at the OS level but blocks fetch too. The firm options turned out to be about credentials, not commands: Claude runs as me, so it can use any credential I can. A push key that needs Touch ID on every use is the one thing it can't satisfy alone. A GitHub ruleset blocking force push and deletion protects history even if a credential leaks. The `gh` CLI token, any Keychain-held HTTPS token, and GitHub connectors are all separate push routes that skip the SSH key entirely.
+
+Worked through how Touch ID actually behaves. It covers every SSH operation, so fetch prompts too unless fetch and push use different URLs. `! git push` still works, because the prompt doesn't care who typed the command, only who touched the sensor. The password fallback doesn't weaken it, since the dialog is a system window Claude's shell can't type into. macOS's built-in SSH tools can't prompt per use, which is why a separate agent - 1Password, Secretive, or a hardware key - is needed at all. The one built-in route is a passphrase key never loaded into the agent, at the cost of typing it on every push.
+
+Then stepped back and asked for best practice rather than more layers. The common answer is to treat the AI as an outside contributor: it works on branches, opens pull requests, and GitHub won't merge without approval. My context pulled against that. I'm solo on the shop projects, I mostly work straight on `main`, and pull requests feel like overhead from formal team settings. I review diffs in VS Code and didn't know its pull request support. I wasn't resistant, just unconvinced it fit.
+
+The conversation started mixing options from different models and I lost the thread, so I asked for one coherent answer for a small codebase. What came back held together:
+
+- A bot account or GitHub App for Claude, scoped to my repos, able to push branches and open pull requests but not approve, merge or change settings.
+- A ruleset on `main` requiring a pull request with one approval, plus no force push or deletion. Claude can't approve its own pull request, so it can never reach `main` - GitHub enforces that, not an instruction.
+- Me on the bypass list as admin, so direct pushes to `main` still work for quick changes.
+- Review and merge in VS Code through the GitHub Pull Requests extension.
+- Two remotes: `origin` over HTTPS with the bot's token, used by Claude and for fetch, and `mine` over SSH with the Touch ID key, used only for my direct pushes.
+
+The question that clarified it was why Touch ID is still needed once `main` is protected from the bot. The protection stops Claude acting as itself. Touch ID stops Claude acting as me - without it, `git push mine main` would go out under my admin bypass. The two pieces cover different gaps. The only way to drop Touch ID is to stop pushing to `main` directly and route everything through pull requests.
+
+Claude can still change `main` locally. Its push to `origin` is rejected, and its push to `mine` stops at the prompt, so the review moves to before the push. Approving the prompt means approving the change, since it skips the pull request.
+
+The `AGENTS.md` push rule gets replaced rather than deleted: Claude may push branches and open pull requests, but never pushes to `main` or uses `mine`. The boundary no longer depends on it, but it saves wasted attempts and prompts I'd have to decline.
+
+Accepted one tension with my own rule: the bot shows as the pusher and pull request author on GitHub, even with commits authored as me. That partly credits the AI, which `AGENTS.md` says never to do.
+
+Nothing implemented yet. Several claims are unverified and need checking before setup: whether personal repos support ruleset bypass for the admin, whether 1Password remembers an approval per terminal app (which would let Claude ride an earlier touch), whether newer macOS supports Secure Enclave SSH keys natively, and whether `!` commands can answer a passphrase prompt. No personal GitHub token should stay in Keychain, since git reads it without prompting.
+
 ## 2026-09-24 - Brownfield kept relitigating, and the fix wasn't a bigger SPEC
 
 Came back to a recurring problem: brownfield branch work keeps getting treated as if SPEC absence means undefined rather than unchanged, forcing either a full re-description of an existing system or the agent insisting something already-working needed a spec entry to be "sufficient." I'd already corrected this once in another project's session - the SPEC is a delta, current code is the fallback for anything not named - and it still kept recurring, because that correction lived in that session's memory and never made it into a durable artifact. The internal company approach I know of has the same gap, which suggested the problem was harder than restating the delta framing.

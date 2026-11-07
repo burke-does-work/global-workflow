@@ -85,23 +85,10 @@ The human owns the git workflow.
 - Approving a PLAN approves the commits inside it, never a `git push`. Once a PLAN is approved, commit once per completed slice, on the plan's branch if it has one, and within its scope. Nothing outside the plan is committed unless requested.
 - Stage only the files the slice changed, by name. If another effort has changes in the same file, stop and ask the human.
 - Do not squash or rewrite commits unless the human explicitly directs it.
-- Match the commit style of the project. The repo's git commit template (`git config --get commit.template`) is the base. A `## Commits` section in the repo `README.md` layers on top, replacing or adding to it. Anything that section does not mention is inherited.
+- The repo's git commit template (`git config --get commit.template`) is the base. A `## Commits` section in the repo `README.md` layers on top, replacing or adding to it. Anything that section does not mention is inherited. Match the commit style these define.
 - Do not infer the style from `git log` - history can carry strays that are not valid vocabulary.
 
 When a change spans more than one repository, track which repo each file belongs to. Name the repos and their files separately, and draft a separate commit message for each. Never present a single message covering files from two repos.
-
----
-
-## File annotations
-
-The human annotates working files in place - PLAN, SPEC, or any file under discussion. This applies in every mode and skill.
-
-- `#>>:` at line start is a directive. Make the change.
-- `#??:` at line start is a question or flag for discussion. Respond in the prompt, not in the file.
-
-Delete every marker once addressed: `#>>:` when the change is made, `#??:` when the question or flag is addressed.
-
-A file edited and handed back carries no assent, and an absent marker is not agreement. Approval is stated in the prompt, in words. A silent file means do nothing.
 
 ---
 
@@ -113,19 +100,36 @@ The development workflow is applicable to both code and knowledge work.
 
 Doc types include but are not limited to:
 
-- `README.md` (durable) - the current state of the system.
-- `docs/PHILOSOPHY.md` (durable) - stances that constrain the project across sessions.
-- `docs/WORKING.md` (working) - early ideas, initial spec drafting, future phase work.
-- `docs/DESIGN.md` (durable) - specification that has outgrown a README.
-- `docs/ADR.md` (durable) - critical design decisions.
-- `docs/WORK_LOG.md` (agent) - contextual history of the human's thinking and actions.
-- `COMPENDIUM.md` (durable) - a permanent store of durable research, ideas, and write-ups. Optional, with no fixed name or location.
-- `live_projects/SPEC.md` (working) - the target state. What the system will be when done.
-- `live_projects/PLAN.md` (agent) - the procedural route from the current state to the target state.
+| Document                | Type    | Purpose                                                   |
+| ----------------------- | ------- | --------------------------------------------------------- |
+| `README.md`             | durable | Current state of the system                               |
+| `docs/PHILOSOPHY.md`    | durable | Stances that constrain the project across sessions        |
+| `docs/WORKING.md`       | working | Early ideas, initial spec drafting, future phase work     |
+| `docs/DESIGN.md`        | durable | Specification that has outgrown a README                  |
+| `docs/ADR.md`           | durable | Critical design decisions                                 |
+| `docs/WORK_LOG.md`      | agent   | Contextual history of the human's thinking and actions    |
+| `COMPENDIUM.md`         | durable | Permanent store of durable research, ideas, and write-ups |
+| `live_projects/SPEC.md` | working | Target state, what the system will be when done           |
+| `live_projects/PLAN.md` | agent   | Procedural route from current state to target state       |
+
+`COMPENDIUM.md` is optional, with no fixed name or location.
 
 When a project has parallel components or work, docs can be annotated with `*_<foo>.md`.
 
 The AI system can write to all documents but requires human direction to do so, except for docs labelled as agent. Approving a plan is not direction to write to these documents. Flag the write or request it.
+
+### File annotations
+
+File annotations follow the concept of PRs and PR comments but without the workflow ceremony. They apply in every mode and skill.
+
+- `#>>:` Human in-line message to agent. Respond in the prompt, not in the file. Do not implement based on the message unless explicitly requested.
+- `#<<:` Marks agent-drafted text the human hasn't yet taken ownership of. Add one on every write to a doc labelled durable, including edits to text the human already owns.
+
+A marker sits on its own line, directly above the text it refers to. A `#<<:` above a heading covers the whole section. Above a paragraph, it covers that paragraph only.
+
+The human deletes `#>>:` once resolved, or directs the agent to delete it. Only the human deletes `#<<:` - removing it is the act of taking ownership.
+
+A file edited and handed back carries no assent, and an absent marker is not agreement. Approval is stated in the prompt, in words. A silent file means do nothing.
 
 ### Workflow arc
 
