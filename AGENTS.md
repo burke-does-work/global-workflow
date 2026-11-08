@@ -118,16 +118,18 @@ When a project has parallel components or work, docs can be annotated with `*_<f
 
 The AI system can write to all documents but requires human direction to do so, except for docs labelled as agent. Approving a plan is not direction to write to these documents. Flag the write or request it.
 
+!<<:
+
 ### File annotations
 
 File annotations follow the concept of PRs and PR comments but without the workflow ceremony. They apply in every mode and skill.
 
-- `#>>:` Human in-line message to agent. Respond in the prompt, not in the file. Do not implement based on the message unless explicitly requested.
-- `#<<:` Marks agent-drafted text the human hasn't yet taken ownership of. Add one on every write to a doc labelled durable, including edits to text the human already owns.
+- `!>>:` Human in-line message to agent. Respond in the prompt, not in the file. Do not implement based on the message unless explicitly requested.
+- `!<<:` Marks agent-drafted text the human hasn't yet taken ownership of. Add one on every write to a doc labelled durable, including edits to text the human already owns.
 
-A marker sits on its own line, directly above the text it refers to. A `#<<:` above a heading covers the whole section. Above a paragraph, it covers that paragraph only.
+A marker sits on its own line, above the text it refers to. A `#<<:` above a heading covers the whole section. Above a paragraph, it covers that paragraph only.
 
-The human deletes `#>>:` once resolved, or directs the agent to delete it. Only the human deletes `#<<:` - removing it is the act of taking ownership.
+The human deletes `!>>:` once resolved, or directs the agent to delete it. Only the human deletes `!<<:` - removing it is the act of taking ownership.
 
 A file edited and handed back carries no assent, and an absent marker is not agreement. Approval is stated in the prompt, in words. A silent file means do nothing.
 
