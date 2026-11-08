@@ -1,5 +1,29 @@
 # Work Log
 
+## 2026-11-08 - Annotation markers move off the hash
+
+The lint started flagging marker lines as malformed headings. The rule is MD018 (`no-missing-space-atx`), which reads any line starting with `#` and then text as a heading missing its space. `AGENTS.md` itself passed, since the markers there sit in backticks. The failures were in docs that actually used them.
+
+The first pass offered three fixes that left the text alone: turn MD018 off, turn it off per file, or write a custom rule exempting the two markers. The custom rule was the best of those, since it keeps both the syntax and the heading-typo check. I passed on it anyway, because it's code to maintain and share across every repo.
+
+I pulled the agent up for leaning into each new piece of context rather than holding a position. It had dropped text changes from the first set entirely, then shifted its recommendation every time I added a constraint. Asking for the full set again, with the context stated, gave a stable answer.
+
+The constraint that mattered was mine. `#` was chosen so a marker already reads as a comment in Python. Breaking that was acceptable only if required. Then I saw I didn't need the marker to be a comment - in Python I can comment it out like any other added text. That frees the prefix from `#` entirely.
+
+Plain `>>:` was the obvious choice and it fails. It passes the lint, but Prettier rewrites it to `> > :` and pulls the paragraph below into a nested blockquote. That's the same collision that pushed the markers onto `#` on 2026-09-13, so the original problem came straight back once the `#` went.
+
+Tested a set of leads against the lint and Prettier. `@`, `!`, `%`, `:` and `=` all passed unchanged, as did `<<:` with no lead at all. `=` was risky directly under text, where it reads close to a setext heading underline. `\#>>:` also passed, and Prettier keeps the backslash, but a search for `#>>:` would miss it. An HTML comment would hide the marker in rendered views. I went toward `@>>`, then dropped the colon to cut special characters, and finally settled on `!>>:` and `!<<:` as faster to type.
+
+Commenting out also clears a formatter risk the agent raised but never verified. It believed Black and `ruff format` rewrite `#>>:` to `# >>:`. `# !>>:` already carries the space, so there's nothing to rewrite.
+
+Placement turned out to depend on what sits below the marker. Above a paragraph, Markdown joins the marker line into the paragraph when rendered, though it stays on its own line in source. `proseWrap: "preserve"` keeps it there, and a repo set to `always` or `never` would pull it onto the text line. Above a heading, MD022 fails without a blank line, and Prettier inserts one. "Directly above" can't hold for headings.
+
+The agent drafted a section that split placement by target and added a line for code files. I rewrote it before committing (`eb7292a`). The rule now just says a marker sits on its own line above its text, with no placement split and no code-file line. In a follow-up (`455cbda`) I took ownership of the section and cut the scope sentence too, so a marker no longer states whether it covers a paragraph or a section.
+
+Carried the change through the rest. `/closeout`'s marker check now lists `!<<:` and `!>>:`. The To-Do Tree tags and highlights in `dotfiles` moved to `!>>` and `!<<`, and the settings comment now matches the `AGENTS.md` wording rather than calling `<<` "additional annotation." This log keeps the old markers, since it's history. Committed separately per repo, `a695ce3` here and `6a23ef4` in `dotfiles`, with no push.
+
+Still unverified: whether To-Do Tree actually highlights `!>>:` at the start of a Markdown line and inside `# !>>:` in Python. Its default pattern looks like it covers both, but that needs checking in the editor.
+
 ## 2026-11-07 - Annotation markers as an ownership control
 
 Rewrote the file annotations section in `AGENTS.md` and moved it under Development workflow, next to the documents table it now depends on. Converted the documents list to a table in the same pass.
