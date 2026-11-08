@@ -39,7 +39,7 @@ List any knowledge notes in PLAN. The human decides where each one goes, usually
 
 ## Marker check
 
-List every `#<<:` and `#>>:` left in the durable docs, with file and line. The human resolves them.
+List every `!<<:` and `!>>:` left in the durable docs, with file and line. The human resolves them.
 
 Stop for human review.
 
