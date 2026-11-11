@@ -11,7 +11,13 @@
 {
   "globs": ["**/*.md"],
   "ignores": ["scratch/**", "node_modules/**", "archive/**"],
+  // Plugin rule - checks that relative links and images point to files and
+  // headings that exist. Built-in rules do not check other files.
+  "customRules": ["markdownlint-rule-relative-links"],
   "config": {
+    // Absolute paths resolve from the repo root, as on GitHub.
+    "relative-links": { "root_path": "." },
+
     // Owned by Prettier.
     "MD004": false,
     "MD009": false,

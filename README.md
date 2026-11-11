@@ -50,3 +50,6 @@ npx markdownlint-cli2 --fix
 A fresh clone needs `git config blame.ignoreRevsFile .git-blame-ignore-revs` once, so `git blame` skips the bulk formatting commit. Git config is not committed.
 
 Prettier owns layout in every file type it supports, not markdown alone. markdownlint reports the structural problems a formatter cannot fix, and its config disables every rule Prettier owns so the two do not fight. Neither flag is passed to Prettier for ignores: it reads `.gitignore` and `.prettierignore` by default, and `--ignore-path` would replace that pair rather than extend it. Conventions neither tool covers live in `/style-guide`.
+
+!<<:
+markdownlint also runs the plugin rule `markdownlint-rule-relative-links`, so the same command checks that relative links and images point to files and headings that exist. External URLs are not checked.

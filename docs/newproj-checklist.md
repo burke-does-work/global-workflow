@@ -31,11 +31,12 @@ When retrofitting an existing project, merge into any file that already exists a
 
 ### Tools
 
-Install Prettier and markdownlint locally, pinned to the exact versions in this repo's `package.json`, so a clone and the editor resolve the same build.
+!<<:
+Install Prettier, markdownlint and its link-check rule locally, pinned to the exact versions in this repo's `package.json`, so a clone and the editor resolve the same build.
 
 ```bash
 npm init -y
-npm install --save-dev --save-exact prettier@X.Y.Z markdownlint-cli2@X.Y.Z
+npm install --save-dev --save-exact prettier@X.Y.Z markdownlint-cli2@X.Y.Z markdownlint-rule-relative-links@X.Y.Z
 ```
 
 Then in `package.json`:
