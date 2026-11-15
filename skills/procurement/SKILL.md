@@ -15,7 +15,7 @@ Instead, ask the human once at the top: **"Is there a specific domain or existin
 
 If a domain is named or clearly implied:
 
-- Use `grep` (or the equivalent) against the relevant `*<domain>*.md` and any matching `live_projects/*.md` file for the specific product category, ecosystem term, or part family (e.g. `grep -i "blade\|kerf" workshop/workshop_ref.md`, `grep -i "makita\|xgt" workshop/workshop_ref.md`).
+- Use `rg` (or the equivalent) against the relevant `*<domain>*.md` and any matching `live_projects/*.md` file for the specific product category, ecosystem term, or part family (e.g. `grep -i "blade\|kerf" workshop/workshop_ref.md`, `grep -i "makita\|xgt" workshop/workshop_ref.md`).
 - Pull only the sections that hit. Read those sections, not the whole file.
 - If nothing hits, proceed without prior context and note that.
 
@@ -24,13 +24,29 @@ If no domain is named:
 - Proceed on the current prompt.
 - If an ecosystem term surfaces during the session (a battery platform, a connector family, a thread class, a rail size), grep at that point.
 
-Prior context matters because ecosystem is central: a product that requires a new connector, battery, hose diameter, or thread family is a real cost even when the sticker price is low. But context is pulled on demand, not preloaded.
+Prior context matters because ecosystem is central: a product that requires a new connector, battery, hose diameter, or thread family is a real cost even when the sticker price is low.
 
 **How to interpret what is found:** these files carry decisions already made. Do not relitigate them by default. Cite the prior decision when it constrains the current one, and flag it plainly if new information suggests the prior call was wrong.
 
 ---
 
-## What procurement is
+## Session behavior
+
+Interactive by default. Start conceptual and follow human direction towards procurement decision.
+
+Do not write to a file during the working phase unless the human names one in the opening prompt. Work in-conversation - draft the comparison table, surface the tradeoffs, propose a take, iterate. The file write is a separate closing step (see Closing the session).
+
+If the human opens with an explicit destination ("add this to `workshop_ref.md`", "put it in `live_projects/blades.md`"), skip the closing prompt and write there directly.
+
+Where things live when a file is written:
+
+- Scratch capture goes in `scratch.md`.
+- Active comparison goes in `live_projects/<project>.md`.
+- Settled decision rolls into the domain `*<domain>*.md`.
+
+---
+
+## Procurement writeup
 
 A procurement writeup documents a buying decision.
 It is a durable reference document, not a shopping list.
@@ -43,21 +59,7 @@ The output describes:
 - The ecosystem link - what family the product joins.
 - The source thread - manufacturer datasheets, forums, video, and independent teardowns that informed the call.
 
-### Interactive by default
-
-Procurement sessions are interactive. Do not write to a file during the working phase unless the human names one in the opening prompt. Work in-conversation - draft the comparison table, surface the tradeoffs, propose a take, iterate. The file write is a separate closing step (see Closing the session).
-
-If the human opens with an explicit destination ("add this to `workshop_ref.md`", "put it in `live_projects/blades.md`"), skip the closing prompt and write there directly.
-
-Where things live when a file is written:
-
-- Scratch capture goes in `scratch.md`.
-- Active comparison goes in `live_projects/<project>.md`.
-- Settled decision rolls into the domain `*<domain>*.md`.
-
----
-
-## What a good writeup contains
+### What a good writeup contains
 
 Section names and structure evolve per purchase. The sections below are a mental model of what tends to matter and why. Not every writeup needs all of them. Use this to notice what is missing, not to fill slots.
 
